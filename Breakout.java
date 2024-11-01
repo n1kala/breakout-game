@@ -16,6 +16,7 @@ import java.applet.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class Breakout extends GraphicsProgram {
 
@@ -120,6 +121,8 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	private void startGame() {
+		int life = NTURNS;
+		
 		GRect padle = new GRect(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT, PADDLE_WIDTH, PADDLE_HEIGHT);
 		padle.setFilled(true);
 		add(padle);
@@ -136,7 +139,12 @@ public class Breakout extends GraphicsProgram {
 			else padleX = -1;
 			padle.setLocation(padle.getX() + padleX, padle.getY());
 			Thread.sleep(10);
-			if(padleX == 0) break;
+			if(ball.getY() > padle.getY()) {
+				life--;
+			}
+			if(life == 0) {
+				break;
+			}
 		}
 		
 	}
