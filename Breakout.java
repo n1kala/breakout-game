@@ -138,6 +138,8 @@ public class Breakout extends GraphicsProgram {
 			if(padleX > 0) padleX = 1; 
 			else padleX = -1;
 			padle.setLocation(padle.getX() + padleX, padle.getY());
+			add(ball);
+			add(padle);
 			try {
 			    Thread.sleep(1); // Pause for 1 second
 			} catch (InterruptedException e) {
@@ -151,8 +153,6 @@ public class Breakout extends GraphicsProgram {
 			if(life == 0) {
 				break;
 			}
-			add(ball);
-			add(padle);
 		}
 		
 	}
