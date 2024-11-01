@@ -66,8 +66,8 @@ public class Breakout extends GraphicsProgram {
 		setPlayButton();
 		waitForClick();
 		removeAll();
-		print("S");
 		setBricks();
+		print("S");
 		setPaddle();
 		setBall();
 	}
