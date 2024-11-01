@@ -63,13 +63,19 @@ public class Breakout extends GraphicsProgram {
 		/* You fill this in, along with any subsidiary methods */
 		setSize(APPLICATION_WIDTH + 18, APPLICATION_HEIGHT + 72);
 		print(getHeight());
-		String [] str = {"Red","RED","ORANGE","ORANGE","YELLOW","YELLOW","GREEN","GREEN","CYAN","CYAN"};
+		float [][] colors = {
+				{255, 0, 0},
+				{255, 153, 0},
+				{255, 255, 0},
+				{0, 255, 51},
+				{51, 204, 255}
+		};
 		for(int j = 70,paint = 0; j < BRICK_Y_OFFSET+NBRICK_ROWS*BRICK_HEIGHT + (NBRICK_ROWS-1)*BRICK_SEP; j += BRICK_HEIGHT + BRICK_SEP, paint++) {
 			for(int i = BRICK_SEP/2; i < APPLICATION_WIDTH; i += BRICK_WIDTH + BRICK_SEP) {
 				GRect rect = new GRect(i,j,BRICK_WIDTH,BRICK_HEIGHT);
 				rect.setFilled(true);
-				rect.setColor(Color.getHSBColor(100, 10, 200));
-				rect.setFillColor(Color.getColor(str[paint]));
+				rect.setColor(Color.getHSBColor(colors[paint-paint%2][0], colors[paint-paint%2][1], colors[paint-paint%2][2]));
+				//rect.setFillColor(Color.getColor(str[paint-paint%2]));
 				
 				add(rect);
 			}
