@@ -62,9 +62,20 @@ public class Breakout extends GraphicsProgram {
 	public void run() {
 		/* You fill this in, along with any subsidiary methods */
 		setSize(APPLICATION_WIDTH + 18, APPLICATION_HEIGHT + 72);
+		setPlayButton();
 		setBricks();
 		setPaddle();
 		setBall();
+	}
+	
+	private void setPlayButton() {
+		int R = 70;
+		int x = WIDTH/2 - R;
+		int y = HEIGHT/2 - R;
+		GOval playButton = new GOval(x,y,R,R);
+		playButton.setFilled(true);
+		playButton.setColor(Color.GREEN);
+		add(playButton);
 	}
 	
 	private void setBricks() {
@@ -87,6 +98,10 @@ public class Breakout extends GraphicsProgram {
 				rect.setColor(Color.getHSBColor(colors[paint][0], colors[paint][1], colors[paint][2]));
 				add(rect);
 			}
+		}
+		
+		while(true) {
+			
 		}
 	}
 
