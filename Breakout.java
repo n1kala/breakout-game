@@ -68,12 +68,12 @@ public class Breakout extends GraphicsProgram {
 				{0.0f,0.9f,0.9f},
 				{0.1f,0.9f,0.9f},
 				{0.1f,0.9f,0.9f},
-				{0.0f,0.4f,0.5f},
-				{0.0f,0.4f,0.5f},
-				{0.0f,0.4f,0.5f},
-				{0.0f,0.4f,0.5f},
-				{0.0f,0.4f,0.5f},
-				{0.0f,0.4f,0.5f}
+				{0.15f,0.9f,0.9f},
+				{0.15f,0.9f,0.9f},
+				{0.3f,0.9f,0.9f},
+				{0.3f,0.9f,0.9f},
+				{0.5f,0.9f,0.9f},
+				{0.5f,0.9f,0.9f}
 		};
 		for(int j = 70,paint = 0; j < BRICK_Y_OFFSET+NBRICK_ROWS*BRICK_HEIGHT + (NBRICK_ROWS-1)*BRICK_SEP; j += BRICK_HEIGHT + BRICK_SEP, paint++) {
 			for(int i = BRICK_SEP/2; i < APPLICATION_WIDTH; i += BRICK_WIDTH + BRICK_SEP) {
