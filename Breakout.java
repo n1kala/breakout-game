@@ -10,6 +10,7 @@
 import acm.graphics.*;
 import acm.program.*;
 import acm.util.*;
+import sun.java2d.loops.DrawPolygons;
 
 import java.applet.*;
 import java.awt.*;
@@ -82,10 +83,11 @@ public class Breakout extends GraphicsProgram {
 	private void decoratePlayButton() {
 		int x = WIDTH/2 - 35;
 		int y = HEIGHT/2 - 30;
-		GPolygon triangle = new GPolygon(new int [] {x,x,x+70}, new int [] {y,y+30,y+60}, 3);
-		triangle.setFilled(true);
-		triangle.setFillColor(Color.WHITE);
-		add(triangle);
+		int x1 = x + 70;
+		int y1 = y + 30;
+		GLine line = new GLine(x,y,x1,y1);
+		line.setColor(Color.WHITE);
+		add(line);
 	}
 	
 	private void setBricks() {
