@@ -136,8 +136,8 @@ public class Breakout extends GraphicsProgram {
 			if(padleX > 0) padleX = 1; 
 			else padleX = -1;
 			padle.setLocation(padle.getX() + padleX, padle.getY());
-			try {
 				print("SS");
+			try {
 			    Thread.sleep(10); // Pause for 1 second
 			} catch (InterruptedException e) {
 			    Thread.currentThread().interrupt();
