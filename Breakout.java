@@ -85,9 +85,14 @@ public class Breakout extends GraphicsProgram {
 		int y = HEIGHT/2 - 30;
 		int x1 = x + 47;
 		int y1 = y + 30;
-		GLine line = new GLine(x,y,x1,y1);
-		line.setColor(Color.WHITE);
-		add(line);
+		while(x != x1) {
+			GLine line = new GLine(x,y,x1,y1);
+			line.setColor(Color.WHITE);
+			add(line);
+			y++;
+			x1--;
+			y1++;
+		}
 	}
 	
 	private void setBricks() {
