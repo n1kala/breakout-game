@@ -118,9 +118,6 @@ public class Breakout extends GraphicsProgram {
 			}
 		}
 		
-		while(true) {
-			
-		}
 	}
 
 	private void setPaddle() {
