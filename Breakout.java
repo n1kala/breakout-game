@@ -69,7 +69,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void setPlayButton() {
-		int R = 70;
+		int R = 40;
 		int x = WIDTH/2 - R;
 		int y = HEIGHT/2 - R;
 		GOval playButton = new GOval(x,y,R*2,R*2);
