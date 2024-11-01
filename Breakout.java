@@ -136,6 +136,7 @@ public class Breakout extends GraphicsProgram {
 			else padleX = -1;
 			padle.setLocation(padle.getX() + padleX, padle.getY());
 			Thread.sleep(10);
+			if(padleX == 0) break;
 		}
 		
 	}
