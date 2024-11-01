@@ -83,7 +83,7 @@ public class Breakout extends GraphicsProgram {
 	private void decoratePlayButton() {
 		int x = WIDTH/2 - 18;
 		int y = HEIGHT/2 - 30;
-		int x1 = x + 52;
+		int x1 = x + 50;
 		int y1 = y + 30;
 		while(y != y1+30) {
 			GLine line = new GLine(x,y,x1,y1);
