@@ -76,6 +76,16 @@ public class Breakout extends GraphicsProgram {
 		playButton.setFilled(true);
 		playButton.setColor(Color.GREEN);
 		add(playButton);
+		decoratePlayButton();
+	}
+	
+	private void decoratePlayButton() {
+		int x = WIDTH/2 - 35;
+		int y = HEIGHT/2 - 30;
+		GPolygon triangle = new GPolygon(new int [] {x,x,x+70}, new int [] {y,y+30,y+60}, 3);
+		triangle.setFilled(true);
+		triangle.setFillColor(Color.WHITE);
+		add(triangle);
 	}
 	
 	private void setBricks() {
