@@ -130,8 +130,8 @@ public class Breakout extends GraphicsProgram {
 		ball.setFilled(true);
 		add(ball);
 		double arr [] = {Math.random()*10 + 0.1, Math.random()*5 + 0.1};
-		print("SS");
 		while(true) {
+			print("SS");
 			ball.setLocation(ball.getX() + arr[0], ball.getY() + arr[1]);
 			double padleX = getMousePosition().x - padle.getX();
 			if(padleX > 0) padleX = 1; 
