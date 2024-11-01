@@ -62,7 +62,12 @@ public class Breakout extends GraphicsProgram {
 	public void run() {
 		/* You fill this in, along with any subsidiary methods */
 		setSize(APPLICATION_WIDTH + 18, APPLICATION_HEIGHT + 72);
-		print(getHeight());
+		setBricks();
+		setPaddle();
+		//setBall();
+	}
+	
+	private void setBricks() {
 		float [][] colors = {
 				{0.0f,0.99f,0.99f},
 				{0.0f,0.99f,0.99f},
@@ -83,7 +88,11 @@ public class Breakout extends GraphicsProgram {
 				add(rect);
 			}
 		}
-		
 	}
 
+	private void setPaddle() {
+		GRect padle = new GRect(getWidth()/2, PADDLE_Y_OFFSET, PADDLE_WIDTH, PADDLE_HEIGHT);
+		padle.setFilled(true);
+		add(padle);
+	}
 }
