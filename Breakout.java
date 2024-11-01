@@ -62,7 +62,7 @@ public class Breakout extends GraphicsProgram {
 	public void run() {
 		/* You fill this in, along with any subsidiary methods */
 		setSize(APPLICATION_WIDTH, APPLICATION_HEIGHT);
-		print(BRICK_WIDTH);
+		print(BRICK_WIDTH+BRICK_SEP);
 		for(int j = 70; j < BRICK_Y_OFFSET+NBRICK_ROWS*BRICK_HEIGHT + (NBRICK_ROWS-1)*BRICK_SEP; j += BRICK_HEIGHT + BRICK_SEP) {
 			for(int i = 0; i < APPLICATION_WIDTH; i += BRICK_WIDTH + BRICK_SEP) {
 				add(new GRect(i,j,BRICK_WIDTH,BRICK_HEIGHT));
