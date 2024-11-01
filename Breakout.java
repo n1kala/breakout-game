@@ -141,7 +141,7 @@ public class Breakout extends GraphicsProgram {
 			add(ball);
 			add(padle);
 			try {
-			    Thread.sleep(10); // Pause for 1 second
+			    Thread.sleep(1000); // Pause for 1 second
 			} catch (InterruptedException e) {
 			    Thread.currentThread().interrupt();
 			}
