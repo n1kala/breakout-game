@@ -67,10 +67,7 @@ public class Breakout extends GraphicsProgram {
 		waitForClick();
 		removeAll();
 		setBricks();
-		Thread firstLife;
-		firstLife.start(setBall());
-		setBall();
-		setPaddle();
+		startGame();
 	}
 	
 	private void setPlayButton() {
@@ -121,15 +118,23 @@ public class Breakout extends GraphicsProgram {
 		wait(0);
 	}
 
-	private void setPaddle() {
+	private void startGame() {
 		GRect padle = new GRect(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT, PADDLE_WIDTH, PADDLE_HEIGHT);
 		padle.setFilled(true);
 		add(padle);
-	}
-
-	private void setBall() {
+		
 		GOval ball = new GOval(getWidth()/2 - BALL_RADIUS, getHeight()/2, BALL_RADIUS, BALL_RADIUS);
 		ball.setFilled(true);
 		add(ball);
+		double arr [] = randUpdate();
+		while(true) {
+			remove(ball);
+			ball.setLocation(ball.getX() + arr[0], ball.getY() + arr[1]);
+			int padleX = getMousePosition().x - padle.getX();
+			if(padleX > 0) padleX = 1; 
+			else padleX = -1;
+			padle.setLocation(padle.getX() + padleX, padle.getY());
+			Thread.sleep(10);
+		}
 	}
 }
