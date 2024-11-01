@@ -81,7 +81,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void decoratePlayButton() {
-		int x = WIDTH/2 - 30;
+		int x = WIDTH/2 - 20;
 		int y = HEIGHT/2 - 30;
 		int x1 = x + 60;
 		int y1 = y + 30;
