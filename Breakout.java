@@ -15,6 +15,7 @@ import sun.java2d.loops.DrawPolygons;
 import java.applet.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Random;
 
 public class Breakout extends GraphicsProgram {
 
@@ -126,15 +127,17 @@ public class Breakout extends GraphicsProgram {
 		GOval ball = new GOval(getWidth()/2 - BALL_RADIUS, getHeight()/2, BALL_RADIUS, BALL_RADIUS);
 		ball.setFilled(true);
 		add(ball);
-		double arr [] = randUpdate();
+		double arr [] = {Math.random()*10 + 0.1, Math.random()*5 + 0.1};
 		while(true) {
 			remove(ball);
 			ball.setLocation(ball.getX() + arr[0], ball.getY() + arr[1]);
-			int padleX = getMousePosition().x - padle.getX();
+			double padleX = getMousePosition().x - padle.getX();
 			if(padleX > 0) padleX = 1; 
 			else padleX = -1;
 			padle.setLocation(padle.getX() + padleX, padle.getY());
 			Thread.sleep(10);
 		}
+		
 	}
+	
 }
