@@ -64,8 +64,8 @@ public class Breakout extends GraphicsProgram {
 		setSize(APPLICATION_WIDTH + 18, APPLICATION_HEIGHT + 72);
 		print(getHeight());
 		float [][] colors = {
-				{255, 0, 0},
-				{255, 0, 0},
+				{255, 51, 51},
+				{255, 51, 51},
 				{255, 153, 0},
 				{255, 153, 0},
 				{255, 255, 0},
@@ -80,8 +80,6 @@ public class Breakout extends GraphicsProgram {
 				GRect rect = new GRect(i,j,BRICK_WIDTH,BRICK_HEIGHT);
 				rect.setFilled(true);
 				rect.setColor(Color.getHSBColor(colors[paint][0], colors[paint][1], colors[paint][2]));
-				//rect.setFillColor(Color.getColor(str[paint-paint%2]));
-				
 				add(rect);
 			}
 		}
