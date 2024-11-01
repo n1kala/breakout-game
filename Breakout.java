@@ -81,7 +81,7 @@ public class Breakout extends GraphicsProgram {
 				{0.5f,0.99f,0.99f}
 		};
 		for(int j = 70,paint = 0; j < BRICK_Y_OFFSET+NBRICK_ROWS*BRICK_HEIGHT + (NBRICK_ROWS-1)*BRICK_SEP; j += BRICK_HEIGHT + BRICK_SEP, paint++) {
-			for(int i = (WIDTH - (NBRICKS_PER_ROW - 1) * BRICK_SEP - NBRICKS_PER_ROW * BRICK_WIDTH) / 2; i < APPLICATION_WIDTH; i += BRICK_WIDTH + BRICK_SEP) {
+			for(int i = BRICK_SEP/2; i < APPLICATION_WIDTH; i += BRICK_WIDTH + BRICK_SEP) {
 				GRect rect = new GRect(i,j,BRICK_WIDTH,BRICK_HEIGHT);
 				rect.setFilled(true);
 				rect.setColor(Color.getHSBColor(colors[paint][0], colors[paint][1], colors[paint][2]));
