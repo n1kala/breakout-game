@@ -64,7 +64,7 @@ public class Breakout extends GraphicsProgram {
 		setSize(APPLICATION_WIDTH + 18, APPLICATION_HEIGHT + 72);
 		setBricks();
 		setPaddle();
-		//setBall();
+		setBall();
 	}
 	
 	private void setBricks() {
@@ -91,8 +91,14 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	private void setPaddle() {
-		GRect padle = new GRect(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT/2, PADDLE_WIDTH, PADDLE_HEIGHT);
+		GRect padle = new GRect(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT, PADDLE_WIDTH, PADDLE_HEIGHT);
 		padle.setFilled(true);
 		add(padle);
+	}
+
+	private void setBall() {
+		GOval ball = new GOval(getWidth()/2, getHeight()/2, BALL_RADIUS, BALL_RADIUS);
+		ball.setFilled(true);
+		add(ball);
 	}
 }
