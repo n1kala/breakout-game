@@ -64,7 +64,7 @@ public class Breakout extends GraphicsProgram {
 		setSize(APPLICATION_WIDTH + 18, APPLICATION_HEIGHT + 72);
 		print(getHeight());
 		float [][] colors = {
-				{0.1f,0.1f,0.9f},
+				{0.1f,0.3f,0.9f},
 				{0.0f,0.4f,0.5f},
 				{0.0f,0.4f,0.5f},
 				{0.0f,0.4f,0.5f},
