@@ -133,7 +133,7 @@ public class Breakout extends GraphicsProgram {
 		while(true) {
 
 			ball.setLocation(ball.getX() + arr[1], ball.getY() + arr[0]);
-			print(getMousePosition().getX());
+			while(true) print(getMousePosition().getX());
 			double padleX = getMousePosition().getX() - padle.getX(); // cant get mouse position.
 			if(padleX > 0) padleX = 1; 
 			else padleX = -1;
