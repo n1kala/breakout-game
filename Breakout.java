@@ -214,7 +214,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private int looseBall(GOval ball, GRect paddle, double [] ballMovementDirections, int life) {
-		if(ball.getY() > paddle.getY() + 10) {
+		if(ball.getY() > paddle.getY() + 1) {
 			ball.setLocation(getWidth()/2 - BALL_RADIUS, getHeight()/2);
 			paddle.setLocation(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT);
 			life--;
