@@ -145,7 +145,18 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void setFrame() {
-		
+		GRect frame1 = new GRect(0,0,WIDTH,HEIGHT);
+		GRect frame2 = new GRect(1,1,WIDTH-2,HEIGHT-2);
+		GRect frame3 = new GRect(2,2,WIDTH-4,HEIGHT-4);
+		GRect frame4 = new GRect(3,3,WIDTH-6,HEIGHT-6);
+		frame1.setColor(Color.BLACK);
+		frame2.setColor(Color.WHITE);
+		frame3.setColor(Color.gray);
+		frame4.setColor(Color.BLACK);
+		add(frame1);
+		add(frame2);
+		add(frame3);
+		add(frame4);
 	}
 	
 	private void startGame(GRect [][] bricks, GRect paddle, GOval ball) {
