@@ -206,7 +206,9 @@ public class Breakout extends GraphicsProgram {
 		}
 		for(int i = 0; i < NBRICK_ROWS; i++) {
 			for(int j = 0; j < NBRICKS_PER_ROW; j++) {
-				if(bricks[i][j].isVisible());
+				if(bricks[i][j].isVisible() == false) {
+					continue;
+				}
 				
 				if(ball.getX() >= bricks[i][j].getX() && ball.getX() <= bricks[i][j].getX() + BRICK_WIDTH &&
 						ball.getY() <= bricks[i][j].getY() + BRICK_HEIGHT && ball.getY() >= bricks[i][j].getY()) {
