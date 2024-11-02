@@ -152,8 +152,12 @@ public class Breakout extends GraphicsProgram {
 	private void startGame(GRect [][] bricks, GRect paddle, GOval ball) {
 		int life = NTURNS;
 		double ballMovementDirections [] = {(Math.random()-0.5)*4, 3}; // movement on X and Y
+		GLine marks [] = new GLine[40];
+		int count = 0;
 		
 		while(true) {
+			leaveMark(marks, ballMovementDirections, count, ball);
+			
 			ball.setLocation(ball.getX() + ballMovementDirections[0], ball.getY() + ballMovementDirections[1]);
 			
 			double padleX = moveDirection(paddle.getX()); 
@@ -170,6 +174,8 @@ public class Breakout extends GraphicsProgram {
 			if(life == 0) {
 				break;
 			}
+			
+			count++;
 		}
 		
 	}
@@ -180,6 +186,11 @@ public class Breakout extends GraphicsProgram {
 		} else {
 			return -1;
 		}
+	}
+	
+	private void leaveMark(GLine [] marks, double [] ballMovementDirections, int count, GOval ball) {
+		marks[count%40] = new GLine(ball.getX(), ball.getY(), ball.getX() + ballMovementDirections[0], ball.getY() + ballMovementDirections[1]);
+		add(marks[count%40]);
 	}
 	
 	private void delay() {
