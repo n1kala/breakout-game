@@ -63,7 +63,7 @@ public class Breakout extends GraphicsProgram {
 /* Method: run() */
 /** Runs the Breakout program. */
 	public void run() {
-		/* You fill this in, along with any subsidiary methods */
+		/* for some reason setSize does not set size same as passed values so I needed to add 18 and 72*/
 		setSize(APPLICATION_WIDTH + 18, APPLICATION_HEIGHT + 72);
 		setPlayButton();
 		GRect [][] bricks = setBricks();
@@ -268,7 +268,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private int looseBall(GOval ball, GRect paddle, double [] ballMovementDirections, int life) {
-		if(ball.getY() > paddle.getY() + 1) {
+		if(ball.getY() > paddle.getY()) {
 			ball.setLocation(getWidth()/2 - BALL_RADIUS, getHeight()/2);
 			paddle.setLocation(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT);
 			life--;
