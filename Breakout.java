@@ -206,7 +206,7 @@ public class Breakout extends GraphicsProgram {
 		}
 		for(int i = 0; i < NBRICK_ROWS; i++) {
 			for(int j = 0; j < NBRICKS_PER_ROW; j++) {
-				if(bricks[i][j].isVisible() == false) {
+				if(bricks[i][j].isFilled() == false) {
 					continue;
 				}
 				
