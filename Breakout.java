@@ -154,6 +154,7 @@ public class Breakout extends GraphicsProgram {
 		double ballMovementDirections [] = {(Math.random()-0.5)*4, 3}; // movement on X and Y
 		GLine marks [] = new GLine[100];
 		int count = 0;
+		int brickAmount = NBRICK_ROWS*NBRICKS_PER_ROW;
 		
 		while(true) {
 			leaveMark(marks, ballMovementDirections, count, ball);
@@ -167,11 +168,16 @@ public class Breakout extends GraphicsProgram {
 			
 			delay();
 			
-			ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks);
+			ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks, brickAmount);
 			
 			life = looseBall(ball, paddle, ballMovementDirections, life);
 			
 			if(life == 0) {
+				break;
+			}
+			
+			if(brickAmount == 0) {
+				victoryEmote();
 				break;
 			}
 			
@@ -206,7 +212,7 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 
-	private double [] directionChanges(double [] ballMovementDirections, GRect paddle, GOval ball, GRect [][] bricks) {
+	private double [] directionChanges(double [] ballMovementDirections, GRect paddle, GOval ball, GRect [][] bricks, int brickAmount) {
 		if(ball.getX() >= WIDTH - BALL_RADIUS*2) {
 			ballMovementDirections[0] = -ballMovementDirections[0];
 		}
@@ -231,6 +237,7 @@ public class Breakout extends GraphicsProgram {
 					bricks[i][j].setFilled(false);
 					remove(bricks[i][j]);
 					ballMovementDirections[1] = -ballMovementDirections[1];
+					brickAmount--;
 				}
 				
 				if((ball.getY() + BALL_RADIUS <= bricks[i][j].getY() + BRICK_HEIGHT && ball.getY() + BALL_RADIUS >= bricks[i][j].getY()) &&
@@ -239,6 +246,7 @@ public class Breakout extends GraphicsProgram {
 					bricks[i][j].setFilled(false);
 					remove(bricks[i][j]);
 					ballMovementDirections[0] *= -1;
+					brickAmount--;
 				}
 				
 			}
@@ -256,6 +264,11 @@ public class Breakout extends GraphicsProgram {
 			ballMovementDirections[1] = 3;
 		}
 		return life;
+	}
+
+	private void victoryEmote() {
+		removeAll();
+		println("Congratulations! You wasted time playing this pointless game!");
 	}
 }
 
