@@ -187,6 +187,7 @@ public class Breakout extends GraphicsProgram {
 			life = looseBall(ball, paddle, ballMovementDirections, life);
 			
 			if(life == 0) {
+				loserEmote();
 				break;
 			}
 			
@@ -281,6 +282,11 @@ public class Breakout extends GraphicsProgram {
 	private void victoryEmote() {
 		removeAll();
 		println("Congratulations! You wasted time winning this pointless game!");
+	}
+
+	private void loserEmote() {
+		removeAll();
+		println("You play boring game like this one and did not even win?? Think about your life more.")
 	}
 }
 
