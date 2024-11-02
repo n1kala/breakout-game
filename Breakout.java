@@ -154,7 +154,6 @@ public class Breakout extends GraphicsProgram {
 		double ballMovementDirections [] = {(Math.random()-0.5)*4, 3}; // movement on X and Y
 		GLine marks [] = new GLine[100];
 		int count = 0;
-		int brickAmount = NBRICK_ROWS*NBRICKS_PER_ROW;
 		
 		while(true) {
 			leaveMark(marks, ballMovementDirections, count, ball);
@@ -270,7 +269,7 @@ public class Breakout extends GraphicsProgram {
 
 	private void victoryEmote() {
 		removeAll();
-		println("Congratulations! You wasted time playing this pointless game!");
+		println("Congratulations! You wasted time winning this pointless game!");
 	}
 }
 
