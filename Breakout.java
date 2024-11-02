@@ -211,7 +211,8 @@ public class Breakout extends GraphicsProgram {
 				}
 				
 				if(ball.getX() >= bricks[i][j].getX() && ball.getX() <= bricks[i][j].getX() + BRICK_WIDTH &&
-						ball.getY() <= bricks[i][j].getY() + BRICK_HEIGHT && ball.getY() >= bricks[i][j].getY()) {
+						(ball.getY() >= bricks[i][j].getY() + BRICK_HEIGHT - ballMovementDirections[1] && ball.getY() <= bricks[i][j].getY() + BRICK_HEIGHT) ||
+						(ball.getY() >= bricks[i][j].getY() && ball.getY() <= bricks[i][j].getY()+ballMovementDirections[1])) {
 					bricks[i][j].setFilled(false);
 					remove(bricks[i][j]);
 					ballMovementDirections[1] = -ballMovementDirections[1];
