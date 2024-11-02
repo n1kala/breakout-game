@@ -182,10 +182,9 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 	
-	// program will have 100 fps if you want to increase it, decrease sleep time 
 	private void delay() {
 		try {
-		    Thread.sleep(10); // Pause for 0.01 second
+		    Thread.sleep(3); // Pause for 0.01 second
 		} catch (InterruptedException e) {
 		    Thread.currentThread().interrupt();
 		}
