@@ -129,10 +129,10 @@ public class Breakout extends GraphicsProgram {
 		GOval ball = new GOval(getWidth()/2 - BALL_RADIUS, getHeight()/2, BALL_RADIUS, BALL_RADIUS);
 		ball.setFilled(true);
 		add(ball);
-		double arr [] = {Math.random()*10 + 0.1, Math.random()*5 + 0.1};
+		double arr [] = {Math.random()*3 + 0.1, Math.random()*7 + 0.1};
 		while(true) {
 
-			ball.setLocation(ball.getX() + arr[1], ball.getY() + arr[0]);
+			ball.setLocation(ball.getX() + arr[0], ball.getY() + arr[1]);
 			double padleX = MouseInfo.getPointerInfo().getLocation().getX()-padle.getX(); 
 			if(padleX > 0) padleX = 1; 
 			else padleX = -1;
@@ -146,8 +146,8 @@ public class Breakout extends GraphicsProgram {
 				ball.setLocation(getWidth()/2 - BALL_RADIUS, getHeight()/2);
 				padle.setLocation(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT);
 				life--;
-				arr[0] = Math.random()*10 + 0.1;
-				arr[1] = Math.random()*5 + 0.1;
+				arr[0] = Math.random()*3 + 0.1;
+				arr[1] = Math.random()*7 + 0.1;
 			}
 			if(life == 0) {
 				break;
