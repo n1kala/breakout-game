@@ -165,7 +165,7 @@ public class Breakout extends GraphicsProgram {
 			
 			ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball);
 			
-			looseBall(ball, paddle, ballMovementDirections, life);
+			life = looseBall(ball, paddle, ballMovementDirections, life);
 			
 			if(life == 0) {
 				break;
@@ -213,7 +213,7 @@ public class Breakout extends GraphicsProgram {
 		return ballMovementDirections;
 	}
 	
-	private void looseBall(GOval ball, GRect paddle, double [] ballMovementDirections, int life) {
+	private int looseBall(GOval ball, GRect paddle, double [] ballMovementDirections, int life) {
 		if(ball.getY() > paddle.getY() + 10) {
 			ball.setLocation(getWidth()/2 - BALL_RADIUS, getHeight()/2);
 			paddle.setLocation(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT);
@@ -221,6 +221,7 @@ public class Breakout extends GraphicsProgram {
 			ballMovementDirections[0] = (Math.random()-0.5)*4;
 			ballMovementDirections[1] = 3;
 		}
+		return life;
 	}
 }
 
