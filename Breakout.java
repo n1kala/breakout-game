@@ -142,7 +142,7 @@ public class Breakout extends GraphicsProgram {
 			} catch (InterruptedException e) {
 			    Thread.currentThread().interrupt();
 			}
-			if(ball.getX() >= WIDTH) {
+			if(ball.getX() >= WIDTH - BALL_RADIUS*2) {
 				arr[0] = -arr[0];
 			}
 			if(ball.getX() <= 0) {
