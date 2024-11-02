@@ -197,11 +197,12 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private double moveDirection(double padleX) {
-		if(MouseInfo.getPointerInfo().getLocation().getX()-(padleX + PADDLE_WIDTH - 5) > 0) {
+		if(MouseInfo.getPointerInfo().getLocation().getX()-(padleX + PADDLE_WIDTH - 5) > 2) {
 			return 1;
-		} else {
+		} else if (MouseInfo.getPointerInfo().getLocation().getX()-(padleX + PADDLE_WIDTH - 5) < -2){
 			return -1;
 		}
+		return 0;
 	}
 	
 	private void leaveMark(GLine [] marks, double [] ballMovementDirections, int count, GOval ball) {
