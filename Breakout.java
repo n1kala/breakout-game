@@ -216,7 +216,7 @@ public class Breakout extends GraphicsProgram {
 		if(ball.getY() <= 5) {
 			ballMovementDirections[1] = -ballMovementDirections[1];
 		}
-		if(ball.getX() > paddle.getX() && ball.getX() < paddle.getX() + PADDLE_WIDTH && ball.getY() >= paddle.getY() - BALL_RADIUS) {
+		if(ball.getX() + BALL_RADIUS*2 > paddle.getX() && ball.getX() < paddle.getX() + PADDLE_WIDTH && ball.getY() >= paddle.getY() - BALL_RADIUS*2) {
 			ballMovementDirections[1] = -ballMovementDirections[1];
 		}
 		for(int i = 0; i < NBRICK_ROWS; i++) {
