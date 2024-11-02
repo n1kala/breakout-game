@@ -152,7 +152,7 @@ public class Breakout extends GraphicsProgram {
 	private void startGame(GRect [][] bricks, GRect paddle, GOval ball) {
 		int life = NTURNS;
 		double ballMovementDirections [] = {(Math.random()-0.5)*4, 3}; // movement on X and Y
-		GLine marks [] = new GLine[40];
+		GLine marks [] = new GLine[100];
 		int count = 0;
 		
 		while(true) {
