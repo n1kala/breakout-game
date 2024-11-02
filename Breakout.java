@@ -137,9 +137,8 @@ public class Breakout extends GraphicsProgram {
 		add(ball);
 		double arr [] = {(Math.random()-0.5)*4, 3};
 		while(true) {
-
 			ball.setLocation(ball.getX() + arr[0], ball.getY() + arr[1]);
-			double padleX = MouseInfo.getPointerInfo().getLocation().getX()-(padle.getX() + PADDLE_WIDTH - 5); 
+			double padleX = moveDirection(padle.getX()); 
 			if(padleX > 0) padleX = 1; 
 			else padleX = -1;
 			padle.setLocation(padle.getX() + padleX*3, padle.getY());
@@ -178,4 +177,12 @@ public class Breakout extends GraphicsProgram {
 		
 	}
 	
+}
+
+private double moveDirectoin(double padleX) {
+	if(MouseInfo.getPointerInfo().getLocation().getX()-(padleX + PADDLE_WIDTH - 5) > 0) {
+		return 1;
+	} else {
+		return -1;
+	}
 }
