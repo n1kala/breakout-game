@@ -69,6 +69,7 @@ public class Breakout extends GraphicsProgram {
 		waitForClick();
 		removeAll();
 		setBricks();
+		setFrame();
 		startGame();
 	}
 	
@@ -119,6 +120,11 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 
+	// not yet added
+	private void setFrame() {
+		
+	}
+	
 	private void startGame() {
 		int life = NTURNS;
 		
@@ -153,7 +159,7 @@ public class Breakout extends GraphicsProgram {
  			}
 			if(ball.getX() > padle.getX()) {
 				if(ball.getX() < padle.getX() + PADDLE_WIDTH) {
-					if(ball.getY() >= padle.getY()) {
+					if(ball.getY() >= padle.getY() + 2*BALL_RADIUS) {
 						arr[1] = -arr[1];
 					}
 				}
