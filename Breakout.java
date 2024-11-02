@@ -259,10 +259,11 @@ public class Breakout extends GraphicsProgram {
 		}
 		// when ball hits blocks
 		boolean brickIsLeft = false;
+		boolean directionChanged = false;
 		for(int i = 0; i < NBRICK_ROWS; i++) {
 			for(int j = 0; j < NBRICKS_PER_ROW; j++) {
 				// when block is already taken out
-				if(bricks[i][j].isFilled() == false) {
+				if(bricks[i][j].isFilled() == false || directionChanged) {
 					continue;
 				}
 				brickIsLeft = true;
@@ -273,6 +274,7 @@ public class Breakout extends GraphicsProgram {
 					bricks[i][j].setFilled(false);
 					remove(bricks[i][j]);
 					ballMovementDirections[0] *= -1;
+					directionChanged = true;
 				} else {
 					// when ball hits block from top or from bottom
 					if(ball.getX() + BALL_RADIUS*2 >= bricks[i][j].getX() && ball.getX() <= bricks[i][j].getX() + BRICK_WIDTH &&
@@ -281,6 +283,7 @@ public class Breakout extends GraphicsProgram {
 						bricks[i][j].setFilled(false);
 						remove(bricks[i][j]);
 						ballMovementDirections[1] = -ballMovementDirections[1];
+						directionChanged = true;
 					}
 				}
 			}
