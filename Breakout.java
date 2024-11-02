@@ -189,12 +189,13 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void leaveMark(GLine [] marks, double [] ballMovementDirections, int count, GOval ball) {
-		if(marks[count%40] != null) {
-			remove(marks[count%40]);
+		if(marks[count%100] != null) {
+			remove(marks[count%100]);
 		}
-		marks[count%40] = new GLine(ball.getX(), ball.getY(),
-				ball.getX() + ballMovementDirections[0], ball.getY() + ballMovementDirections[1]);
-		add(marks[count%40]);
+		double r = BALL_RADIUS;
+		marks[count%100] = new GLine(ball.getX() + r, ball.getY() + r,
+				ball.getX() + ballMovementDirections[0] + r, ball.getY() + ballMovementDirections[1] + r);
+		add(marks[count%100]);
 	}
 	
 	private void delay() {
