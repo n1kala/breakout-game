@@ -267,7 +267,7 @@ public class Breakout extends GraphicsProgram {
 				}
 				brickIsLeft = true;
 				// when ball hits block from top or from bottom
-				if(ball.getX() + BALL_RADIUS*2 >= bricks[i][j].getX() && ball.getX() <= bricks[i][j].getX() + BRICK_WIDTH &&
+				if(ball.getX() + BALL_RADIUS*2 >= bricks[i][j].getX() || ball.getX() <= bricks[i][j].getX() + BRICK_WIDTH &&
 						((ball.getY() >= bricks[i][j].getY() + BRICK_HEIGHT + ballMovementDirections[1] - 2 && ball.getY() <= bricks[i][j].getY() + BRICK_HEIGHT) ||
 						(ball.getY() + BALL_RADIUS*2 >= bricks[i][j].getY() && ball.getY() + BALL_RADIUS*2 <= bricks[i][j].getY()+ballMovementDirections[1]+2))) {
 					bricks[i][j].setFilled(false);
@@ -277,7 +277,7 @@ public class Breakout extends GraphicsProgram {
 				// when ball hits block from left or from right
 				if((ball.getY() + BALL_RADIUS <= bricks[i][j].getY() + BRICK_HEIGHT && ball.getY() + BALL_RADIUS >= bricks[i][j].getY()) &&
 						((ball.getX() + BALL_RADIUS*2 >= bricks[i][j].getX() && ball.getX() + BALL_RADIUS*2 <= bricks[i][j].getX() + ballMovementDirections[0] + 2) ||
-						(ball.getX() <= bricks[i][j].getX() + BRICK_WIDTH && ball.getX() >= bricks[i][j].getX() + BRICK_WIDTH + ballMovementDirections[0] - 2))) {
+						(ball.getX() <= bricks[i][j].getX() + BRICK_WIDTH || ball.getX() >= bricks[i][j].getX() + BRICK_WIDTH + ballMovementDirections[0] - 2))) {
 					bricks[i][j].setFilled(false);
 					remove(bricks[i][j]);
 					ballMovementDirections[0] *= -1;
