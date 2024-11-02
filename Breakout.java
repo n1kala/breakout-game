@@ -73,6 +73,7 @@ public class Breakout extends GraphicsProgram {
 		startGame(bricks, paddle, ball);
 	}
 	
+	// function sets up play button and waits until player clicks mouse to start the game
 	private void setPlayButton() {
 		int R = 40;
 		int x = WIDTH/2 - R;
@@ -89,6 +90,8 @@ public class Breakout extends GraphicsProgram {
 		removeAll();
 	}
 	
+	// i tried to add triangle to make button look like play button
+	// but its just too many white lines bc i dont know how to make triangle
 	private void decoratePlayButton() {
 		int x = WIDTH/2 - 18;
 		int y = HEIGHT/2 - 30;
@@ -102,6 +105,7 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 	
+	// function sets up bricks according to color requirements and returns bricks array
 	private GRect [][] setBricks() {
 		GRect [][] bricks = new GRect[NBRICK_ROWS][NBRICKS_PER_ROW];
 		
@@ -130,6 +134,7 @@ public class Breakout extends GraphicsProgram {
 		return bricks;
 	}
 
+	// function sets up paddle and returns GRect of paddle
 	private GRect setPaddle() {
 		GRect padle = new GRect(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT, PADDLE_WIDTH, PADDLE_HEIGHT);
 		padle.setFilled(true);
@@ -137,6 +142,7 @@ public class Breakout extends GraphicsProgram {
 		return padle;
 	}
 	
+	// same but on ball
 	private GOval setBall() {
 		GOval ball = new GOval(getWidth()/2 - BALL_RADIUS*2, getHeight()/2, BALL_RADIUS*2, BALL_RADIUS*2);
 		ball.setFilled(true);
@@ -144,6 +150,7 @@ public class Breakout extends GraphicsProgram {
 		return ball;
 	}
 	
+	// function sets up walls
 	private void setFrame() {
 		GRect frame1 = new GRect(0,0,WIDTH,HEIGHT);
 		GRect frame2 = new GRect(1,1,WIDTH-2,HEIGHT-2);
@@ -159,31 +166,36 @@ public class Breakout extends GraphicsProgram {
 		add(frame4);
 	}
 	
+	// function is infinity loop which updates positions of game objects
 	private void startGame(GRect [][] bricks, GRect paddle, GOval ball) {
 		int life = NTURNS;
 		double ballMovementDirections [] = {(Math.random()-0.5)*4, 3}; // movement on X and Y
 		GLine marks [] = new GLine[100];
-		int count = 0;
+		int count = 0; // count of loops in while true loop, i use it in order to add marks of ball's movement
 		
 		while(true) {
 			leaveMark(marks, ballMovementDirections, count, ball);
 			
+			// changing ball's position
 			ball.setLocation(ball.getX() + ballMovementDirections[0], ball.getY() + ballMovementDirections[1]);
 			
+			// moves paddle
 			double padleX = moveDirection(paddle.getX()); 
 			if((paddle.getX() + PADDLE_WIDTH < WIDTH && padleX == 1) || (paddle.getX() > 0 && padleX == -1)) {
 				paddle.setLocation(paddle.getX() + padleX*3, paddle.getY());
 			}
 			
 			delay();
-			
+	
 			ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks);
 			
+			// if there is no bricks left
 			if(ballMovementDirections[1] == 0) {
 				victoryEmote();
 				break;
 			}
 			
+			// if ball is out player loses one of the lives
 			life = looseBall(ball, paddle, ballMovementDirections, life);
 			
 			if(life == 0) {
@@ -191,13 +203,14 @@ public class Breakout extends GraphicsProgram {
 				break;
 			}
 			
-			
 			count++;
 		}
-		
 	}
 	
+	// function returns in which direction paddle should move
 	private double moveDirection(double padleX) {
+		// if mouse pointer is in the middle of paddle in order for it to not start shaking left and right
+		// i made it so pointer should be away from paddles middle by at least 2 pixels to make paddle move
 		if(MouseInfo.getPointerInfo().getLocation().getX()-(padleX + PADDLE_WIDTH - 5) > 2) {
 			return 1;
 		} else if (MouseInfo.getPointerInfo().getLocation().getX()-(padleX + PADDLE_WIDTH - 5) < -2){
@@ -206,6 +219,7 @@ public class Breakout extends GraphicsProgram {
 		return 0;
 	}
 	
+	// function leaves lines so you know which movements ball did, it leaves up to 100 lines
 	private void leaveMark(GLine [] marks, double [] ballMovementDirections, int count, GOval ball) {
 		if(marks[count%100] != null) {
 			remove(marks[count%100]);
@@ -216,6 +230,7 @@ public class Breakout extends GraphicsProgram {
 		add(marks[count%100]);
 	}
 	
+	// function makes program have little delay to make it playable, otherwise everything will happen too fast
 	private void delay() {
 		try {
 		    Thread.sleep(7); 
@@ -224,26 +239,34 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 
+	// function changes ball's directions according to where did it hit
 	private double [] directionChanges(double [] ballMovementDirections, GRect paddle, GOval ball, GRect [][] bricks) {
+		// when ball hits right wall
 		if(ball.getX() >= WIDTH - BALL_RADIUS*2) {
 			ballMovementDirections[0] = -ballMovementDirections[0];
 		}
+		// when ball hits left wall
 		if(ball.getX() <= 0) {
 			ballMovementDirections[0] = -ballMovementDirections[0];
 		}
+		// when ball hits top wall
 		if(ball.getY() <= 5) {
 			ballMovementDirections[1] = -ballMovementDirections[1];
 		}
+		// when ball hits paddle
 		if(ball.getX() + BALL_RADIUS*2 > paddle.getX() && ball.getX() < paddle.getX() + PADDLE_WIDTH && ball.getY() >= paddle.getY() - BALL_RADIUS*2) {
 			ballMovementDirections[1] = -ballMovementDirections[1];
 		}
+		// when ball hits blocks
 		boolean brickIsLeft = false;
 		for(int i = 0; i < NBRICK_ROWS; i++) {
 			for(int j = 0; j < NBRICKS_PER_ROW; j++) {
+				// when block is already taken out
 				if(bricks[i][j].isFilled() == false) {
 					continue;
 				}
 				brickIsLeft = true;
+				// when ball hits block from top or from bottom
 				if(ball.getX() + BALL_RADIUS*2 >= bricks[i][j].getX() && ball.getX() <= bricks[i][j].getX() + BRICK_WIDTH &&
 						((ball.getY() >= bricks[i][j].getY() + BRICK_HEIGHT + ballMovementDirections[1] - 2 && ball.getY() <= bricks[i][j].getY() + BRICK_HEIGHT) ||
 						(ball.getY() + BALL_RADIUS*2 >= bricks[i][j].getY() && ball.getY() + BALL_RADIUS*2 <= bricks[i][j].getY()+ballMovementDirections[1]+2))) {
@@ -251,7 +274,7 @@ public class Breakout extends GraphicsProgram {
 					remove(bricks[i][j]);
 					ballMovementDirections[1] = -ballMovementDirections[1];
 				}
-				
+				// when ball hits block from left or from right
 				if((ball.getY() + BALL_RADIUS <= bricks[i][j].getY() + BRICK_HEIGHT && ball.getY() + BALL_RADIUS >= bricks[i][j].getY()) &&
 						((ball.getX() + BALL_RADIUS*2 >= bricks[i][j].getX() && ball.getX() + BALL_RADIUS*2 <= bricks[i][j].getX() + ballMovementDirections[0] + 2) ||
 						(ball.getX() <= bricks[i][j].getX() + BRICK_WIDTH && ball.getX() >= bricks[i][j].getX() + BRICK_WIDTH + ballMovementDirections[0] - 2))) {
@@ -259,31 +282,34 @@ public class Breakout extends GraphicsProgram {
 					remove(bricks[i][j]);
 					ballMovementDirections[0] *= -1;
 				}
-				
 			}
 		}
+		// if there is not any bricks left this stops game
 		if(brickIsLeft == false) {
 			ballMovementDirections[1] = 0;
 		}
 		return ballMovementDirections;
 	}
 	
+	// function checks if player did not manage save the ball and in that case resets locations of paddle and ball
 	private int looseBall(GOval ball, GRect paddle, double [] ballMovementDirections, int life) {
 		if(ball.getY() > paddle.getY()) {
 			ball.setLocation(getWidth()/2 - BALL_RADIUS, getHeight()/2);
 			paddle.setLocation(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT);
-			life--;
 			ballMovementDirections[0] = (Math.random()-0.5)*4;
 			ballMovementDirections[1] = 3;
+			life--;
 		}
 		return life;
 	}
 
+	// function clears window and prints message
 	private void victoryEmote() {
 		removeAll();
 		println("Congratulations! You wasted time winning this pointless game!");
 	}
 
+	// same as victoryEmote
 	private void loserEmote() {
 		removeAll();
 		println("You play boring game like this one and did not even win?! Think about your life more.");
