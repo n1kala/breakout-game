@@ -184,7 +184,7 @@ public class Breakout extends GraphicsProgram {
 	
 	private void delay() {
 		try {
-		    Thread.sleep(3); // Pause for 0.01 second
+		    Thread.sleep(5); // Pause for 0.01 second
 		} catch (InterruptedException e) {
 		    Thread.currentThread().interrupt();
 		}
