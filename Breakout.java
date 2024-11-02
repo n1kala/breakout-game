@@ -66,22 +66,26 @@ public class Breakout extends GraphicsProgram {
 		/* You fill this in, along with any subsidiary methods */
 		setSize(APPLICATION_WIDTH + 18, APPLICATION_HEIGHT + 72);
 		setPlayButton();
-		waitForClick();
-		removeAll();
 		GRect [][] bricks = setBricks();
+		GRect paddle = setPaddle();
 		setFrame();
-		startGame(bricks);
+		startGame(bricks, paddle);
 	}
 	
 	private void setPlayButton() {
 		int R = 40;
 		int x = WIDTH/2 - R;
 		int y = HEIGHT/2 - R;
+		
 		GOval playButton = new GOval(x,y,R*2,R*2);
 		playButton.setFilled(true);
 		playButton.setColor(Color.GREEN);
 		add(playButton);
+		
 		decoratePlayButton();
+		
+		waitForClick();
+		removeAll();
 	}
 	
 	private void decoratePlayButton() {
@@ -125,17 +129,20 @@ public class Breakout extends GraphicsProgram {
 		return bricks;
 	}
 
+	private GRect setPaddle() {
+		GRect padle = new GRect(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT, PADDLE_WIDTH, PADDLE_HEIGHT);
+		padle.setFilled(true);
+		add(padle);
+		return padle;
+	}
 	// not yet added
 	private void setFrame() {
 		
 	}
 	
-	private void startGame(GRect [][] bricks) {
+	private void startGame(GRect [][] bricks, GRect paddle) {
 		int life = NTURNS;
-		remove(bricks[0][0]);
-		GRect padle = new GRect(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT, PADDLE_WIDTH, PADDLE_HEIGHT);
-		padle.setFilled(true);
-		add(padle);
+		
 		
 		GOval ball = new GOval(getWidth()/2 - BALL_RADIUS, getHeight()/2, BALL_RADIUS, BALL_RADIUS);
 		ball.setFilled(true);
@@ -144,9 +151,9 @@ public class Breakout extends GraphicsProgram {
 		while(true) {
 			ball.setLocation(ball.getX() + arr[0], ball.getY() + arr[1]);
 			
-			double padleX = moveDirection(padle.getX()); 
-			if((padle.getX() + PADDLE_WIDTH < WIDTH && padleX == 1) || (padle.getX() > 0 && padleX == -1)) {
-				padle.setLocation(padle.getX() + padleX*3, padle.getY());
+			double padleX = moveDirection(paddle.getX()); 
+			if((paddle.getX() + PADDLE_WIDTH < WIDTH && padleX == 1) || (paddle.getX() > 0 && padleX == -1)) {
+				paddle.setLocation(paddle.getX() + padleX*3, paddle.getY());
 			}
 			
 			delay();
@@ -161,7 +168,7 @@ public class Breakout extends GraphicsProgram {
 			if(ball.getY() <= 5) {
 				arr[1] = -arr[1];
  			}
-			if(ball.getX() > padle.getX() && ball.getX() < padle.getX() + PADDLE_WIDTH && ball.getY() >= padle.getY() - BALL_RADIUS) {
+			if(ball.getX() > paddle.getX() && ball.getX() < paddle.getX() + PADDLE_WIDTH && ball.getY() >= paddle.getY() - BALL_RADIUS) {
 				arr[1] = -arr[1];
 			}
 			for(int i = 0; i < NBRICK_ROWS; i++) {
@@ -169,9 +176,9 @@ public class Breakout extends GraphicsProgram {
 					
 				}
 			}
-			if(ball.getY() > padle.getY() + 10) {
+			if(ball.getY() > paddle.getY() + 10) {
 				ball.setLocation(getWidth()/2 - BALL_RADIUS, getHeight()/2);
-				padle.setLocation(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT);
+				paddle.setLocation(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT);
 				life--;
 				arr[0] = (Math.random()-0.5)*4;
 				arr[1] = 3;
