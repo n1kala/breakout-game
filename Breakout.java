@@ -98,6 +98,8 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void setBricks() {
+		GRect [][] bricks = new int[NBRICK_ROWS][NBRICKS_PER_ROW];
+		
 		float [][] colors = {
 				{0.0f,0.99f,0.99f},
 				{0.0f,0.99f,0.99f},
@@ -138,17 +140,15 @@ public class Breakout extends GraphicsProgram {
 		double arr [] = {(Math.random()-0.5)*4, 3};
 		while(true) {
 			ball.setLocation(ball.getX() + arr[0], ball.getY() + arr[1]);
-			double padleX = moveDirection(padle.getX()); 
-			if(padleX > 0) padleX = 1; 
-			else padleX = -1;
-			if((padle.getX() + PADDLE_WIDTH < WIDTH && padleX == 1) ||
-				 (padle.getX() > 0 && padleX == -1)) padle.setLocation(padle.getX() + padleX*3, padle.getY());
 			
-			try {
-			    Thread.sleep(10); // Pause for 1 second
-			} catch (InterruptedException e) {
-			    Thread.currentThread().interrupt();
+			double padleX = moveDirection(padle.getX()); 
+			if((padle.getX() + PADDLE_WIDTH < WIDTH && padleX == 1) || (padle.getX() > 0 && padleX == -1)) {
+				padle.setLocation(padle.getX() + padleX*3, padle.getY());
 			}
+			
+			delay();
+			
+			// direction changes
 			if(ball.getX() >= WIDTH - BALL_RADIUS) {
 				arr[0] = -arr[0];
 			}
@@ -158,11 +158,12 @@ public class Breakout extends GraphicsProgram {
 			if(ball.getY() <= 5) {
 				arr[1] = -arr[1];
  			}
-			if(ball.getX() > padle.getX()) {
-				if(ball.getX() < padle.getX() + PADDLE_WIDTH) {
-					if(ball.getY() >= padle.getY() - BALL_RADIUS) {
-						arr[1] = -arr[1];
-					}
+			if(ball.getX() > padle.getX() && ball.getX() < padle.getX() + PADDLE_WIDTH && ball.getY() >= padle.getY() - BALL_RADIUS) {
+				arr[1] = -arr[1];
+			}
+			for(int i = 0; i < NBRICK_ROWS; i++) {
+				for(int j = 0; j < NBRICKS_PER_ROW; j++) {
+					
 				}
 			}
 			if(ball.getY() > padle.getY() + 10) {
@@ -185,6 +186,17 @@ public class Breakout extends GraphicsProgram {
 			return -1;
 		}
 	}
+	
+	// program will have 100 fps if you want to increase it, decrease sleep time 
+	private void delay() {
+		try {
+		    Thread.sleep(10); // Pause for 0.01 second
+		} catch (InterruptedException e) {
+		    Thread.currentThread().interrupt();
+		}
+	}
+
+	
 }
 
 
