@@ -286,7 +286,7 @@ public class Breakout extends GraphicsProgram {
 
 	private void loserEmote() {
 		removeAll();
-		println("You play boring game like this one and did not even win?? Think about your life more.");
+		println("You play boring game like this one and did not even win?! Think about your life more.");
 	}
 }
 
