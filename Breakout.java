@@ -146,6 +146,8 @@ public class Breakout extends GraphicsProgram {
 				ball.setLocation(getWidth()/2 - BALL_RADIUS, getHeight()/2);
 				padle.setLocation(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT);
 				life--;
+				arr[0] = Math.random()*10 + 0.1;
+				arr[1] = Math.random()*5 + 0.1;
 			}
 			if(life == 0) {
 				break;
