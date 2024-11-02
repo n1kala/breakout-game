@@ -163,7 +163,7 @@ public class Breakout extends GraphicsProgram {
 			
 			delay();
 			
-			ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball);
+			ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks);
 			
 			life = looseBall(ball, paddle, ballMovementDirections, life);
 			
@@ -191,7 +191,7 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 
-	private double [] directionChanges(double [] ballMovementDirections, GRect paddle, GOval ball) {
+	private double [] directionChanges(double [] ballMovementDirections, GRect paddle, GOval ball, GRect [][] bricks) {
 		if(ball.getX() >= WIDTH - BALL_RADIUS) {
 			ballMovementDirections[0] = -ballMovementDirections[0];
 		}
@@ -206,6 +206,14 @@ public class Breakout extends GraphicsProgram {
 		}
 		for(int i = 0; i < NBRICK_ROWS; i++) {
 			for(int j = 0; j < NBRICKS_PER_ROW; j++) {
+				if(bricks[i][j].isVisible());
+				
+				if(ball.getX() >= bricks[i][j].getX() && ball.getX() <= bricks[i][j].getX() + BRICK_WIDTH &&
+						ball.getY() <= bricks[i][j].getY() + BRICK_HEIGHT && ball.getY() >= bricks[i][j].getY()) {
+					remove(bricks[i][j]);
+					ballMovementDirections[1] = -ballMovementDirections[1];
+				}
+				
 				
 			}
 		}
