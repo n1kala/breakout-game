@@ -176,13 +176,13 @@ public class Breakout extends GraphicsProgram {
 		}
 		
 	}
-	
-}
-
-private double moveDirection(double padleX) {
-	if(MouseInfo.getPointerInfo().getLocation().getX()-(padleX + PADDLE_WIDTH - 5) > 0) {
-		return 1;
-	} else {
-		return -1;
+	private double moveDirection(double padleX) {
+		if(MouseInfo.getPointerInfo().getLocation().getX()-(padleX + PADDLE_WIDTH - 5) > 0) {
+			return 1;
+		} else {
+			return -1;
+		}
 	}
 }
+
+
