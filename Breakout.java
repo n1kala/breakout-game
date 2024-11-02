@@ -144,7 +144,6 @@ public class Breakout extends GraphicsProgram {
 		return ball;
 	}
 	
-	// not yet added
 	private void setFrame() {
 		
 	}
