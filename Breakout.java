@@ -145,6 +145,13 @@ public class Breakout extends GraphicsProgram {
 			if(ball.getX() >= WIDTH) {
 				arr[0] = -arr[0];
 			}
+			if(ball.getX() > padle.getX()) {
+				if(ball.getX() < padle.getX() + PADDLE_WIDTH) {
+					if(ball.getY() >= padle.getY()) {
+						arr[1] = -arr[1];
+					}
+				}
+			}
 			if(ball.getY() > padle.getY()) {
 				ball.setLocation(getWidth()/2 - BALL_RADIUS, getHeight()/2);
 				padle.setLocation(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT);
