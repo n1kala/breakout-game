@@ -68,9 +68,9 @@ public class Breakout extends GraphicsProgram {
 		setPlayButton();
 		waitForClick();
 		removeAll();
-		setBricks();
+		GRect [][] bricks = setBricks();
 		setFrame();
-		startGame();
+		startGame(bricks);
 	}
 	
 	private void setPlayButton() {
@@ -97,8 +97,8 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 	
-	private void setBricks() {
-		GRect [][] bricks = new int[NBRICK_ROWS][NBRICKS_PER_ROW];
+	private GRect [][] setBricks() {
+		GRect [][] bricks = new GRect[NBRICK_ROWS][NBRICKS_PER_ROW];
 		
 		float [][] colors = {
 				{0.0f,0.99f,0.99f},
@@ -112,14 +112,17 @@ public class Breakout extends GraphicsProgram {
 				{0.5f,0.99f,0.99f},
 				{0.5f,0.99f,0.99f}
 		};
-		for(int j = 70,paint = 0; j < BRICK_Y_OFFSET+NBRICK_ROWS*BRICK_HEIGHT + (NBRICK_ROWS-1)*BRICK_SEP; j += BRICK_HEIGHT + BRICK_SEP, paint++) {
-			for(int i = BRICK_SEP/2; i < APPLICATION_WIDTH; i += BRICK_WIDTH + BRICK_SEP) {
-				GRect rect = new GRect(i,j,BRICK_WIDTH,BRICK_HEIGHT);
-				rect.setFilled(true);
-				rect.setColor(Color.getHSBColor(colors[paint][0], colors[paint][1], colors[paint][2]));
-				add(rect);
+		
+		for(int y = 70,paint = 0,i = 0; y < BRICK_Y_OFFSET+NBRICK_ROWS*BRICK_HEIGHT + (NBRICK_ROWS-1)*BRICK_SEP; y += BRICK_HEIGHT + BRICK_SEP, paint++, i++) {
+			for(int x = BRICK_SEP/2,j = 0; x < APPLICATION_WIDTH; x += BRICK_WIDTH + BRICK_SEP, j++) {
+				bricks[i][j] = new GRect(x,y,BRICK_WIDTH,BRICK_HEIGHT);
+				bricks[i][j].setFilled(true);
+				bricks[i][j].setColor(Color.getHSBColor(colors[paint][0], colors[paint][1], colors[paint][2]));
+				add(bricks[i][j]);
 			}
 		}
+		
+		return bricks;
 	}
 
 	// not yet added
@@ -127,9 +130,9 @@ public class Breakout extends GraphicsProgram {
 		
 	}
 	
-	private void startGame() {
+	private void startGame(GRect [][] bricks) {
 		int life = NTURNS;
-		
+		remove(bricks[0][0]);
 		GRect padle = new GRect(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT, PADDLE_WIDTH, PADDLE_HEIGHT);
 		padle.setFilled(true);
 		add(padle);
