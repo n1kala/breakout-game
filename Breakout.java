@@ -52,7 +52,7 @@ public class Breakout extends GraphicsProgram {
 	private static final int BRICK_HEIGHT = 8;
 
 /** Radius of the ball in pixels */
-	private static final int BALL_RADIUS = 10;
+	private static final int BALL_RADIUS = 5;
 
 /** Offset of the top brick row from the top */
 	private static final int BRICK_Y_OFFSET = 70;
@@ -138,7 +138,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private GOval setBall() {
-		GOval ball = new GOval(getWidth()/2 - BALL_RADIUS, getHeight()/2, BALL_RADIUS, BALL_RADIUS);
+		GOval ball = new GOval(getWidth()/2 - BALL_RADIUS*2, getHeight()/2, BALL_RADIUS*2, BALL_RADIUS*2);
 		ball.setFilled(true);
 		add(ball);
 		return ball;
@@ -184,14 +184,14 @@ public class Breakout extends GraphicsProgram {
 	
 	private void delay() {
 		try {
-		    Thread.sleep(5); // Pause for 0.01 second
+		    Thread.sleep(7); 
 		} catch (InterruptedException e) {
 		    Thread.currentThread().interrupt();
 		}
 	}
 
 	private double [] directionChanges(double [] ballMovementDirections, GRect paddle, GOval ball, GRect [][] bricks) {
-		if(ball.getX() >= WIDTH - BALL_RADIUS) {
+		if(ball.getX() >= WIDTH - BALL_RADIUS*2) {
 			ballMovementDirections[0] = -ballMovementDirections[0];
 		}
 		if(ball.getX() <= 0) {
@@ -209,14 +209,19 @@ public class Breakout extends GraphicsProgram {
 					continue;
 				}
 				
-				if(ball.getX() + BALL_RADIUS >= bricks[i][j].getX() && ball.getX() <= bricks[i][j].getX() + BRICK_WIDTH &&
+				if(ball.getX() + BALL_RADIUS*2 >= bricks[i][j].getX() && ball.getX() <= bricks[i][j].getX() + BRICK_WIDTH &&
 						((ball.getY() >= bricks[i][j].getY() + BRICK_HEIGHT + ballMovementDirections[1] - 2 && ball.getY() <= bricks[i][j].getY() + BRICK_HEIGHT) ||
-						(ball.getY() + BALL_RADIUS >= bricks[i][j].getY() && ball.getY() + BALL_RADIUS <= bricks[i][j].getY()+ballMovementDirections[1]+2))) {
+						(ball.getY() + BALL_RADIUS*2 >= bricks[i][j].getY() && ball.getY() + BALL_RADIUS*2 <= bricks[i][j].getY()+ballMovementDirections[1]+2))) {
 					bricks[i][j].setFilled(false);
 					remove(bricks[i][j]);
 					ballMovementDirections[1] = -ballMovementDirections[1];
 				}
 				
+				if((ball.getY() + BALL_RADIUS <= bricks[i][j].getY() + BRICK_HEIGHT && ball.getY() + BALL_RADIUS >= bricks[i][j].getY() + BRICK_HEIGHT) &&
+						((ball.getX() + BALL_RADIUS*2 >= bricks[i][j].getX() && ball.getX() + BALL_RADIUS*2 <= bricks[i][j].getX() + ballMovementDirections[0] + 2) ||
+						(ball.getX() <= bricks[i][j].getX() + BRICK_WIDTH && ball.getX() >= bricks[i][j].getX() + BRICK_WIDTH + ballMovementDirections[0] - 2))) {
+					
+				}
 				
 			}
 		}
