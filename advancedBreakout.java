@@ -227,6 +227,7 @@ public class advancedBreakout extends GraphicsProgram {
 		double r = BALL_RADIUS;
 		marks[count%100] = new GLine(ball.getX() + r, ball.getY() + r,
 				ball.getX() + ballMovementDirections[0] + r, ball.getY() + ballMovementDirections[1] + r);
+		marks[count%100].setColor(Color.RED);
 		add(marks[count%100]);
 	}
 	
