@@ -78,7 +78,10 @@ public class advancedBreakout extends GraphicsProgram {
 	
 /* Method: run() */
 
-	/** Runs the Breakout program. */
+	/** in this game player have more control over where the shoot goes and after popping 10 blocks he gets 
+	 * super shot, at this time ball goes through every block it encounters. after popping all the balls
+	 * player goes to next level where ball moves faster and amount of lifes reset to NTURNS. i also set up
+	 * little play button and after each lose player have little time to get mouse in the middle */
 	public void run() {
 		/* for some reason setSize does not set size same as passed values so I needed to add 18 and 72 */
 		setSize(APPLICATION_WIDTH + 18, APPLICATION_HEIGHT + 72);
