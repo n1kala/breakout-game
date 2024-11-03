@@ -100,6 +100,8 @@ public class advancedBreakout extends GraphicsProgram {
 		
 		int count = 0; // count of loops in while true loop, i use it in order to add marks of ball's movement
 		
+		boolean popped = false;
+		
 		while(true) {
 			if(LEVEL == 9) {
 				victoryEmote();
@@ -124,8 +126,15 @@ public class advancedBreakout extends GraphicsProgram {
 			
 			delay();
 			
+			int tempPop = POPPED_COUNT;
+			if(popped == false) {
+				ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks, marks);
+			}
+			popped = false;
 			
-			ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks, marks);
+			if(tempPop != POPPED_COUNT) {
+				popped = true;
+			}
 			
 			// if there is no bricks left player gets to next level and everything resets
 			if(ballMovementDirections[1] == 0) {
