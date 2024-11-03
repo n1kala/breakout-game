@@ -178,6 +178,7 @@ public class advancedBreakout extends GraphicsProgram {
 		
 		if(LEVEL == 0) {
 			add(text);
+			add(reminder);
 		}
 		add(level);
 	}
