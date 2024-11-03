@@ -60,7 +60,8 @@ public class advancedBreakout extends GraphicsProgram {
 /** Number of turns */
 	private static final int NTURNS = 3;
 	
-
+/** Number of marks while super shot is active */
+	private static final int MARKS_COUNT = 40;
 
 ///////////////////////////////////////////
 /** Sleep time, decrease this number to make program faster */ 
@@ -179,7 +180,7 @@ public class advancedBreakout extends GraphicsProgram {
 	private void startGame(GRect [][] bricks, GRect paddle, GOval ball) {
 		int life = NTURNS;
 		double ballMovementDirections [] = {(Math.random()-0.5)*4, 3}; // movement on X and Y
-		GLine marks [] = new GLine[40];
+		GLine marks [] = new GLine[MARKS_COUNT];
 		int count = 0; // count of loops in while true loop, i use it in order to add marks of ball's movement
 		
 		while(true) {
@@ -204,7 +205,7 @@ public class advancedBreakout extends GraphicsProgram {
 			delay();
 			
 			
-			ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks);
+			ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks, marks);
 			
 			// if there is no bricks left
 			if(ballMovementDirections[1] == 0) {
@@ -238,14 +239,14 @@ public class advancedBreakout extends GraphicsProgram {
 	
 	// function leaves lines so you know which movements ball did, it leaves up to 100 lines
 	private void leaveMark(GLine [] marks, double [] ballMovementDirections, int count, GOval ball) {
-		if(marks[count%40] != null) {
-			remove(marks[count%40]);
+		if(marks[count%MARKS_COUNT] != null) {
+			remove(marks[count%MARKS_COUNT]);
 		}
 		double r = BALL_RADIUS;
-		marks[count%40] = new GLine(ball.getX() + r, ball.getY() + r,
+		marks[count%MARKS_COUNT] = new GLine(ball.getX() + r, ball.getY() + r,
 				ball.getX() + ballMovementDirections[0] + r, ball.getY() + ballMovementDirections[1] + r);
-		marks[count%40].setColor(Color.RED);
-		add(marks[count%40]);
+		marks[count%MARKS_COUNT].setColor(Color.RED);
+		add(marks[count%MARKS_COUNT]);
 	}
 	
 	// function makes program have little delay to make it playable, otherwise everything will happen too fast
@@ -258,7 +259,7 @@ public class advancedBreakout extends GraphicsProgram {
 	}
 
 	// function changes ball's directions according to where did it hit
-	private double [] directionChanges(double [] ballMovementDirections, GRect paddle, GOval ball, GRect [][] bricks) {
+	private double [] directionChanges(double [] ballMovementDirections, GRect paddle, GOval ball, GRect [][] bricks, GLine [] marks) {
 		// when ball hits right wall
 		if(ball.getX() >= WIDTH - BALL_RADIUS*2) {
 			ballMovementDirections[0] = -ballMovementDirections[0];
@@ -277,8 +278,12 @@ public class advancedBreakout extends GraphicsProgram {
 			if(SUPER_SHOT) {
 				SUPER_SHOT = false;
 				paddle.setFillColor(Color.BLACK);
+				ball.setFillColor(Color.BLACK);
+				for(int i = 0; i < MARKS_COUNT; i++) {
+					remove(marks[i]);
+				}
 			}
-			if(POPPED_COUNT%10 == 0) {
+			if(POPPED_COUNT%10 == 0 && POPPED_COUNT != 0) {
 				SUPER_SHOT = true;
 				paddle.setFillColor(Color.RED);
 			}
