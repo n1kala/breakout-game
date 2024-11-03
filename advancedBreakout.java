@@ -473,7 +473,7 @@ public class advancedBreakout extends GraphicsProgram {
 	private void loserEmote() {
 		removeAll();
 		if(LEVEL > 1) {
-			add(new GLabel("Good job coming this far!! Last level: " + LEVEL), WIDTH/2 - 75, HEIGHT/2);
+			add(new GLabel("Good job coming this far!! Last level: " + LEVEL), WIDTH/2 - 90, HEIGHT/2);
 		} else {
 			add(new GLabel("Nice try, better luck next time!!", WIDTH/2 - 75, HEIGHT/2));
 		}
