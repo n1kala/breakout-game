@@ -374,6 +374,9 @@ public class advancedBreakout extends GraphicsProgram {
 			ballMovementDirections[0] = (Math.random()-0.5)*4;
 			ballMovementDirections[1] = 3;
 			life--;
+			for(int i = 0; i < 100; i++) {
+				delay();
+			}
 		}
 		return life;
 	}
