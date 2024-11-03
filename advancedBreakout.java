@@ -365,6 +365,7 @@ public class advancedBreakout extends GraphicsProgram {
 			for(int j = 0; j < NBRICKS_PER_ROW; j++) {
 				if(ballIsMovingRight == false) {
 					j = NBRICKS_PER_ROW - 1 - j;
+					println(j);
 				}
 				// when block is already taken out
 				if(bricks[i][j].isFilled() == false || directionChanged) {
