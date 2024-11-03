@@ -78,10 +78,6 @@ public class advancedBreakout extends GraphicsProgram {
 	
 /* Method: run() */
 
-	/** in this game player have more control over where the shoot goes and after popping 10 blocks he gets 
-	 * super shot, at this time ball goes through every block it encounters. after popping all the balls
-	 * player goes to next level where ball moves faster and amount of lifes reset to NTURNS. i also set up
-	 * little play button and after each lose player have little time to get mouse in the middle */
 	public void run() {
 		/* for some reason setSize does not set size same as passed values so I needed to add 18 and 72 */
 		setSize(APPLICATION_WIDTH + 18, APPLICATION_HEIGHT + 72);
@@ -174,7 +170,9 @@ public class advancedBreakout extends GraphicsProgram {
 	
 	// tells which level player is on
 	private void setLevelLabel() {
-		GLabel level = new GLabel("LEVEL----> " + (LEVEL+1), WIDTH/2 - 30, HEIGHT/2 - 50);
+		GLabel level = new GLabel("LEVEL----> " + (LEVEL+1) + "\n Lets see how far will you get."
+				+ "\n my personal best is level 4, good luck! \n Remember after poping at least 10 blocks you get super shot!",
+				WIDTH/2 - 30, HEIGHT/2 - 50);
 		add(level);
 	}
 	
@@ -429,7 +427,7 @@ public class advancedBreakout extends GraphicsProgram {
 		if(LEVEL > 0) {
 			add(new GLabel("Good job coming this far!!"), WIDTH/2 - 75, HEIGHT/2);
 		} else {
-			add(new GLabel("You are terrible at this game!!", WIDTH/2 - 75, HEIGHT/2));
+			add(new GLabel("Nice try, better luck next time!!", WIDTH/2 - 75, HEIGHT/2));
 		}
 	}
 }
