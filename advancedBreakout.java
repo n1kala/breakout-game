@@ -284,7 +284,7 @@ public class advancedBreakout extends GraphicsProgram {
 				}
 				POPPED_COUNT = 0;
 			}
-			if(POPPED_COUNT%10 == 0 && POPPED_COUNT != 0) {
+			if(POPPED_COUNT >= 10) {
 				SUPER_SHOT = true;
 				paddle.setFillColor(Color.RED);
 			}
