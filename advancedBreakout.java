@@ -170,10 +170,10 @@ public class advancedBreakout extends GraphicsProgram {
 	
 	// tells which level player is on
 	private void setLevelLabel() {
-		GLabel level = new GLabel("LEVEL----> " + (LEVEL+1), WIDTH/2 - 30, HEIGHT/2 - 50);
-		level.setColor(Color.GREEN);
-		GLabel text = new GLabel("Lets see how far will you get. My personal best is level 4. Good luck!", WIDTH/2 - 60, HEIGHT/2 - 60);
-		text.setColor(Color.MAGENTA);
+		GLabel level = new GLabel("LEVEL----> " + (LEVEL+1), WIDTH/2 - 30, HEIGHT/2 - 40);
+		level.setColor(Color.BLUE);
+		GLabel text = new GLabel("Lets see how far will you get. My personal best is level 4. Good luck!", WIDTH/2 - 120, HEIGHT/2 - 60);
+		text.setColor(Color.ORANGE);
 		
 		add(text);
 		add(level);
