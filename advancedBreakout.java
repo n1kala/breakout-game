@@ -318,31 +318,7 @@ public class advancedBreakout extends GraphicsProgram {
 			double place = ball.getX() + BALL_RADIUS - paddle.getX(); // place on paddle where ball did hit
 			
 			// direction changes of ball depending on where on paddle it will hit
-			if(place < 5) {
-				ballMovementDirections[0] = -4;
-			} else if(place < 10) {
-				ballMovementDirections[0] = -3.4;
-			} else if(place < 15) {
-				ballMovementDirections[0] = -2.8;
-			} else if(place < 20) {
-				ballMovementDirections[0] = -2;
-			} else if(place < 25) {
-				ballMovementDirections[0] = -1.2;
-			} else if(place < 30) {
-				ballMovementDirections[0] = -0.5;
-			} else if(place < 35) {
-				ballMovementDirections[0] = 0.5;
-			} else if(place < 40) {
-				ballMovementDirections[0] = 1.2;
-			} else if(place < 45) {
-				ballMovementDirections[0] = 2;
-			} else if(place < 50){
-				ballMovementDirections[0] = 2.8;
-			} else if(place < 55) {
-				ballMovementDirections[0] = 3.4;
-			} else {
-				ballMovementDirections[0] = 4;
-			}
+			ballMovementDirections[0] = (place - PADDLE_WIDTH/2)*0.2;
 			
 			ballMovementDirections[1] = -ballMovementDirections[1];
 			// reseting everything after super shot
@@ -450,7 +426,7 @@ public class advancedBreakout extends GraphicsProgram {
 	// shows some text after player loses.
 	private void loserEmote() {
 		removeAll();
-		if(LEVEL > 2) {
+		if(LEVEL > 0) {
 			add(new GLabel("Good job coming this far!!"), WIDTH/2 - 75, HEIGHT/2);
 		} else {
 			add(new GLabel("You are terrible at this game!!", WIDTH/2 - 75, HEIGHT/2));
