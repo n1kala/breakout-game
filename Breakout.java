@@ -60,6 +60,8 @@ public class Breakout extends GraphicsProgram {
 /** Number of turns */
 	private static final int NTURNS = 3;
 
+/** Sleep time of thread, decrease this to make program faster */
+	private static final int SLEEP_TIME = 7;
 /* Method: run() */
 /** Runs the Breakout program. */
 	public void run() {
@@ -183,7 +185,7 @@ public class Breakout extends GraphicsProgram {
 	// i copied this note from Microsoft copilot 
 	private void delay() {
 		try {
-		    Thread.sleep(7); 
+		    Thread.sleep(SLEEP_TIME); 
 		} catch (InterruptedException e) {
 		    Thread.currentThread().interrupt();
 		}
