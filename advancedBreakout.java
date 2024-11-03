@@ -159,7 +159,7 @@ public class advancedBreakout extends GraphicsProgram {
 	}
 	
 	private void setLevelLabel() {
-		GLabel level = new GLabel("LEVEL: " + (LEVEL+1), HEIGHT/2 - 90, WIDTH/2 - 20);
+		GLabel level = new GLabel("LEVEL----> " + (LEVEL+1), HEIGHT/2 - 50, WIDTH/2 - 50);
 		add(level);
 	}
 	
