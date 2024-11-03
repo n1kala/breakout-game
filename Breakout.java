@@ -223,26 +223,62 @@ public class Breakout extends GraphicsProgram {
 					continue;
 				}
 				brickIsLeft = true;
-			// if (ball's y coordinate is same as blocks and ball is hitting block from left or right) 
-				// this will make x = -x and remove block
-				if((ball.getY() + BALL_RADIUS <= bricks[i][j].getY() + BRICK_HEIGHT && ball.getY() + BALL_RADIUS >= bricks[i][j].getY()) &&
-						((ball.getX() + BALL_RADIUS*2 >= bricks[i][j].getX() && ball.getX() + BALL_RADIUS*2 <= bricks[i][j].getX() + ballMovementDirections[0] + 2) ||
-						(ball.getX() <= bricks[i][j].getX() + BRICK_WIDTH && ball.getX() >= bricks[i][j].getX() + BRICK_WIDTH + ballMovementDirections[0] - 2))) {
+				
+				
+				// if (ball is touching current block)
+				if(ball.getY() < bricks[i][j].getY() + BRICK_HEIGHT && ball.getY() + BALL_RADIUS*2 > bricks[i][j].getY() && 
+						ball.getX() < bricks[i][j].getX() + BRICK_WIDTH && ball.getX() + BALL_RADIUS*2 > bricks[i][j].getX()) {
+
 					bricks[i][j].setFilled(false);
 					remove(bricks[i][j]);
-					ballMovementDirections[0] *= -1;
-					directionChanged = true;
-				} else {
-				// if (ball's x coordinate is same as blocks and ball is hitting block from top or bottom) 
-					// this will make y = -y and remove block
-					if(ball.getX() + BALL_RADIUS*2 >= bricks[i][j].getX() && ball.getX() <= bricks[i][j].getX() + BRICK_WIDTH &&
-							((ball.getY() >= bricks[i][j].getY() + BRICK_HEIGHT + ballMovementDirections[1] - 2 && ball.getY() <= bricks[i][j].getY() + BRICK_HEIGHT) ||
-							(ball.getY() + BALL_RADIUS*2 >= bricks[i][j].getY() && ball.getY() + BALL_RADIUS*2 <= bricks[i][j].getY()+ballMovementDirections[1]+2))) {
-						bricks[i][j].setFilled(false);
-						remove(bricks[i][j]);
-						ballMovementDirections[1] = -ballMovementDirections[1];
-						directionChanged = true;
+					
+					// if ball is touching block from left half
+					if(ball.getX() + BALL_RADIUS - bricks[i][j].getX() < BRICK_WIDTH/2) {
+						// if ball is touching block from top half
+						if(ball.getY() + BALL_RADIUS - bricks[i][j].getY() < BRICK_HEIGHT/2) {
+							// if ball is touching from left side
+							// and ball is moving right because otherwise it can not be touching block from left
+							if(ball.getY() + BALL_RADIUS*2 - bricks[i][j].getY() > ball.getX() + BALL_RADIUS*2 - bricks[i][j].getX() && ballMovementDirections[0] >= 0) {
+								ballMovementDirections[0] *= -1;
+							} else {
+								ballMovementDirections[1] *= -1;
+							}
+						} else { 
+							// ball is touching from bottom left half
+							
+							// if ball is touching from left
+							// and 
+							if(bricks[i][j].getY() + BRICK_HEIGHT - ball.getY() > ball.getX() + BALL_RADIUS*2 - bricks[i][j].getX() && ballMovementDirections[0] >= 0) {
+								ballMovementDirections[0] *= -1;
+							} else {
+								ballMovementDirections[1] *= -1;
+							}
+						}
+					} else {
+						// ball is touching from right half
+						
+						// if ball is touching from top 
+						if(ball.getY() + BALL_RADIUS - bricks[i][j].getY() < BRICK_HEIGHT/2) {
+							// if ball is touching from top side 
+							// or ball is moving to right because that time it can nott be touching block from right side
+							if(bricks[i][j].getX() + BRICK_WIDTH - ball.getX() > ball.getY() + BALL_RADIUS*2 - bricks[i][j].getY() || ballMovementDirections[0] >= 0) {
+								ballMovementDirections[1] *= -1;
+							} else {
+								ballMovementDirections[0] *= -1;
+							}
+						} else {
+							// ball is touching from bottom right half
+							
+							// if ball is touching from bottom side
+							// or ball is moving to right because that time it can not be touching block from right side
+							if(bricks[i][j].getX() + BRICK_WIDTH - ball.getX() > bricks[i][j].getY() + BRICK_HEIGHT - ball.getY() || ballMovementDirections[0] >= 0) {
+								ballMovementDirections[1] *= -1;
+							} else {
+								ballMovementDirections[0] *= -1;
+							}
+						}
 					}
+					directionChanged = true;
 				}
 			}
 		}
