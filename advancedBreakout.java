@@ -59,10 +59,14 @@ public class advancedBreakout extends GraphicsProgram {
 
 /** Number of turns */
 	private static final int NTURNS = 3;
+	
+
 
 ///////////////////////////////////////////
-	private int poppedCount = 0;
-	private boolean superShot = false;
+/** Sleep time, decrease this number to make program faster */ 
+	private long SLEEP_TIME = 7;
+	private int POPPED_COUNT = 0;
+	private boolean SUPER_SHOT = false;
 	
 /* Method: run() */
 /** Runs the Breakout program. */
@@ -183,7 +187,7 @@ public class advancedBreakout extends GraphicsProgram {
 			
 			// makes super shot after popping 10 blocks which 
 			// super shot pops up to 3 blocks until getting back
-			if(superShot) {
+			if(SUPER_SHOT) {
 				leaveMark(marks, ballMovementDirections, count, ball);
 				ball.setFillColor(Color.ORANGE);
 			}
@@ -270,11 +274,13 @@ public class advancedBreakout extends GraphicsProgram {
 		// when ball hits paddle
 		if(ball.getX() + BALL_RADIUS*2 >= paddle.getX() && ball.getX() <= paddle.getX() + PADDLE_WIDTH && ball.getY() >= paddle.getY() - BALL_RADIUS*2) {
 			ballMovementDirections[1] = -ballMovementDirections[1];
-			if(superShot) {
-				superShot = false;
+			if(SUPER_SHOT) {
+				SUPER_SHOT = false;
+				paddle.setFillColor(Color.BLACK);
 			}
-			if(poppedCount%10 == 0) {
-				superShot = true;
+			if(POPPED_COUNT%10 == 0) {
+				SUPER_SHOT = true;
+				paddle.setFillColor(Color.RED);
 			}
 		}
 		// when ball hits blocks
@@ -309,7 +315,7 @@ public class advancedBreakout extends GraphicsProgram {
 			}
 		}
 		if(directionChanged) {
-			poppedCount++;
+			POPPED_COUNT++;
 		}
 		// if there is not any bricks left this stops game
 		if(brickIsLeft == false) {
