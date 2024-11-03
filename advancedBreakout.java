@@ -326,7 +326,7 @@ public class advancedBreakout extends GraphicsProgram {
 			// direction changes of ball depending on where on paddle it will hit
 			ballMovementDirections[0] = (place - PADDLE_WIDTH/2)*0.14;
 			
-			ballMovementDirections[1] = Math.abs(ballMovementDirections[1]);
+			ballMovementDirections[1] = -Math.abs(ballMovementDirections[1]);
 			
 			// reseting everything after super shot
 			if(SUPER_SHOT) {
