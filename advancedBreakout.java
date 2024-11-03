@@ -371,8 +371,7 @@ public class advancedBreakout extends GraphicsProgram {
 				brickIsLeft = true;
 				
 				if(ballIsMovingRight == false) {
-					j = NBRICKS_PER_ROW - 1 - j;
-					println(j);
+					j = NBRICKS_PER_ROW - 1 - j
 				}
 				
 				// if (ball is touching current block)
