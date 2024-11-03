@@ -60,6 +60,10 @@ public class advancedBreakout extends GraphicsProgram {
 /** Number of turns */
 	private static final int NTURNS = 3;
 
+///////////////////////////////////////////
+	private int poppedCount = 0;
+	private boolean superShot = false;
+	
 /* Method: run() */
 /** Runs the Breakout program. */
 	public void run() {
@@ -166,6 +170,7 @@ public class advancedBreakout extends GraphicsProgram {
 		add(frame4);
 	}
 	
+	
 	// function is infinity loop which updates positions of game objects
 	private void startGame(GRect [][] bricks, GRect paddle, GOval ball) {
 		int life = NTURNS;
@@ -174,7 +179,14 @@ public class advancedBreakout extends GraphicsProgram {
 		int count = 0; // count of loops in while true loop, i use it in order to add marks of ball's movement
 		
 		while(true) {
-			leaveMark(marks, ballMovementDirections, count, ball);
+			
+			
+			// makes super shot after popping 10 blocks which 
+			// super shot pops up to 3 blocks until getting back
+			if(superShot) {
+				leaveMark(marks, ballMovementDirections, count, ball);
+				ball.setFillColor(Color.ORANGE);
+			}
 			
 			// changing ball's position
 			ball.setLocation(ball.getX() + ballMovementDirections[0], ball.getY() + ballMovementDirections[1]);
@@ -186,7 +198,8 @@ public class advancedBreakout extends GraphicsProgram {
 			}
 			
 			delay();
-	
+			
+			
 			ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks);
 			
 			// if there is no bricks left
@@ -255,8 +268,14 @@ public class advancedBreakout extends GraphicsProgram {
 			ballMovementDirections[1] = -ballMovementDirections[1];
 		}
 		// when ball hits paddle
-		if(ball.getX() + BALL_RADIUS*2 > paddle.getX() && ball.getX() < paddle.getX() + PADDLE_WIDTH && ball.getY() >= paddle.getY() - BALL_RADIUS*2) {
+		if(ball.getX() + BALL_RADIUS*2 >= paddle.getX() && ball.getX() <= paddle.getX() + PADDLE_WIDTH && ball.getY() >= paddle.getY() - BALL_RADIUS*2) {
 			ballMovementDirections[1] = -ballMovementDirections[1];
+			if(superShot) {
+				superShot = false;
+			}
+			if(poppedCount%10 == 0) {
+				superShot = true;
+			}
 		}
 		// when ball hits blocks
 		boolean brickIsLeft = false;
@@ -288,6 +307,9 @@ public class advancedBreakout extends GraphicsProgram {
 					}
 				}
 			}
+		}
+		if(directionChanged) {
+			poppedCount++;
 		}
 		// if there is not any bricks left this stops game
 		if(brickIsLeft == false) {
