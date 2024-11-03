@@ -359,19 +359,18 @@ public class advancedBreakout extends GraphicsProgram {
 				}
 				brickIsLeft = true;
 				
+				if(SUPER_SHOT) { // if its super shot direction do not changes
+					continue;
+				}
 				// if (ball is touching current block)
-				if(ball.getY() < bricks[i][j].getY() + BRICK_HEIGHT && ball.getY() + BALL_RADIUS*2 > bricks[i][j].getY() && 
-						ball.getX() < bricks[i][j].getX() + BRICK_WIDTH && ball.getX() + BALL_RADIUS*2 > bricks[i][j].getX()) {
+				if(ball.getY() < bricks[i][j].getY() + BRICK_HEIGHT - 0.1 && ball.getY() + BALL_RADIUS*2 - 0.1 > bricks[i][j].getY() && 
+						ball.getX() < bricks[i][j].getX() + BRICK_WIDTH - 0.1 && ball.getX() + BALL_RADIUS*2 - 0.1 > bricks[i][j].getX()) {
 
 					bricks[i][j].setFilled(false);
 					remove(bricks[i][j]);
 					
-					if(SUPER_SHOT) { // if its super shot direction do not changes
-						continue;
-					}
-					
 					// if ball is touching block from left half
-					if(Math.abs(ball.getX() + BALL_RADIUS - bricks[i][j].getX()) < BRICK_WIDTH/2) {
+					if(ball.getX() + BALL_RADIUS - bricks[i][j].getX() < BRICK_WIDTH/2) {
 						// if ball is touching block from top half
 						if(ball.getY() + BALL_RADIUS - bricks[i][j].getY() < BRICK_HEIGHT/2) {
 							// if ball is touching from left side
@@ -382,7 +381,9 @@ public class advancedBreakout extends GraphicsProgram {
 								ballMovementDirections[1] *= -1;
 								println("T");
 							}
-						} else {
+						} else { 
+							// ball is touching from bottom left half
+							
 							// if ball is touching from left
 							if(bricks[i][j].getY() + BRICK_HEIGHT - ball.getY() > ball.getX() + BALL_RADIUS*2 - bricks[i][j].getX()) {
 								ballMovementDirections[0] *= -1;
@@ -393,7 +394,9 @@ public class advancedBreakout extends GraphicsProgram {
 							}
 						}
 					} else {
-						// if ball is touching from top
+						// ball is touching from right half
+						
+						// if ball is touching from top 
 						if(ball.getY() + BALL_RADIUS - bricks[i][j].getY() < BRICK_HEIGHT/2) {
 							// if ball is touching from top side
 							if(bricks[i][j].getX() + BRICK_WIDTH - ball.getX() > ball.getY() + BALL_RADIUS*2 - bricks[i][j].getY()) {
@@ -404,6 +407,8 @@ public class advancedBreakout extends GraphicsProgram {
 								println("R");
 							}
 						} else {
+							// ball is touching from bottom right half
+							
 							// if ball is touching from bottom side
 							if(bricks[i][j].getX() + BRICK_WIDTH - ball.getX() > bricks[i][j].getY() + BRICK_HEIGHT - ball.getY()) {
 								ballMovementDirections[1] *= -1;
