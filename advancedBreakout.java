@@ -77,14 +77,14 @@ public class advancedBreakout extends GraphicsProgram {
 		setSize(APPLICATION_WIDTH + 18, APPLICATION_HEIGHT + 72);
 		setPlayButton();
 		GRect [][] bricks = setBricks();
-		GRect paddle = setPaddle();
+		GOval paddle = setPaddle();
 		GOval ball = setBall();
 		setFrame();
 		startGame(bricks, paddle, ball);
 	}
 	
 	// function is infinity loop which updates positions of game objects
-	private void startGame(GRect [][] bricks, GRect paddle, GOval ball) {
+	private void startGame(GRect [][] bricks, GOval paddle, GOval ball) {
 		int life = NTURNS;
 		double ballMovementDirections [] = {(Math.random()-0.5)*4, 3}; // movement on X and Y
 		GLine marks [] = new GLine[MARKS_COUNT];
@@ -208,8 +208,8 @@ public class advancedBreakout extends GraphicsProgram {
 	}
 
 	// function sets up paddle and returns GRect of paddle
-	private GRect setPaddle() {
-		GRect padle = new GRect(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT, PADDLE_WIDTH, PADDLE_HEIGHT);
+	private GOval setPaddle() {
+		GOval padle = new GOval(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT, PADDLE_WIDTH, PADDLE_HEIGHT);
 		padle.setFilled(true);
 		add(padle);
 		return padle;
@@ -273,7 +273,7 @@ public class advancedBreakout extends GraphicsProgram {
 	}
 
 	// function changes ball's directions according to where did it hit
-	private double [] directionChanges(double [] ballMovementDirections, GRect paddle, GOval ball, GRect [][] bricks, GLine [] marks) {
+	private double [] directionChanges(double [] ballMovementDirections, GOval paddle, GOval ball, GRect [][] bricks, GLine [] marks) {
 		// when ball hits right wall
 		if(ball.getX() >= WIDTH - BALL_RADIUS*2) {
 			ballMovementDirections[0] = -ballMovementDirections[0];
@@ -367,7 +367,7 @@ public class advancedBreakout extends GraphicsProgram {
 	}
 	
 	// function checks if player did not manage save the ball and in that case resets locations of paddle and ball
-	private int looseBall(GOval ball, GRect paddle, double [] ballMovementDirections, int life) {
+	private int looseBall(GOval ball, GOval paddle, double [] ballMovementDirections, int life) {
 		if(ball.getY() > paddle.getY()) {
 			ball.setLocation(WIDTH/2 - BALL_RADIUS, HEIGHT/2);
 			paddle.setLocation(WIDTH/2 - PADDLE_WIDTH/2, HEIGHT - PADDLE_Y_OFFSET - PADDLE_HEIGHT);
