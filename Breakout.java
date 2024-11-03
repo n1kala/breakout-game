@@ -62,6 +62,7 @@ public class Breakout extends GraphicsProgram {
 
 /** Sleep time of thread, decrease this to make program faster */
 	private static final int SLEEP_TIME = 7;
+	
 /* Method: run() */
 /** Runs the Breakout program. */
 	public void run() {
