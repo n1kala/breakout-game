@@ -308,15 +308,15 @@ public class advancedBreakout extends GraphicsProgram {
 		
 		// when ball hits right wall
 		if(ball.getX() >= WIDTH - BALL_RADIUS*2 - 8) {
-			ballMovementDirections[0] = -ballMovementDirections[0];
+			ballMovementDirections[0] = -Math.abs(ballMovementDirections[0]);
 		}
 		// when ball hits left wall
 		if(ball.getX() <= 8) {
-			ballMovementDirections[0] = -ballMovementDirections[0];
+			ballMovementDirections[0] = Math.abs(ballMovementDirections[0]);
 		}
 		// when ball hits top wall
 		if(ball.getY() <= 8) {
-			ballMovementDirections[1] = -ballMovementDirections[1];
+			ballMovementDirections[1] = Math.abs(ballMovementDirections[1]);
 		}
 		// when ball hits paddle
 		if(ball.getX() + BALL_RADIUS*2 >= paddle.getX() && ball.getX() <= paddle.getX() + PADDLE_WIDTH && ball.getY() >= paddle.getY() - BALL_RADIUS*2) {
@@ -326,7 +326,8 @@ public class advancedBreakout extends GraphicsProgram {
 			// direction changes of ball depending on where on paddle it will hit
 			ballMovementDirections[0] = (place - PADDLE_WIDTH/2)*0.14;
 			
-			ballMovementDirections[1] = -ballMovementDirections[1];
+			ballMovementDirections[1] = Math.abs(ballMovementDirections[1]);
+			
 			// reseting everything after super shot
 			if(SUPER_SHOT) {
 				SUPER_SHOT = false;
