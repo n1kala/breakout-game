@@ -65,44 +65,11 @@ public class Breakout extends GraphicsProgram {
 	public void run() {
 		/* for some reason setSize does not set size same as passed values so I needed to add 18 and 72*/
 		setSize(APPLICATION_WIDTH + 18, APPLICATION_HEIGHT + 72);
-		setPlayButton();
 		GRect [][] bricks = setBricks();
 		GRect paddle = setPaddle();
 		GOval ball = setBall();
 		setFrame();
 		startGame(bricks, paddle, ball);
-	}
-	
-	// function sets up play button and waits until player clicks mouse to start the game
-	private void setPlayButton() {
-		int R = 40;
-		int x = WIDTH/2 - R;
-		int y = HEIGHT/2 - R;
-		
-		GOval playButton = new GOval(x,y,R*2,R*2);
-		playButton.setFilled(true);
-		playButton.setColor(Color.GREEN);
-		add(playButton);
-		
-		decoratePlayButton();
-		
-		waitForClick();
-		removeAll();
-	}
-	
-	// i tried to add triangle to make button look like play button
-	// but its just too many white lines bc i dont know how to make triangle
-	private void decoratePlayButton() {
-		int x = WIDTH/2 - 18;
-		int y = HEIGHT/2 - 30;
-		int x1 = x + 50;
-		int y1 = y + 30;
-		while(y != y1+30) {
-			GLine line = new GLine(x,y,x1,y1);
-			line.setColor(Color.WHITE);
-			add(line);
-			y++;
-		}
 	}
 	
 	// function sets up bricks according to color requirements and returns bricks array
@@ -170,12 +137,8 @@ public class Breakout extends GraphicsProgram {
 	private void startGame(GRect [][] bricks, GRect paddle, GOval ball) {
 		int life = NTURNS;
 		double ballMovementDirections [] = {(Math.random()-0.5)*4, 3}; // movement on X and Y
-		GLine marks [] = new GLine[100];
-		int count = 0; // count of loops in while true loop, i use it in order to add marks of ball's movement
 		
 		while(true) {
-			leaveMark(marks, ballMovementDirections, count, ball);
-			
 			// changing ball's position
 			ball.setLocation(ball.getX() + ballMovementDirections[0], ball.getY() + ballMovementDirections[1]);
 			
@@ -191,7 +154,6 @@ public class Breakout extends GraphicsProgram {
 			
 			// if there is no bricks left
 			if(ballMovementDirections[1] == 0) {
-				victoryEmote();
 				break;
 			}
 			
@@ -199,7 +161,6 @@ public class Breakout extends GraphicsProgram {
 			life = looseBall(ball, paddle, ballMovementDirections, life);
 			
 			if(life == 0) {
-				loserEmote();
 				break;
 			}
 			
@@ -219,18 +180,8 @@ public class Breakout extends GraphicsProgram {
 		return 0;
 	}
 	
-	// function leaves lines so you know which movements ball did, it leaves up to 100 lines
-	private void leaveMark(GLine [] marks, double [] ballMovementDirections, int count, GOval ball) {
-		if(marks[count%100] != null) {
-			remove(marks[count%100]);
-		}
-		double r = BALL_RADIUS;
-		marks[count%100] = new GLine(ball.getX() + r, ball.getY() + r,
-				ball.getX() + ballMovementDirections[0] + r, ball.getY() + ballMovementDirections[1] + r);
-		add(marks[count%100]);
-	}
-	
 	// function makes program have little delay to make it playable, otherwise everything will happen too fast
+	// i copied this note from Microsoft copilot 
 	private void delay() {
 		try {
 		    Thread.sleep(7); 
@@ -305,18 +256,6 @@ public class Breakout extends GraphicsProgram {
 			life--;
 		}
 		return life;
-	}
-
-	// function clears window and prints message
-	private void victoryEmote() {
-		removeAll();
-		println("Congratulations! You wasted time winning this pointless game!");
-	}
-
-	// same as victoryEmote
-	private void loserEmote() {
-		removeAll();
-		println("You play boring game like this one and did not even win?! Think about your life more.");
 	}
 }
 
