@@ -282,9 +282,6 @@ public class Breakout extends GraphicsProgram {
 					directionChanged = true;
 				}
 				
-				if(ballIsMovingRight == false) {
-					j = NBRICKS_PER_ROW - 1 - j;
-				}
 			}
 			
 		}
