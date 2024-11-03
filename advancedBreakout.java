@@ -213,6 +213,7 @@ public class advancedBreakout extends GraphicsProgram {
 				LEVEL++;
 				setBricks();
 				ball.setLocation(WIDTH/2 - BALL_RADIUS, HEIGHT/2 - BALL_RADIUS);
+				ballMovementDirections[1] = 3;
 			}
 			
 			// if ball is out player loses one of the lives
