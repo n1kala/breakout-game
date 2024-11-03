@@ -123,7 +123,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	// function sets up walls
-	// in reality its just for GRect next to each other with different colors
+	// in reality its just four GRect next to each other with different colors
 	private void setFrame() {
 		GRect frame1 = new GRect(0,0,WIDTH,HEIGHT);
 		GRect frame2 = new GRect(1,1,WIDTH-2,HEIGHT-2);
