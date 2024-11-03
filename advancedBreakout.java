@@ -170,7 +170,7 @@ public class advancedBreakout extends GraphicsProgram {
 	private void startGame(GRect [][] bricks, GRect paddle, GOval ball) {
 		int life = NTURNS;
 		double ballMovementDirections [] = {(Math.random()-0.5)*4, 3}; // movement on X and Y
-		GLine marks [] = new GLine[100];
+		GLine marks [] = new GLine[40];
 		int count = 0; // count of loops in while true loop, i use it in order to add marks of ball's movement
 		
 		while(true) {
@@ -221,14 +221,14 @@ public class advancedBreakout extends GraphicsProgram {
 	
 	// function leaves lines so you know which movements ball did, it leaves up to 100 lines
 	private void leaveMark(GLine [] marks, double [] ballMovementDirections, int count, GOval ball) {
-		if(marks[count%100] != null) {
-			remove(marks[count%100]);
+		if(marks[count%40] != null) {
+			remove(marks[count%40]);
 		}
 		double r = BALL_RADIUS;
-		marks[count%100] = new GLine(ball.getX() + r, ball.getY() + r,
+		marks[count%40] = new GLine(ball.getX() + r, ball.getY() + r,
 				ball.getX() + ballMovementDirections[0] + r, ball.getY() + ballMovementDirections[1] + r);
-		marks[count%100].setColor(Color.RED);
-		add(marks[count%100]);
+		marks[count%40].setColor(Color.RED);
+		add(marks[count%40]);
 	}
 	
 	// function makes program have little delay to make it playable, otherwise everything will happen too fast
