@@ -164,7 +164,6 @@ public class Breakout extends GraphicsProgram {
 				break;
 			}
 			
-			count++;
 		}
 	}
 	
