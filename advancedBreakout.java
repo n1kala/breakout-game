@@ -380,7 +380,8 @@ public class advancedBreakout extends GraphicsProgram {
 		}
 		
 		if(temp0 != ballMovementDirections[0] || temp1 != ballMovementDirections[1]) {
-			makeSound();
+			// makeSound();
+			// line 383 will make sound everytime ball hits something, but it lags on my computer 
 		}
 		
 		return ballMovementDirections;
