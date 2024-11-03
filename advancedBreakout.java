@@ -387,7 +387,7 @@ public class advancedBreakout extends GraphicsProgram {
 						}
 					} else {
 						// if ball is touching from top
-						if(bricks[i][j].getY() - ball.getY() > 0) {
+						if(Math.abs(bricks[i][j].getY() - ball.getY() - BALL_RADIUS) > BRICK_HEIGHT/2) {
 							// if ball is touching from top side
 							if(bricks[i][j].getX() + BRICK_WIDTH - ball.getX() > ball.getY() + BALL_RADIUS*2 - bricks[i][j].getY()) {
 								ballMovementDirections[1] *= -1;
