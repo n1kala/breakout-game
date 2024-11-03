@@ -83,11 +83,69 @@ public class advancedBreakout extends GraphicsProgram {
 		startGame(bricks, paddle, ball);
 	}
 	
+	// function is infinity loop which updates positions of game objects
+	private void startGame(GRect [][] bricks, GRect paddle, GOval ball) {
+		int life = NTURNS;
+		double ballMovementDirections [] = {(Math.random()-0.5)*4, 3}; // movement on X and Y
+		GLine marks [] = new GLine[MARKS_COUNT];
+		int count = 0; // count of loops in while true loop, i use it in order to add marks of ball's movement
+		
+		while(true) {
+			
+			
+			// makes super shot after popping 10 blocks which 
+			// super shot pops up to 3 blocks until getting back
+			if(SUPER_SHOT) {
+				leaveMark(marks, ballMovementDirections, count, ball);
+				ball.setFillColor(Color.ORANGE);
+			}
+			
+			// changing ball's position
+			ball.setLocation(ball.getX() + ballMovementDirections[0], ball.getY() + ballMovementDirections[1]);
+			
+			// moves paddle
+			double padleX = moveDirection(paddle.getX()); 
+			if((paddle.getX() + PADDLE_WIDTH < WIDTH && padleX == 1) || (paddle.getX() > 0 && padleX == -1)) {
+				paddle.setLocation(paddle.getX() + padleX*3, paddle.getY());
+			}
+			
+			delay();
+			
+			
+			ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks, marks);
+			
+			// if there is no bricks left
+			if(ballMovementDirections[1] == 0) {
+				LEVEL++;
+				removeAll();
+				setPlayButton();
+				bricks = setBricks();
+				paddle = setPaddle();
+				ball = setBall();
+				setFrame();
+				startGame(bricks, paddle, ball);
+				break;
+			}
+			
+			// if ball is out player loses one of the lives
+			life = looseBall(ball, paddle, ballMovementDirections, life);
+			
+			if(life == 0) {
+				loserEmote();
+				break;
+			}
+			
+			count++;
+		}
+	}
+
 	// function sets up play button and waits until player clicks mouse to start the game
 	private void setPlayButton() {
 		int R = 40;
 		int x = WIDTH/2 - R;
 		int y = HEIGHT/2 - R;
+		
+		setLevelLabel();
 		
 		GOval playButton = new GOval(x,y,R*2,R*2);
 		playButton.setFilled(true);
@@ -100,7 +158,12 @@ public class advancedBreakout extends GraphicsProgram {
 		removeAll();
 	}
 	
-	// i tried to add triangle to make button look like play button
+	private void setLevelLabel() {
+		GLabel level = new GLabel("LEVEL: " + (LEVEL+1), HEIGHT/2 - 90, WIDTH/2 - 20);
+		add(level);
+	}
+	
+	//i tried to add triangle to make button look like play button
 	// but its just too many white lines bc i dont know how to make triangle
 	private void decoratePlayButton() {
 		int x = WIDTH/2 - 18;
@@ -174,58 +237,6 @@ public class advancedBreakout extends GraphicsProgram {
 		add(frame2);
 		add(frame3);
 		add(frame4);
-	}
-	
-	
-	// function is infinity loop which updates positions of game objects
-	private void startGame(GRect [][] bricks, GRect paddle, GOval ball) {
-		int life = NTURNS;
-		double ballMovementDirections [] = {(Math.random()-0.5)*4, 3}; // movement on X and Y
-		GLine marks [] = new GLine[MARKS_COUNT];
-		int count = 0; // count of loops in while true loop, i use it in order to add marks of ball's movement
-		
-		while(true) {
-			
-			
-			// makes super shot after popping 10 blocks which 
-			// super shot pops up to 3 blocks until getting back
-			if(SUPER_SHOT) {
-				leaveMark(marks, ballMovementDirections, count, ball);
-				ball.setFillColor(Color.ORANGE);
-			}
-			
-			// changing ball's position
-			ball.setLocation(ball.getX() + ballMovementDirections[0], ball.getY() + ballMovementDirections[1]);
-			
-			// moves paddle
-			double padleX = moveDirection(paddle.getX()); 
-			if((paddle.getX() + PADDLE_WIDTH < WIDTH && padleX == 1) || (paddle.getX() > 0 && padleX == -1)) {
-				paddle.setLocation(paddle.getX() + padleX*3, paddle.getY());
-			}
-			
-			delay();
-			
-			
-			ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks, marks);
-			
-			// if there is no bricks left
-			if(ballMovementDirections[1] == 0) {
-				LEVEL++;
-				setBricks();
-				ball.setLocation(WIDTH/2 - BALL_RADIUS, HEIGHT/2 - BALL_RADIUS);
-				ballMovementDirections[1] = 3;
-			}
-			
-			// if ball is out player loses one of the lives
-			life = looseBall(ball, paddle, ballMovementDirections, life);
-			
-			if(life == 0) {
-				loserEmote();
-				break;
-			}
-			
-			count++;
-		}
 	}
 	
 	// function returns in which direction paddle should move
