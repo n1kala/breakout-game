@@ -274,6 +274,8 @@ public class advancedBreakout extends GraphicsProgram {
 
 	// function changes ball's directions according to where did it hit
 	private double [] directionChanges(double [] ballMovementDirections, GOval paddle, GOval ball, GRect [][] bricks, GLine [] marks) {
+		double [] temp = ballMovementDirections;
+		
 		// when ball hits right wall
 		if(ball.getX() >= WIDTH - BALL_RADIUS*2) {
 			ballMovementDirections[0] = -ballMovementDirections[0];
@@ -288,19 +290,32 @@ public class advancedBreakout extends GraphicsProgram {
 		}
 		// when ball hits paddle
 		if(ball.getX() + BALL_RADIUS*2 >= paddle.getX() && ball.getX() <= paddle.getX() + PADDLE_WIDTH && ball.getY() >= paddle.getY() - BALL_RADIUS*2) {
+			
 			double place = ball.getX() + BALL_RADIUS - paddle.getX(); // place on paddle where ball did hit
-			if(place < 10) {
-				ballMovementDirections[0] = -3;
+			if(place < 5) {
+				ballMovementDirections[0] = -4;
+			} else if(place < 10) {
+				ballMovementDirections[0] = -3.4;
+			} else if(place < 15) {
+				ballMovementDirections[0] = -2.8;
 			} else if(place < 20) {
 				ballMovementDirections[0] = -2;
+			} else if(place < 25) {
+				ballMovementDirections[0] = -1.2;
 			} else if(place < 30) {
-				ballMovementDirections[0] = -1;
+				ballMovementDirections[0] = -0.5;
+			} else if(place < 35) {
+				ballMovementDirections[0] = 0.5;
 			} else if(place < 40) {
-				ballMovementDirections[0] = 1;
-			} else if(place < 50) {
+				ballMovementDirections[0] = 1.2;
+			} else if(place < 45) {
 				ballMovementDirections[0] = 2;
+			} else if(place < 50){
+				ballMovementDirections[0] = 2.8;
+			} else if(place < 55) {
+				ballMovementDirections[0] = 3.4;
 			} else {
-				ballMovementDirections[0] = 3;
+				ballMovementDirections[0] = 4;
 			}
 			
 			ballMovementDirections[1] = -ballMovementDirections[1];
@@ -363,7 +378,18 @@ public class advancedBreakout extends GraphicsProgram {
 		if(brickIsLeft == false) {
 			ballMovementDirections[1] = 0;
 		}
+		
+		if(temp != ballMovementDirections) {
+			makeSound();
+		}
+		
 		return ballMovementDirections;
+	}
+	
+	// makes sound when ball hits something
+	private void makeSound() {
+		AudioClip bounceClip = MediaTools.loadAudioClip("bounce.au");
+		bounceClip.play();
 	}
 	
 	// function checks if player did not manage save the ball and in that case resets locations of paddle and ball
@@ -381,16 +407,14 @@ public class advancedBreakout extends GraphicsProgram {
 		return life;
 	}
 
-	// function clears window and prints message
-	private void victoryEmote() {
-		removeAll();
-		println("Congratulations! You wasted time winning this pointless game!");
-	}
-
 	// same as victoryEmote
 	private void loserEmote() {
 		removeAll();
-		println("You play boring game like this one and did not even win?! Think about your life more.");
+		if(LEVEL > 2) {
+			add(new GLabel("Good job coming this far!!"), WIDTH/2 - 30, HEIGHT/2);
+		} else {
+			add(new GLabel("You are terrible at this game!!", WIDTH/2 - 30, HEIGHT/2));
+		}
 	}
 }
 
