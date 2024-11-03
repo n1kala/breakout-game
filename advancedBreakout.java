@@ -360,8 +360,8 @@ public class advancedBreakout extends GraphicsProgram {
 				brickIsLeft = true;
 				
 				// if (ball is touching current block)
-				if(ball.getY() <= bricks[i][j].getY() + BRICK_HEIGHT && ball.getY() + BALL_RADIUS*2 >= bricks[i][j].getY() && 
-						ball.getX() <= bricks[i][j].getX() + BRICK_WIDTH && ball.getX() + BALL_RADIUS*2 >= bricks[i][j].getX()) {
+				if(ball.getY() < bricks[i][j].getY() + BRICK_HEIGHT && ball.getY() + BALL_RADIUS*2 > bricks[i][j].getY() && 
+						ball.getX() < bricks[i][j].getX() + BRICK_WIDTH && ball.getX() + BALL_RADIUS*2 > bricks[i][j].getX()) {
 
 					bricks[i][j].setFilled(false);
 					remove(bricks[i][j]);
@@ -415,7 +415,7 @@ public class advancedBreakout extends GraphicsProgram {
 						}
 					}
 					directionChanged = true;
-				} 
+				}
 			}
 		}
 		// if direction changed that means ball popped block
