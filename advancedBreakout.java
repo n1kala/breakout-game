@@ -361,7 +361,6 @@ public class advancedBreakout extends GraphicsProgram {
 		boolean brickIsLeft = false;
 		boolean directionChanged = false;
 		for(int i = 0; i < NBRICK_ROWS; i++) {
-			boolean ballIsMovingRight = ballMovementDirections[0] > 0;
 			for(int j = 0; j < NBRICKS_PER_ROW; j++) {
 				
 				// when block is already taken out
@@ -369,11 +368,7 @@ public class advancedBreakout extends GraphicsProgram {
 					continue;
 				}
 				brickIsLeft = true;
-				
-				if(ballIsMovingRight == false) {
-					j = NBRICKS_PER_ROW - 1 - j;
-				}
-				
+			
 				// if (ball is touching current block)
 				if(ball.getY() < bricks[i][j].getY() + BRICK_HEIGHT && ball.getY() + BALL_RADIUS*2 > bricks[i][j].getY() && 
 						ball.getX() < bricks[i][j].getX() + BRICK_WIDTH && ball.getX() + BALL_RADIUS*2 > bricks[i][j].getX()) {
@@ -432,10 +427,6 @@ public class advancedBreakout extends GraphicsProgram {
 						}
 					}
 					directionChanged = true;
-				}
-				
-				if(ballIsMovingRight == false) {
-					j = NBRICKS_PER_ROW - 1 - j;
 				}
 				
 			}
