@@ -18,6 +18,9 @@ import java.awt.event.*;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import  sun.audio.*;    //import the sun.audio package
+import  java.io.*;
+
 public class advancedBreakout extends GraphicsProgram {
 
 /** Width and height of application window in pixels */
@@ -390,7 +393,6 @@ public class advancedBreakout extends GraphicsProgram {
 	private void makeSound() {
 		AudioClip bounceClip = MediaTools.loadAudioClip("bounce.au");
 		bounceClip.play();
-		for(int i = 0; i < 1000; i++) delay();
 	}
 	
 	// function checks if player did not manage save the ball and in that case resets locations of paddle and ball
