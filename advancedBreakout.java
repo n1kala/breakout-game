@@ -288,6 +288,21 @@ public class advancedBreakout extends GraphicsProgram {
 		}
 		// when ball hits paddle
 		if(ball.getX() + BALL_RADIUS*2 >= paddle.getX() && ball.getX() <= paddle.getX() + PADDLE_WIDTH && ball.getY() >= paddle.getY() - BALL_RADIUS*2) {
+			double place = ball.getX() + BALL_RADIUS - paddle.getX(); // place on paddle where ball did hit
+			if(place < 10) {
+				ballMovementDirections[0] = -3;
+			} else if(place < 20) {
+				ballMovementDirections[0] = -2;
+			} else if(place < 30) {
+				ballMovementDirections[0] = -1;
+			} else if(place < 40) {
+				ballMovementDirections[0] = 1;
+			} else if(place < 50) {
+				ballMovementDirections[0] = 2;
+			} else {
+				ballMovementDirections[0] = 3;
+			}
+			
 			ballMovementDirections[1] = -ballMovementDirections[1];
 			if(SUPER_SHOT) {
 				SUPER_SHOT = false;
