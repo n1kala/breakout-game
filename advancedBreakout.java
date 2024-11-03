@@ -65,7 +65,7 @@ public class advancedBreakout extends GraphicsProgram {
 
 ///////////////////////////////////////////   changeable global variables
 /** delay time, decrease this number to make program faster */ 
-	private long SLEEP_TIME = 8;
+	private long SLEEP_TIME = 9;
 	
 /** count of how many blocks did player pop */
 	private int POPPED_COUNT = 0;
@@ -172,7 +172,7 @@ public class advancedBreakout extends GraphicsProgram {
 	private void setLevelLabel() {
 		GLabel level = new GLabel("LEVEL----> " + LEVEL, WIDTH/2 - 30, HEIGHT/2 - 45);
 		level.setColor(Color.BLUE);
-		GLabel text = new GLabel("Lets see how far will you get. My personal best is level 4. Good luck!", WIDTH/2 - 180, HEIGHT/2 - 80);
+		GLabel text = new GLabel("Lets see how far will you get. My personal best is level 5. Good luck!", WIDTH/2 - 180, HEIGHT/2 - 80);
 		text.setColor(Color.BLACK);
 		GLabel reminder = new GLabel("Remember, after poping at least 10 blocks you will get super shot!", WIDTH/2 - 180, HEIGHT/2 - 60);
 		reminder.setColor(Color.RED);
