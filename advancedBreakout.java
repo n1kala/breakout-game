@@ -18,9 +18,6 @@ import java.awt.event.*;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import  sun.audio.*;    //import the sun.audio package
-import  java.io.*;
-
 public class advancedBreakout extends GraphicsProgram {
 
 /** Width and height of application window in pixels */
@@ -384,6 +381,7 @@ public class advancedBreakout extends GraphicsProgram {
 		
 		if(temp[0] != ballMovementDirections[0] && temp[1] != ballMovementDirections[1]) {
 			makeSound();
+			print("S");
 		}
 		
 		return ballMovementDirections;
@@ -403,6 +401,7 @@ public class advancedBreakout extends GraphicsProgram {
 			ballMovementDirections[0] = (Math.random()-0.5)*4;
 			ballMovementDirections[1] = 3;
 			life--;
+			// makes little delay until next ball spawns to correct mouse position
 			for(int i = 0; i < 100; i++) {
 				delay();
 			}
