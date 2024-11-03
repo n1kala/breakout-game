@@ -63,31 +63,42 @@ public class advancedBreakout extends GraphicsProgram {
 /** Number of marks while super shot is active */
 	private static final int MARKS_COUNT = 100;
 
-///////////////////////////////////////////
-/** Sleep time, decrease this number to make program faster */ 
+///////////////////////////////////////////   changeable global variables
+/** delay time, decrease this number to make program faster */ 
 	private long SLEEP_TIME = 7;
+	
+/** count of how many blocks did player pop */
 	private int POPPED_COUNT = 0;
+	
+/** tells if player have super shot */
 	private boolean SUPER_SHOT = false;
+	
+/** if player pops all the blocks he goes to next level where ball moves faster */
 	private int LEVEL = 0;
 	
 /* Method: run() */
-/** Runs the Breakout program. */
+
+	/** Runs the Breakout program. */
 	public void run() {
-		/* for some reason setSize does not set size same as passed values so I needed to add 18 and 72*/
+		/* for some reason setSize does not set size same as passed values so I needed to add 18 and 72 */
 		setSize(APPLICATION_WIDTH + 18, APPLICATION_HEIGHT + 72);
 		setPlayButton();
 		GRect [][] bricks = setBricks();
 		GOval paddle = setPaddle();
 		GOval ball = setBall();
-		setFrame();
+		setFrame(); // setting walls
 		startGame(bricks, paddle, ball);
 	}
 	
 	// function is infinity loop which updates positions of game objects
 	private void startGame(GRect [][] bricks, GOval paddle, GOval ball) {
+		
 		int life = NTURNS;
+		
 		double ballMovementDirections [] = {(Math.random()-0.5)*4, 3}; // movement on X and Y
+		
 		GLine marks [] = new GLine[MARKS_COUNT];
+		
 		int count = 0; // count of loops in while true loop, i use it in order to add marks of ball's movement
 		
 		while(true) {
@@ -103,7 +114,7 @@ public class advancedBreakout extends GraphicsProgram {
 			// changing ball's position
 			ball.setLocation(ball.getX() + ballMovementDirections[0], ball.getY() + ballMovementDirections[1]);
 			
-			// moves paddle
+			// moves paddle close to mouse's x coordinate
 			double padleX = moveDirection(paddle.getX()); 
 			if((paddle.getX() + PADDLE_WIDTH < WIDTH && padleX == 1) || (paddle.getX() > 0 && padleX == -1)) {
 				paddle.setLocation(paddle.getX() + padleX*3, paddle.getY());
@@ -114,7 +125,7 @@ public class advancedBreakout extends GraphicsProgram {
 			
 			ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks, marks);
 			
-			// if there is no bricks left
+			// if there is no bricks left player gets to next level and everything resets
 			if(ballMovementDirections[1] == 0) {
 				LEVEL++;
 				removeAll();
@@ -158,6 +169,7 @@ public class advancedBreakout extends GraphicsProgram {
 		removeAll();
 	}
 	
+	// tells which level player is on
 	private void setLevelLabel() {
 		GLabel level = new GLabel("LEVEL----> " + (LEVEL+1), WIDTH/2 - 30, HEIGHT/2 - 50);
 		add(level);
@@ -166,10 +178,15 @@ public class advancedBreakout extends GraphicsProgram {
 	//i tried to add triangle to make button look like play button
 	// but its just too many white lines bc i dont know how to make triangle
 	private void decoratePlayButton() {
-		int x = WIDTH/2 - 18;
+		// coordinates of top left bottom of triangle
+		int x = WIDTH/2 - 18; 
 		int y = HEIGHT/2 - 30;
+		
+		// coordinates of bottom left corner of triangle
 		int x1 = x + 50;
 		int y1 = y + 30;
+		
+		// makes line from middle right corner of triangle to everywhere on the line between other two corners
 		while(y != y1+30) {
 			GLine line = new GLine(x,y,x1,y1);
 			line.setColor(Color.WHITE);
@@ -179,6 +196,8 @@ public class advancedBreakout extends GraphicsProgram {
 	}
 	
 	// function sets up bricks according to color requirements and returns bricks array
+	// for each row x coordinate is updated by brick's width + separation between bricks
+	// after each row y coordinate is updated by brick's height + separation
 	private GRect [][] setBricks() {
 		GRect [][] bricks = new GRect[NBRICK_ROWS][NBRICKS_PER_ROW];
 		
@@ -215,7 +234,7 @@ public class advancedBreakout extends GraphicsProgram {
 		return padle;
 	}
 	
-	// same but on ball
+	// setting up ball
 	private GOval setBall() {
 		GOval ball = new GOval(getWidth()/2 - BALL_RADIUS*2, getHeight()/2, BALL_RADIUS*2, BALL_RADIUS*2);
 		ball.setFilled(true);
@@ -224,9 +243,10 @@ public class advancedBreakout extends GraphicsProgram {
 	}
 	
 	// function sets up walls
+	// wall is just 4 GRects, black, whilte, grey and black again.
 	private void setFrame() {
-		GRect frame1 = new GRect(0,0,WIDTH,HEIGHT);
-		GRect frame2 = new GRect(1,1,WIDTH-2,HEIGHT-2);
+		GRect frame1 = new GRect(0,0,WIDTH,HEIGHT); 
+		GRect frame2 = new GRect(1,1,WIDTH-2,HEIGHT-2); 
 		GRect frame3 = new GRect(2,2,WIDTH-4,HEIGHT-4);
 		GRect frame4 = new GRect(3,3,WIDTH-6,HEIGHT-6);
 		frame1.setColor(Color.BLACK);
@@ -264,6 +284,7 @@ public class advancedBreakout extends GraphicsProgram {
 	}
 	
 	// function makes program have little delay to make it playable, otherwise everything will happen too fast
+	// i copied delay()'s code from Microsoft Copilot
 	private void delay() {
 		try {
 		    Thread.sleep(SLEEP_TIME - LEVEL); 
@@ -292,6 +313,8 @@ public class advancedBreakout extends GraphicsProgram {
 		if(ball.getX() + BALL_RADIUS*2 >= paddle.getX() && ball.getX() <= paddle.getX() + PADDLE_WIDTH && ball.getY() >= paddle.getY() - BALL_RADIUS*2) {
 			
 			double place = ball.getX() + BALL_RADIUS - paddle.getX(); // place on paddle where ball did hit
+			
+			// direction changes of ball depending on where on paddle it will hit
 			if(place < 5) {
 				ballMovementDirections[0] = -4;
 			} else if(place < 10) {
@@ -319,6 +342,7 @@ public class advancedBreakout extends GraphicsProgram {
 			}
 			
 			ballMovementDirections[1] = -ballMovementDirections[1];
+			// reseting everything after super shot
 			if(SUPER_SHOT) {
 				SUPER_SHOT = false;
 				paddle.setFillColor(Color.BLACK);
@@ -328,6 +352,8 @@ public class advancedBreakout extends GraphicsProgram {
 				}
 				POPPED_COUNT = 0;
 			}
+			
+			// after every 10 popped blocks player gets super shot which pierces everything
 			if(POPPED_COUNT >= 10) {
 				SUPER_SHOT = true;
 				paddle.setFillColor(Color.RED);
@@ -344,37 +370,46 @@ public class advancedBreakout extends GraphicsProgram {
 				}
 				brickIsLeft = true;
 				
-				// when ball hits block from left or from right
+				// if (ball's y coordinate is same as blocks and ball is hitting block from left or right) 
+				// this will make x = -x and remove block
 				if((ball.getY() + BALL_RADIUS <= bricks[i][j].getY() + BRICK_HEIGHT && ball.getY() + BALL_RADIUS >= bricks[i][j].getY()) &&
 						((ball.getX() + BALL_RADIUS*2 >= bricks[i][j].getX() && ball.getX() + BALL_RADIUS*2 <= bricks[i][j].getX() + ballMovementDirections[0] + 2) ||
 						(ball.getX() <= bricks[i][j].getX() + BRICK_WIDTH && ball.getX() >= bricks[i][j].getX() + BRICK_WIDTH + ballMovementDirections[0] - 2))) {
+					
 					bricks[i][j].setFilled(false);
 					remove(bricks[i][j]);
-					if(SUPER_SHOT) {
+					
+					if(SUPER_SHOT) { // if its super shot direction do not changes
 						continue;
 					}
-					ballMovementDirections[0] *= -1;
+					
+					ballMovementDirections[0] *= -1; // otherwise balls x direction becomes -x
 					directionChanged = true;
 				} else {
-					// when ball hits block from top or from bottom
+					// if (ball's x coordinate is same as blocks and ball is hitting block from top or bottom) 
+					// this will make y = -y and remove block
 					if(ball.getX() + BALL_RADIUS*2 >= bricks[i][j].getX() && ball.getX() <= bricks[i][j].getX() + BRICK_WIDTH &&
 							((ball.getY() >= bricks[i][j].getY() + BRICK_HEIGHT + ballMovementDirections[1] - 2 && ball.getY() <= bricks[i][j].getY() + BRICK_HEIGHT) ||
 							(ball.getY() + BALL_RADIUS*2 >= bricks[i][j].getY() && ball.getY() + BALL_RADIUS*2 <= bricks[i][j].getY()+ballMovementDirections[1]+2))) {
+						
 						bricks[i][j].setFilled(false);
 						remove(bricks[i][j]);
-						if(SUPER_SHOT) {
+						
+						if(SUPER_SHOT) { 
 							continue;
 						}
-						ballMovementDirections[1] = -ballMovementDirections[1];
+						
+						ballMovementDirections[1] = -ballMovementDirections[1]; // same but y becomes -y here
 						directionChanged = true;
 					}
 				}
 			}
 		}
+		// if direction changed that means ball popped block
 		if(directionChanged) {
 			POPPED_COUNT++;
 		}
-		// if there is not any bricks left this stops game
+		// if there is not any bricks left this stops game and takes player to next level
 		if(brickIsLeft == false) {
 			ballMovementDirections[1] = 0;
 		}
@@ -409,7 +444,7 @@ public class advancedBreakout extends GraphicsProgram {
 		return life; // function is real for this one... at the end, we return life and die >_<
 	}
 
-	// same as victoryEmote
+	// shows some text after player loses.
 	private void loserEmote() {
 		removeAll();
 		if(LEVEL > 2) {
