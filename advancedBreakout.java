@@ -449,7 +449,7 @@ public class advancedBreakout extends GraphicsProgram {
 	// shows some text after player loses.
 	private void loserEmote() {
 		removeAll();
-		if(LEVEL > 0) {
+		if(LEVEL > 1) {
 			add(new GLabel("Good job coming this far!!"), WIDTH/2 - 75, HEIGHT/2);
 		} else {
 			add(new GLabel("Nice try, better luck next time!!", WIDTH/2 - 75, HEIGHT/2));
