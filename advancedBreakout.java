@@ -65,7 +65,7 @@ public class advancedBreakout extends GraphicsProgram {
 
 ///////////////////////////////////////////   changeable global variables
 /** delay time, decrease this number to make program faster */ 
-	private long SLEEP_TIME = 8;
+	private long SLEEP_TIME = 18;
 	
 /** count of how many blocks did player pop */
 	private int POPPED_COUNT = 0;
@@ -368,6 +368,7 @@ public class advancedBreakout extends GraphicsProgram {
 					
 					// if ball is touching block from left half
 					if(Math.abs(ball.getX() + BALL_RADIUS - bricks[i][j].getX()) < BRICK_WIDTH/2) {
+						print("L");
 						// if ball is touching block from top
 						if(Math.abs(ball.getY() + BALL_RADIUS - bricks[i][j].getY()) > BRICK_HEIGHT/2) {
 							// if ball is touching from left side
