@@ -68,6 +68,7 @@ public class advancedBreakout extends GraphicsProgram {
 	private long SLEEP_TIME = 7;
 	private int POPPED_COUNT = 0;
 	private boolean SUPER_SHOT = false;
+	private int LEVEL = 0;
 	
 /* Method: run() */
 /** Runs the Breakout program. */
@@ -211,7 +212,7 @@ public class advancedBreakout extends GraphicsProgram {
 			if(ballMovementDirections[1] == 0) {
 				LEVEL++;
 				setBricks();
-				ball.setLocation(WIDTH, y);
+				ball.setLocation(WIDTH/2 - BALL_RADIUS, HEIGHT/2 - BALL_RADIUS);
 			}
 			
 			// if ball is out player loses one of the lives
@@ -253,7 +254,7 @@ public class advancedBreakout extends GraphicsProgram {
 	// function makes program have little delay to make it playable, otherwise everything will happen too fast
 	private void delay() {
 		try {
-		    Thread.sleep(7); 
+		    Thread.sleep(SLEEP_TIME - LEVEL); 
 		} catch (InterruptedException e) {
 		    Thread.currentThread().interrupt();
 		}
