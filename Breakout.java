@@ -75,7 +75,7 @@ public class Breakout extends GraphicsProgram {
 		startGame(bricks, paddle, ball);
 	}
 	
-//function sets up bricks according to color requirements and returns bricks array
+	//function sets up bricks according to color requirements and returns bricks array
 	// for each row x coordinate is updated by brick's width + separation between bricks
 	// after each row y coordinate is updated by brick's height + separation
 	private GRect [][] setBricks() {
