@@ -406,7 +406,7 @@ public class advancedBreakout extends GraphicsProgram {
 				delay();
 			}
 		}
-		return life;
+		return life; // code is real for this one... at the end, we return life and die >_<
 	}
 
 	// same as victoryEmote
