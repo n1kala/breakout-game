@@ -282,6 +282,7 @@ public class advancedBreakout extends GraphicsProgram {
 				for(int i = 0; i < MARKS_COUNT; i++) {
 					remove(marks[i]);
 				}
+				POPPED_COUNT = 0;
 			}
 			if(POPPED_COUNT%10 == 0 && POPPED_COUNT != 0) {
 				SUPER_SHOT = true;
