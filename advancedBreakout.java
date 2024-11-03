@@ -298,17 +298,16 @@ public class advancedBreakout extends GraphicsProgram {
 					continue;
 				}
 				brickIsLeft = true;
-				if(SUPER_SHOT) {
-					bricks[i][j].setFilled(false);
-					remove(bricks[i][j]);
-					continue;
-				}
+				
 				// when ball hits block from left or from right
 				if((ball.getY() + BALL_RADIUS <= bricks[i][j].getY() + BRICK_HEIGHT && ball.getY() + BALL_RADIUS >= bricks[i][j].getY()) &&
 						((ball.getX() + BALL_RADIUS*2 >= bricks[i][j].getX() && ball.getX() + BALL_RADIUS*2 <= bricks[i][j].getX() + ballMovementDirections[0] + 2) ||
 						(ball.getX() <= bricks[i][j].getX() + BRICK_WIDTH && ball.getX() >= bricks[i][j].getX() + BRICK_WIDTH + ballMovementDirections[0] - 2))) {
 					bricks[i][j].setFilled(false);
 					remove(bricks[i][j]);
+					if(SUPER_SHOT) {
+						continue;
+					}
 					ballMovementDirections[0] *= -1;
 					directionChanged = true;
 				} else {
@@ -318,6 +317,9 @@ public class advancedBreakout extends GraphicsProgram {
 							(ball.getY() + BALL_RADIUS*2 >= bricks[i][j].getY() && ball.getY() + BALL_RADIUS*2 <= bricks[i][j].getY()+ballMovementDirections[1]+2))) {
 						bricks[i][j].setFilled(false);
 						remove(bricks[i][j]);
+						if(SUPER_SHOT) {
+							continue;
+						}
 						ballMovementDirections[1] = -ballMovementDirections[1];
 						directionChanged = true;
 					}
