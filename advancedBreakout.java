@@ -172,10 +172,13 @@ public class advancedBreakout extends GraphicsProgram {
 	private void setLevelLabel() {
 		GLabel level = new GLabel("LEVEL----> " + (LEVEL+1), WIDTH/2 - 30, HEIGHT/2 - 45);
 		level.setColor(Color.BLUE);
-		GLabel text = new GLabel("Lets see how far will you get. My personal best is level 4. Good luck!", WIDTH/2 - 180, HEIGHT/2 - 60);
-		text.setColor(Color.RED);
+		GLabel text = new GLabel("Lets see how far will you get. My personal best is level 4. Good luck!", WIDTH/2 - 180, HEIGHT/2 - 80);
+		text.setColor(Color.YELLOW);
+		GLabel reminder = new GLabel("Remember, after poping at least 10 blocks you will get super shot!", WIDTH/2 - 180, HEIGHT/2 - 60);
 		
-		add(text);
+		if(LEVEL == 0) {
+			add(text);
+		}
 		add(level);
 	}
 	
