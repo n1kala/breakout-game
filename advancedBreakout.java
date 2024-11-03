@@ -190,7 +190,7 @@ public class advancedBreakout extends GraphicsProgram {
 			// super shot pops up to 3 blocks until getting back
 			if(SUPER_SHOT) {
 				leaveMark(marks, ballMovementDirections, count, ball);
-				ball.setFillColor(Color.RED);
+				ball.setFillColor(Color.ORANGE);
 			}
 			
 			// changing ball's position
@@ -245,7 +245,7 @@ public class advancedBreakout extends GraphicsProgram {
 		double r = BALL_RADIUS;
 		marks[count%MARKS_COUNT] = new GLine(ball.getX() + r, ball.getY() + r,
 				ball.getX() + ballMovementDirections[0] + r, ball.getY() + ballMovementDirections[1] + r);
-		marks[count%MARKS_COUNT].setColor(Color.RED);
+		marks[count%MARKS_COUNT].setColor(Color.ORANGE);
 		add(marks[count%MARKS_COUNT]);
 	}
 	
@@ -298,6 +298,11 @@ public class advancedBreakout extends GraphicsProgram {
 					continue;
 				}
 				brickIsLeft = true;
+				if(SUPER_SHOT) {
+					bricks[i][j].setFilled(false);
+					remove(bricks[i][j]);
+					continue;
+				}
 				// when ball hits block from left or from right
 				if((ball.getY() + BALL_RADIUS <= bricks[i][j].getY() + BRICK_HEIGHT && ball.getY() + BALL_RADIUS >= bricks[i][j].getY()) &&
 						((ball.getX() + BALL_RADIUS*2 >= bricks[i][j].getX() && ball.getX() + BALL_RADIUS*2 <= bricks[i][j].getX() + ballMovementDirections[0] + 2) ||
