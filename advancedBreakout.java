@@ -380,8 +380,8 @@ public class advancedBreakout extends GraphicsProgram {
 		}
 		
 		if(temp0 != ballMovementDirections[0] || temp1 != ballMovementDirections[1]) {
-			// makeSound();
-			// line 383 will make sound everytime ball hits something, but it lags on my computer 
+			 makeSound();
+			// line above this will make sound whlie ball hits something, but it lags on my computer for some reason
 		}
 		
 		return ballMovementDirections;
@@ -406,7 +406,7 @@ public class advancedBreakout extends GraphicsProgram {
 				delay();
 			}
 		}
-		return life; // code is real for this one... at the end, we return life and die >_<
+		return life; // function is real for this one... at the end, we return life and die >_<
 	}
 
 	// same as victoryEmote
