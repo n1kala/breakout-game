@@ -437,6 +437,7 @@ public class advancedBreakout extends GraphicsProgram {
 								}
 							}
 						}
+					}
 					directionChanged = true;
 				}
 				
