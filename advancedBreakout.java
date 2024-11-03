@@ -274,7 +274,7 @@ public class advancedBreakout extends GraphicsProgram {
 
 	// function changes ball's directions according to where did it hit
 	private double [] directionChanges(double [] ballMovementDirections, GOval paddle, GOval ball, GRect [][] bricks, GLine [] marks) {
-		double [] temp = ballMovementDirections;
+		double temp0 = ballMovementDirections[0], temp1 = ballMovementDirections[1];
 		
 		// when ball hits right wall
 		if(ball.getX() >= WIDTH - BALL_RADIUS*2) {
@@ -379,7 +379,7 @@ public class advancedBreakout extends GraphicsProgram {
 			ballMovementDirections[1] = 0;
 		}
 		
-		if(temp[0] != ballMovementDirections[0] && temp[1] != ballMovementDirections[1]) {
+		if(temp0 != ballMovementDirections[0] && temp1 != ballMovementDirections[1]) {
 			makeSound();
 			print("S");
 		}
