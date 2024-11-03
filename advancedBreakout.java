@@ -101,7 +101,10 @@ public class advancedBreakout extends GraphicsProgram {
 		int count = 0; // count of loops in while true loop, i use it in order to add marks of ball's movement
 		
 		while(true) {
-			
+			if(LEVEL == 9) {
+				victoryEmote();
+				break;
+			}
 			
 			// makes super shot after popping 10 blocks which 
 			// super shot pops up to 3 blocks until getting back
@@ -462,6 +465,11 @@ public class advancedBreakout extends GraphicsProgram {
 		} else {
 			add(new GLabel("Nice try, better luck next time!!", WIDTH/2 - 75, HEIGHT/2));
 		}
+	}
+	
+	private void victoryEmote() {
+		removeAll();
+		add(new GLabel("Congratulations!!!!! I never throught beating this game was possible, well done!!", WIDTH/2 - 160, HEIGHT/2));
 	}
 }
 
