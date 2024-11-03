@@ -65,7 +65,7 @@ public class advancedBreakout extends GraphicsProgram {
 
 ///////////////////////////////////////////   changeable global variables
 /** delay time, decrease this number to make program faster */ 
-	private long SLEEP_TIME = 7;
+	private long SLEEP_TIME = 8;
 	
 /** count of how many blocks did player pop */
 	private int POPPED_COUNT = 0;
@@ -74,7 +74,7 @@ public class advancedBreakout extends GraphicsProgram {
 	private boolean SUPER_SHOT = false;
 	
 /** if player pops all the blocks he goes to next level where ball moves faster */
-	private int LEVEL = 0;
+	private int LEVEL = 1;
 	
 /* Method: run() */
 
