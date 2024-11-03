@@ -307,15 +307,15 @@ public class advancedBreakout extends GraphicsProgram {
 		double temp0 = ballMovementDirections[0], temp1 = ballMovementDirections[1];
 		
 		// when ball hits right wall
-		if(ball.getX() >= WIDTH - BALL_RADIUS*2) {
+		if(ball.getX() >= WIDTH - BALL_RADIUS*2 - 8) {
 			ballMovementDirections[0] = -ballMovementDirections[0];
 		}
 		// when ball hits left wall
-		if(ball.getX() <= 0) {
+		if(ball.getX() <= 8) {
 			ballMovementDirections[0] = -ballMovementDirections[0];
 		}
 		// when ball hits top wall
-		if(ball.getY() <= 5) {
+		if(ball.getY() <= 8) {
 			ballMovementDirections[1] = -ballMovementDirections[1];
 		}
 		// when ball hits paddle
