@@ -217,7 +217,11 @@ public class Breakout extends GraphicsProgram {
 		boolean brickIsLeft = false;
 		boolean directionChanged = false;
 		for(int i = 0; i < NBRICK_ROWS; i++) {
+			boolean ballIsMovingRight = ballMovementDirections[0] > 0;
 			for(int j = 0; j < NBRICKS_PER_ROW; j++) {
+				if(ballIsMovingRight == false) {
+					j = NBRICKS_PER_ROW - 1 - j;
+				}
 				// when block is already taken out
 				if(bricks[i][j].isFilled() == false || directionChanged) {
 					continue;
@@ -280,7 +284,12 @@ public class Breakout extends GraphicsProgram {
 					}
 					directionChanged = true;
 				}
+				
+				if(ballIsMovingRight == false) {
+					j = NBRICKS_PER_ROW - 1 - j;
+				}
 			}
+			
 		}
 		// if there is not any bricks left this stops game
 		if(brickIsLeft == false) {
