@@ -75,7 +75,9 @@ public class Breakout extends GraphicsProgram {
 		startGame(bricks, paddle, ball);
 	}
 	
-	// function sets up bricks according to color requirements and returns bricks array
+//function sets up bricks according to color requirements and returns bricks array
+	// for each row x coordinate is updated by brick's width + separation between bricks
+	// after each row y coordinate is updated by brick's height + separation
 	private GRect [][] setBricks() {
 		GRect [][] bricks = new GRect[NBRICK_ROWS][NBRICKS_PER_ROW];
 		
@@ -104,7 +106,7 @@ public class Breakout extends GraphicsProgram {
 		return bricks;
 	}
 
-	// function sets up paddle and returns GRect of paddle
+	// function sets up paddle
 	private GRect setPaddle() {
 		GRect padle = new GRect(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT, PADDLE_WIDTH, PADDLE_HEIGHT);
 		padle.setFilled(true);
@@ -112,7 +114,7 @@ public class Breakout extends GraphicsProgram {
 		return padle;
 	}
 	
-	// same but on ball
+	// function sets up ball
 	private GOval setBall() {
 		GOval ball = new GOval(getWidth()/2 - BALL_RADIUS*2, getHeight()/2, BALL_RADIUS*2, BALL_RADIUS*2);
 		ball.setFilled(true);
@@ -121,6 +123,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	// function sets up walls
+	// in reality its just for GRect next to each other with different colors
 	private void setFrame() {
 		GRect frame1 = new GRect(0,0,WIDTH,HEIGHT);
 		GRect frame2 = new GRect(1,1,WIDTH-2,HEIGHT-2);
@@ -139,13 +142,13 @@ public class Breakout extends GraphicsProgram {
 	// function is infinity loop which updates positions of game objects
 	private void startGame(GRect [][] bricks, GRect paddle, GOval ball) {
 		int life = NTURNS;
-		double ballMovementDirections [] = {(Math.random()-0.5)*4, 3}; // movement on X and Y
+		double ballMovementDirections [] = {(Math.random()-0.5)*4, 3}; // ball's movement on X and Y
 		
 		while(true) {
 			// changing ball's position
 			ball.setLocation(ball.getX() + ballMovementDirections[0], ball.getY() + ballMovementDirections[1]);
 			
-			// moves paddle
+			// moves paddle closer to mouse's X location
 			double padleX = moveDirection(paddle.getX()); 
 			if((paddle.getX() + PADDLE_WIDTH < WIDTH && padleX == 1) || (paddle.getX() > 0 && padleX == -1)) {
 				paddle.setLocation(paddle.getX() + padleX*3, paddle.getY());
@@ -183,7 +186,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	// function makes program have little delay to make it playable, otherwise everything will happen too fast
-	// i copied this note from Microsoft copilot 
+	// i copied this note from Microsoft Copilot 
 	private void delay() {
 		try {
 		    Thread.sleep(SLEEP_TIME); 
@@ -220,7 +223,8 @@ public class Breakout extends GraphicsProgram {
 					continue;
 				}
 				brickIsLeft = true;
-				// when ball hits block from left or from right
+			// if (ball's y coordinate is same as blocks and ball is hitting block from left or right) 
+				// this will make x = -x and remove block
 				if((ball.getY() + BALL_RADIUS <= bricks[i][j].getY() + BRICK_HEIGHT && ball.getY() + BALL_RADIUS >= bricks[i][j].getY()) &&
 						((ball.getX() + BALL_RADIUS*2 >= bricks[i][j].getX() && ball.getX() + BALL_RADIUS*2 <= bricks[i][j].getX() + ballMovementDirections[0] + 2) ||
 						(ball.getX() <= bricks[i][j].getX() + BRICK_WIDTH && ball.getX() >= bricks[i][j].getX() + BRICK_WIDTH + ballMovementDirections[0] - 2))) {
@@ -229,7 +233,8 @@ public class Breakout extends GraphicsProgram {
 					ballMovementDirections[0] *= -1;
 					directionChanged = true;
 				} else {
-					// when ball hits block from top or from bottom
+				// if (ball's x coordinate is same as blocks and ball is hitting block from top or bottom) 
+					// this will make y = -y and remove block
 					if(ball.getX() + BALL_RADIUS*2 >= bricks[i][j].getX() && ball.getX() <= bricks[i][j].getX() + BRICK_WIDTH &&
 							((ball.getY() >= bricks[i][j].getY() + BRICK_HEIGHT + ballMovementDirections[1] - 2 && ball.getY() <= bricks[i][j].getY() + BRICK_HEIGHT) ||
 							(ball.getY() + BALL_RADIUS*2 >= bricks[i][j].getY() && ball.getY() + BALL_RADIUS*2 <= bricks[i][j].getY()+ballMovementDirections[1]+2))) {
