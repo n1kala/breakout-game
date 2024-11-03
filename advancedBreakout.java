@@ -61,7 +61,7 @@ public class advancedBreakout extends GraphicsProgram {
 	private static final int NTURNS = 3;
 	
 /** Number of marks while super shot is active */
-	private static final int MARKS_COUNT = 40;
+	private static final int MARKS_COUNT = 100;
 
 ///////////////////////////////////////////
 /** Sleep time, decrease this number to make program faster */ 
@@ -190,7 +190,7 @@ public class advancedBreakout extends GraphicsProgram {
 			// super shot pops up to 3 blocks until getting back
 			if(SUPER_SHOT) {
 				leaveMark(marks, ballMovementDirections, count, ball);
-				ball.setFillColor(Color.ORANGE);
+				ball.setFillColor(Color.RED);
 			}
 			
 			// changing ball's position
