@@ -183,7 +183,7 @@ public class Breakout extends GraphicsProgram {
 	// i copied this note from Microsoft copilot 
 	private void delay() {
 		try {
-		    Thread.sleep(7); 
+		    Thread.sleep(4); 
 		} catch (InterruptedException e) {
 		    Thread.currentThread().interrupt();
 		}
