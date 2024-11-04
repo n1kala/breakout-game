@@ -375,7 +375,7 @@ public class advancedBreakout extends GraphicsProgram {
 				}
 				
 				// if ball is hitting next block in column continue
-				if(i < NBRICK_ROWS - 1 && bricks[i+1][j].isFilled() == true && bricks[i+1][j].getY() - (ball.getY() + BALL RADIUS) < BRICK_SEP/2) {
+				if(i < NBRICK_ROWS - 1 && bricks[i+1][j].isFilled() == true && bricks[i+1][j].getY() - (ball.getY() + BALL_RADIUS) < BRICK_SEP/2) {
 					continue;
 				}
 				
