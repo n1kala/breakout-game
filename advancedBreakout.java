@@ -188,10 +188,10 @@ public class advancedBreakout extends GraphicsProgram {
 			}
 			
 			// if ball is out player loses one of the lives
-			life = looseBall(ball, paddle, ballMovementDirections, life);
+			life = looseBall(ball, paddle, ballMovementDirections, life, false);
 			if(ball1 != null) {
 				int tempLife = life;
-				life = looseBall(ball1, paddle, ballMovementDirections1, life);
+				life = looseBall(ball1, paddle, ballMovementDirections1, life, true);
 				if(tempLife != life) {
 					ball1 = null;
 				}
@@ -199,7 +199,7 @@ public class advancedBreakout extends GraphicsProgram {
 			
 			if(ball2 != null) {
 				int tempLife = life;
-				life = looseBall(ball2, paddle, ballMovementDirections2, life);
+				life = looseBall(ball2, paddle, ballMovementDirections2, life, true);
 				if(tempLife != life) {
 					ball2 = null;
 				}
@@ -207,7 +207,7 @@ public class advancedBreakout extends GraphicsProgram {
 			
 			if(ball3 != null) {
 				int tempLife = life;
-				life = looseBall(ball3, paddle, ballMovementDirections3, life);
+				life = looseBall(ball3, paddle, ballMovementDirections3, life, true);
 				if(tempLife != life) {
 					ball3 = null;
 				}
@@ -550,17 +550,20 @@ public class advancedBreakout extends GraphicsProgram {
 	}
 	
 	// function checks if player did not manage save the ball and in that case resets locations of paddle and ball
-	private int looseBall(GOval ball, GOval paddle, double [] ballMovementDirections, int life) {
+	private int looseBall(GOval ball, GOval paddle, double [] ballMovementDirections, int life, boolean additionalBall) {
 		if(ball.getY() > paddle.getY()) {
-			ball.setLocation(WIDTH/2 - BALL_RADIUS, HEIGHT/2);
-			paddle.setLocation(WIDTH/2 - PADDLE_WIDTH/2, HEIGHT - PADDLE_Y_OFFSET - PADDLE_HEIGHT);
-			ballMovementDirections[0] = (Math.random()-0.5)*4;
-			ballMovementDirections[1] = 3;
-			life--;
-			// makes little delay until next ball spawns to correct mouse position
-			for(int i = 0; i < 100; i++) {
-				delay();
+			if(additionalBall == false) {
+				ball.setLocation(WIDTH/2 - BALL_RADIUS, HEIGHT/2);
+				paddle.setLocation(WIDTH/2 - PADDLE_WIDTH/2, HEIGHT - PADDLE_Y_OFFSET - PADDLE_HEIGHT);
+				ballMovementDirections[0] = (Math.random()-0.5)*4;
+				ballMovementDirections[1] = 3;
+				// makes little delay until next ball spawns to correct mouse position
+				for(int i = 0; i < 100; i++) {
+					delay();
+				}
 			}
+			life--;
+			
 		}
 		return life; // function is real for this one... at the end, we return life and die >_<
 	}
