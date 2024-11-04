@@ -137,6 +137,15 @@ public class advancedBreakout extends GraphicsProgram {
 			
 			// changing ball's position
 			ball.setLocation(ball.getX() + ballMovementDirections[0], ball.getY() + ballMovementDirections[1]);
+			if(ball1 != null) {
+				ball1.setLocation(ball1.getX() + ballMovementDirections1[0], ball1.getY() + ballMovementDirections1[1]);
+			}
+			if(ball2 != null) {
+				ball2.setLocation(ball2.getX() + ballMovementDirections2[0], ball2.getY() + ballMovementDirections2[1]);
+			}
+			if(ball3 != null) {
+				ball3.setLocation(ball3.getX() + ballMovementDirections3[0], ball3.getY() + ballMovementDirections3[1]);
+			}
 			
 			// moves paddle close to mouse's x coordinate
 			double padleX = moveDirection(paddle.getX()); 
