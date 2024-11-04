@@ -84,7 +84,7 @@ public class advancedBreakout extends GraphicsProgram {
 /** laser shot */
 	private boolean mouseIsDown = false;
 	private boolean laserIsAvaliable = true;
-	private double LASER_WIDTH = 400;
+	private double LASER_WIDTH = 200;
 /* Method: run() */
 
 	public void run() {
