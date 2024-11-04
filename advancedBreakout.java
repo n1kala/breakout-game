@@ -194,10 +194,10 @@ public class advancedBreakout extends GraphicsProgram {
 			}
 			
 			// if ball is out player loses one of the lives
-			life = looseBall(ball, paddle, ballMovementDirections, life, ball1, false);
+			life = looseBall(ball, paddle, ballMovementDirections, life, ball1, ball2, ball3, false);
 			if(ball1 != null) {
 				int tempLife = life;
-				life = looseBall(ball1, paddle, ballMovementDirections1, life, ball1, true);
+				life = looseBall(ball1, paddle, ballMovementDirections1, life, ball1, ball2, ball3, true);
 				if(tempLife != life) {
 					ball1 = null;
 				}
@@ -205,7 +205,7 @@ public class advancedBreakout extends GraphicsProgram {
 			
 			if(ball2 != null) {
 				int tempLife = life;
-				life = looseBall(ball2, paddle, ballMovementDirections2, life, ball1, true);
+				life = looseBall(ball2, paddle, ballMovementDirections2, life, ball1, ball2, ball3, true);
 				if(tempLife != life) {
 					ball2 = null;
 				}
@@ -213,7 +213,7 @@ public class advancedBreakout extends GraphicsProgram {
 			
 			if(ball3 != null) {
 				int tempLife = life;
-				life = looseBall(ball3, paddle, ballMovementDirections3, life, ball1, true);
+				life = looseBall(ball3, paddle, ballMovementDirections3, life, ball1, ball2, ball3, true);
 				if(tempLife != life) {
 					ball3 = null;
 				}
@@ -556,7 +556,7 @@ public class advancedBreakout extends GraphicsProgram {
 	}
 	
 	// function checks if player did not manage save the ball and in that case resets locations of paddle and ball
-	private int looseBall(GOval ball, GOval paddle, double [] ballMovementDirections, int life, GOval ball1, boolean additionalBall) {
+	private int looseBall(GOval ball, GOval paddle, double [] ballMovementDirections, int life, GOval ball1, GOval ball2, GOval ball3, boolean additionalBall) {
 		if(ball.getY() > paddle.getY()) {
 			if(additionalBall == false) {
 				ball.setLocation(WIDTH/2 - BALL_RADIUS, HEIGHT/2);
@@ -564,7 +564,7 @@ public class advancedBreakout extends GraphicsProgram {
 				ballMovementDirections[0] = (Math.random()-0.5)*4;
 				ballMovementDirections[1] = 3;
 				// makes little delay until next ball spawns to correct mouse position
-				if(ball1 == null) {
+				if(ball1 == null && ball2 == null && ball3 == null) {
 					for(int i = 0; i < 100; i++) {
 						delay();
 					}
