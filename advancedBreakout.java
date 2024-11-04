@@ -302,7 +302,7 @@ public class advancedBreakout extends GraphicsProgram {
 	
 	// setting up ball
 	private GOval setBall(double x, double y) {
-		GOval ball = new GOval(x, y);
+		GOval ball = new GOval(x, y, BALL_RADIUS*2, BALL_RADIUS*2);
 		ball.setFilled(true);
 		add(ball);
 		return ball;
