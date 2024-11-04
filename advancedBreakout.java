@@ -562,7 +562,9 @@ public class advancedBreakout extends GraphicsProgram {
 		if(ball.getY() > paddle.getY()) {
 			if(additionalBall == false) {
 				ball.setLocation(WIDTH/2 - BALL_RADIUS, HEIGHT/2);
-				paddle.setLocation(WIDTH/2 - PADDLE_WIDTH/2, HEIGHT - PADDLE_Y_OFFSET - PADDLE_HEIGHT);
+				if(ball1 == null && ball2 == null && ball3 == null) {
+					paddle.setLocation(WIDTH/2 - PADDLE_WIDTH/2, HEIGHT - PADDLE_Y_OFFSET - PADDLE_HEIGHT);
+				}
 				ballMovementDirections[0] = (Math.random()-0.5)*4;
 				ballMovementDirections[1] = 3;
 				// makes little delay until next ball spawns to correct mouse position
