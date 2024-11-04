@@ -143,7 +143,7 @@ public class advancedBreakout extends GraphicsProgram {
 			if(mouseIsOnPaddle && laserIsAvaliable) {
 				
 				print("WORKS");
-				laserIsAvaliable = false;
+				//laserIsAvaliable = false;
 //				shootLaser(bricks);
 			}
 			
