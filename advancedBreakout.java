@@ -97,6 +97,11 @@ public class advancedBreakout extends GraphicsProgram {
 		startGame(bricks, paddle, ball);
 	}
 	
+	public void run() {
+		waitForClick();
+		mouseIsDown = true;
+	}
+	
 	// function is infinity loop which updates positions of game objects
 	private void startGame(GRect [][] bricks, GOval paddle, GOval ball) {
 		
@@ -129,7 +134,6 @@ public class advancedBreakout extends GraphicsProgram {
 				leaveMark(marks, ballMovementDirections, count, ball);
 				ball.setFillColor(Color.ORANGE);
 			}
-			
 			// makes laser charge
 			if(mouseIsDown && laserIsAvaliable) {
 				print("WORKS");
@@ -599,12 +603,6 @@ public class advancedBreakout extends GraphicsProgram {
 		add(new GLabel("Congratulations!!!!! I never throught beating this game was possible, well done!!", WIDTH/2 - 160, HEIGHT/2));
 	}
 	
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		super.mouseClicked(e);
-		mouseIsDown = true;
-	}
 }
 
 
