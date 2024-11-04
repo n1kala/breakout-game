@@ -82,7 +82,7 @@ public class advancedBreakout extends GraphicsProgram {
 	private double newBallY;
 	
 /** laser shot */
-	private boolean mouseIsDown = false;
+	private boolean mouseIsOnPaddle = false;
 	private boolean laserIsAvaliable = true;
 /* Method: run() */
 
@@ -131,8 +131,17 @@ public class advancedBreakout extends GraphicsProgram {
 				ball.setFillColor(Color.ORANGE);
 			}
 			
+			double mouseX = MouseInfo.getPointerInfo().getLocation().getX();
+			double mouseY = MouseInfo.getPointerInfo().getLocation().getY();
+			
+			if(mouseX <= paddle.getX() + PADDLE_WIDTH && mouseX >= paddle.getX() && 
+					mouseY >= paddle.getY() && mouseY <= paddle.getY() + PADDLE_HEIGHT) {
+				mouseIsOnPaddle = true;
+			}
+			
 			// makes laser charge
-			if(mouseIsDown && laserIsAvaliable) {
+			if(mouseIsOnPaddle && laserIsAvaliable) {
+				
 				print("WORKS");
 				laserIsAvaliable = false;
 //				shootLaser(bricks);
