@@ -84,6 +84,7 @@ public class advancedBreakout extends GraphicsProgram {
 /** laser shot */
 	private boolean mouseIsOnPaddle = false;
 	private boolean laserIsAvaliable = true;
+	private double LASER_WIDTH = 6;
 /* Method: run() */
 
 	public void run() {
@@ -118,6 +119,9 @@ public class advancedBreakout extends GraphicsProgram {
 		
 		int popped = 0;
 		
+		int lineStart = 0;
+		int lineEnd = (int)LASER_WIDTH*2-1;
+		
 		while(true) {
 			if(LEVEL == 9) {
 				victoryEmote();
@@ -140,11 +144,23 @@ public class advancedBreakout extends GraphicsProgram {
 				println("S");
 			}
 			
+			GLine [] laser = null;
+			
 			// makes laser charge
 			if(mouseIsOnPaddle && laserIsAvaliable) {				
 				laserIsAvaliable = false;
-				shootLaser(bricks, paddle.getX() + PADDLE_WIDTH/2);
+				laser = shootLaser(bricks, paddle.getX() + PADDLE_WIDTH/2, paddle);
 			}
+			
+			if(laser != null) {
+				if(lineStart < lineEnd) {
+					remove(laser[lineStart]);
+					remove(laser[lineEnd]);
+					lineStart++;
+					lineEnd--;
+				}
+			}
+			
 			
 			if(addBalls) {
 				addBalls = false;
@@ -200,6 +216,8 @@ public class advancedBreakout extends GraphicsProgram {
 			if(ballMovementDirections[1] == 0) {
 				LEVEL++;
 				laserIsAvaliable = true;
+				lineStart = 0;
+				lineEnd = (int)LASER_WIDTH*2 - 1;
 				removeAll();
 				ball1 = null;
 				ball2 = null;
@@ -249,8 +267,26 @@ public class advancedBreakout extends GraphicsProgram {
 		}
 	}
 	
-	private void shootLaser(GRect [][] bricks, double x, double y) {
-		
+	private GLine [] shootLaser(GRect [][] bricks, double x, GOval paddle) {
+		for(int i = 0; i < NBRICK_ROWS; i++) {
+			for(int j = 0; j < NBRICKS_PER_ROW; j++) {
+				if(bricks[i][j].getX() <= x + LASER_WIDTH && bricks[i][j].getX() + BRICK_WIDTH >= x - LASER_WIDTH) {
+					bricks[i][j].setFilled(false);
+					remove(bricks[i][j]);
+				}
+			}
+		}
+		GLine laser [] = new GLine[(int)LASER_WIDTH*2];
+		for(int i = 0; i < LASER_WIDTH*2; i++) {
+			laser[i].setStartPoint(paddle.getX() + PADDLE_WIDTH/2 - LASER_WIDTH + i, paddle.getY());
+			laser[i].setEndPoint(paddle.getX() + PADDLE_WIDTH/2 - LASER_WIDTH + i, 0);
+			if(i%2 == 0) {
+				laser[i].setColor(Color.RED);
+			} else {
+				laser[i].setColor(Color.BLACK);
+			}
+		}
+		return laser;
 	}
 
 	// function sets up play button and waits until player clicks mouse to start the game
