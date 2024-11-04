@@ -141,7 +141,6 @@ public class advancedBreakout extends GraphicsProgram {
 			if(mouseX <= paddle.getX() + PADDLE_WIDTH && mouseX >= paddle.getX() && 
 					mouseY >= paddle.getY() && mouseY <= paddle.getY() + PADDLE_HEIGHT) {
 				mouseIsOnPaddle = true;
-				println("S");
 			}
 			
 			GLine [] laser = null;
@@ -278,8 +277,8 @@ public class advancedBreakout extends GraphicsProgram {
 		}
 		GLine laser [] = new GLine[(int)LASER_WIDTH*2];
 		for(int i = 0; i < LASER_WIDTH*2; i++) {
-			laser[i].setStartPoint(paddle.getX() + PADDLE_WIDTH/2 - LASER_WIDTH + i, paddle.getY());
-			laser[i].setEndPoint(paddle.getX() + PADDLE_WIDTH/2 - LASER_WIDTH + i, 0);
+			laser[i] = new GLine(paddle.getX() + PADDLE_WIDTH/2 - LASER_WIDTH + i, paddle.getY(),
+					paddle.getX() + PADDLE_WIDTH/2 - LASER_WIDTH + i, 0);
 			if(i%2 == 0) {
 				laser[i].setColor(Color.RED);
 			} else {
