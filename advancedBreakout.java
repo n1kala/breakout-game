@@ -123,7 +123,7 @@ public class advancedBreakout extends GraphicsProgram {
 		int lineEnd = (int)LASER_WIDTH*2-1;
 		
 		GLine [] laser = null;
-		int laserDelay = 3;
+		int laserDelay = 6;
 		
 		while(true) {
 			if(LEVEL == 9) {
@@ -160,7 +160,7 @@ public class advancedBreakout extends GraphicsProgram {
 					remove(laser[lineEnd]);
 					lineStart++;
 					lineEnd--;
-					laserDelay = 3;
+					laserDelay = 6;
 				}
 			}
 			
