@@ -602,7 +602,7 @@ public class advancedBreakout extends GraphicsProgram {
 	public boolean mouseDown(Event evt, int x, int y) {
 		mouseIsDown = true;
 		
-		return super.mouseDown(evt, x, y);
+		return true;
 	}
 }
 
