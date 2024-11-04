@@ -328,7 +328,7 @@ public class advancedBreakout extends GraphicsProgram {
 		GLabel reminder1 = new GLabel("Also do not forget to use paddle's built in laser with mouse click!", WIDTH/2 - 180, HEIGHT/2 - 60);
 		reminder1.setColor(Color.MAGENTA);
 		
-		if(LEVEL == 0) {
+		if(LEVEL == 1) {
 			add(text);
 			add(reminder);
 			add(reminder1);
