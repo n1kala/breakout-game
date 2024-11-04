@@ -154,7 +154,7 @@ public class Breakout extends GraphicsProgram {
 				paddle.setLocation(paddle.getX() + padleX*3, paddle.getY());
 			}
 			
-			delay();
+			pause(SLEEP_TIME);
 	
 			ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks);
 			
@@ -183,16 +183,6 @@ public class Breakout extends GraphicsProgram {
 			return -1;
 		}
 		return 0;
-	}
-	
-	// function makes program have little delay to make it playable, otherwise everything will happen too fast
-	// i copied this note from Microsoft Copilot 
-	private void delay() {
-		try {
-		    Thread.sleep(SLEEP_TIME); 
-		} catch (InterruptedException e) {
-		    Thread.currentThread().interrupt();
-		}
 	}
 
 	// function changes ball's directions according to where did it hit
