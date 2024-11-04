@@ -275,7 +275,7 @@ public class Breakout extends GraphicsProgram {
 						// if ball is touching from top 
 						if(ballY + BALL_RADIUS - brickY < BRICK_HEIGHT/2) {
 							// if ball is touching from top side 
-							// or ball is moving to right because that time it can nott be touching block from right side
+							// or ball is moving to right because that time it can not be touching block from right side
 							if(brickX + BRICK_WIDTH - ballX > ballY + BALL_RADIUS*2 - brickY || ballMovementDirections[0] >= 0) {
 								ballMovementDirections[1] *= -1;
 							} else {
