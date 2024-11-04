@@ -272,7 +272,8 @@ public class advancedBreakout extends GraphicsProgram {
 	private GLine [] shootLaser(GRect [][] bricks, double x, GOval paddle) {
 		for(int i = 0; i < NBRICK_ROWS; i++) {
 			for(int j = 0; j < NBRICKS_PER_ROW; j++) {
-				if(bricks[i][j].getX() <= x + LASER_WIDTH && bricks[i][j].getX() + BRICK_WIDTH >= x - LASER_WIDTH) {
+				if(bricks[i][j].getX() <= x + LASER_WIDTH && bricks[i][j].getX() + BRICK_WIDTH >= x - LASER_WIDTH
+						&& bricks[i][j].getFillColor() != null) {
 					bricks[i][j].setFilled(false);
 					remove(bricks[i][j]);
 				}
