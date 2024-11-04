@@ -80,7 +80,7 @@ public class advancedBreakout extends GraphicsProgram {
 
 	public void run() {
 		/* for some reason setSize does not set size same as passed values so I needed to add 18 and 72 */
-		setSize(APPLICATION_WIDTH + 18, APPLICATION_HEIGHT + 72);
+		setSize(WIDTH + 18, HEIGHT + 72);
 		setPlayButton();
 		GRect [][] bricks = setBricks();
 		GOval paddle = setPaddle();
@@ -236,7 +236,7 @@ public class advancedBreakout extends GraphicsProgram {
 		};
 		
 		for(int y = 70,paint = 0,i = 0; y < BRICK_Y_OFFSET+NBRICK_ROWS*BRICK_HEIGHT + (NBRICK_ROWS-1)*BRICK_SEP; y += BRICK_HEIGHT + BRICK_SEP, paint++, i++) {
-			for(int x = BRICK_SEP/2,j = 0; x < APPLICATION_WIDTH; x += BRICK_WIDTH + BRICK_SEP, j++) {
+			for(int x = BRICK_SEP/2,j = 0; x < WIDTH; x += BRICK_WIDTH + BRICK_SEP, j++) {
 				bricks[i][j] = new GRect(x,y,BRICK_WIDTH,BRICK_HEIGHT);
 				bricks[i][j].setFilled(true);
 				bricks[i][j].setColor(Color.getHSBColor(colors[paint][0], colors[paint][1], colors[paint][2]));
