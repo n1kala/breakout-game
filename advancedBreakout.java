@@ -374,22 +374,7 @@ public class advancedBreakout extends GraphicsProgram {
 				ball.getX() + ballMovementDirections[0] + r, ball.getY() + ballMovementDirections[1] + r);
 		marks[count%MARKS_COUNT].setColor(Color.ORANGE);
 		add(marks[count%MARKS_COUNT]);
-	}
-	
-//	// function makes program have little delay to make it playable, otherwise everything will happen too fast
-//	// i copied delay()'s code from Microsoft Copilot
-//	private void delay() {
-//		try {
-//		    Thread.sleep(SLEEP_TIME - LEVEL); 
-//		} catch (InterruptedException e) {
-//		    Thread.currentThread().interrupt();
-//		}
-//	}
-
-	public void mouseEntered(MouseEvent e) {  
-    println("Mouse Entered");  
-
-}  
+	} 
 	
 	// function changes ball's directions according to where did it hit
 	private double [] directionChanges(double [] ballMovementDirections, GOval paddle, GOval ball, GRect [][] bricks, GLine [] marks, boolean addedBall) {
