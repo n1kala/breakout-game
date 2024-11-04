@@ -223,6 +223,7 @@ public class advancedBreakout extends GraphicsProgram {
 				paddle = setPaddle();
 				ball = setBall(WIDTH/2, HEIGHT/2);
 				setFrame();
+				makeDelay();
 				startGame(bricks, paddle, ball);
 				break;
 			}
@@ -622,9 +623,7 @@ public class advancedBreakout extends GraphicsProgram {
 				ballMovementDirections[1] = 3;
 				// makes little delay until next ball spawns to correct mouse position
 				if(ball1 == null && ball2 == null && ball3 == null) {
-					for(int i = 0; i < 100; i++) {
-						pause(SLEEP_TIME - LEVEL);
-					}
+					makeDelay();
 				}
 			} else {
 				remove(ball);
@@ -634,7 +633,13 @@ public class advancedBreakout extends GraphicsProgram {
 		}
 		return life; // function is real for this one... at the end, we return life and die >_<
 	}
-
+	
+	private void makeDelay() {
+		for(int i = 0; i < 100; i++) {
+			pause(SLEEP_TIME - LEVEL);
+		}
+	}
+	
 	// shows some text after player loses.
 	private void loserEmote() {
 		removeAll();
