@@ -122,6 +122,8 @@ public class advancedBreakout extends GraphicsProgram {
 		int lineStart = 0;
 		int lineEnd = (int)LASER_WIDTH*2-1;
 		
+		GLine [] laser = null;
+		
 		while(true) {
 			if(LEVEL == 9) {
 				victoryEmote();
@@ -143,7 +145,6 @@ public class advancedBreakout extends GraphicsProgram {
 				mouseIsOnPaddle = true;
 			}
 			
-			GLine [] laser = null;
 			
 			// makes laser charge
 			if(mouseIsOnPaddle && laserIsAvaliable) {				
@@ -215,6 +216,7 @@ public class advancedBreakout extends GraphicsProgram {
 			if(ballMovementDirections[1] == 0) {
 				LEVEL++;
 				laserIsAvaliable = true;
+				laser = null;
 				lineStart = 0;
 				lineEnd = (int)LASER_WIDTH*2 - 1;
 				removeAll();
