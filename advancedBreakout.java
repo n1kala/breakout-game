@@ -309,6 +309,7 @@ public class advancedBreakout extends GraphicsProgram {
 		
 		waitForClick();
 		removeAll();
+		mouseIsDown = false;
 	}
 	
 	// tells which level player is on
