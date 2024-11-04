@@ -18,6 +18,8 @@ import java.awt.event.*;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import com.sun.prism.paint.Color;
+
 public class advancedBreakout extends GraphicsProgram {
 
 /** Width and height of application window in pixels */
@@ -272,7 +274,8 @@ public class advancedBreakout extends GraphicsProgram {
 	private GLine [] shootLaser(GRect [][] bricks, double x, GOval paddle) {
 		for(int i = 0; i < NBRICK_ROWS; i++) {
 			for(int j = 0; j < NBRICKS_PER_ROW; j++) {
-				if(bricks[i][j].getX() <= x + LASER_WIDTH && bricks[i][j].getX() + BRICK_WIDTH >= x - LASER_WIDTH) {
+				if(bricks[i][j].getX() <= x + LASER_WIDTH && bricks[i][j].getX() + BRICK_WIDTH >= x - LASER_WIDTH
+						&& bricks[i][j].getFillColor().equals(java.awt.Color.BLACK)) {
 					bricks[i][j].setFilled(false);
 					remove(bricks[i][j]);
 				}
