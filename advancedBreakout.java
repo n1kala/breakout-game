@@ -160,15 +160,15 @@ public class advancedBreakout extends GraphicsProgram {
 			
 			int tempPop = POPPED_COUNT;
 			if(popped <= 0) {
-				ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks, marks);
+				ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks, marks, false);
 				if(ball1 != null) {
-					ballMovementDirections1 = directionChanges(ballMovementDirections1, paddle, ball1, bricks, marks);
+					ballMovementDirections1 = directionChanges(ballMovementDirections1, paddle, ball1, bricks, marks, true);
 				}
 				if(ball2 != null) {
-					ballMovementDirections2 = directionChanges(ballMovementDirections2, paddle, ball2, bricks, marks);
+					ballMovementDirections2 = directionChanges(ballMovementDirections2, paddle, ball2, bricks, marks, true);
 				}
 				if(ball3 != null) {
-					ballMovementDirections3 = directionChanges(ballMovementDirections3, paddle, ball3, bricks, marks);
+					ballMovementDirections3 = directionChanges(ballMovementDirections3, paddle, ball3, bricks, marks, true);
 				}
 			}
 			popped--;
@@ -384,7 +384,7 @@ public class advancedBreakout extends GraphicsProgram {
 	}
 
 	// function changes ball's directions according to where did it hit
-	private double [] directionChanges(double [] ballMovementDirections, GOval paddle, GOval ball, GRect [][] bricks, GLine [] marks) {
+	private double [] directionChanges(double [] ballMovementDirections, GOval paddle, GOval ball, GRect [][] bricks, GLine [] marks, boolean addedBall) {
 		double temp0 = ballMovementDirections[0], temp1 = ballMovementDirections[1];
 		
 		// when ball hits right wall
@@ -410,7 +410,7 @@ public class advancedBreakout extends GraphicsProgram {
 			ballMovementDirections[1] = -Math.abs(ballMovementDirections[1]);
 			
 			// reseting everything after super shot
-			if(SUPER_SHOT) {
+			if(SUPER_SHOT && addedBall == false) {
 				SUPER_SHOT = false;
 				paddle.setFillColor(Color.BLACK);
 				ball.setFillColor(Color.BLACK);
