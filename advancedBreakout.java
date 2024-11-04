@@ -599,7 +599,7 @@ public class advancedBreakout extends GraphicsProgram {
 		add(new GLabel("Congratulations!!!!! I never throught beating this game was possible, well done!!", WIDTH/2 - 160, HEIGHT/2));
 	}
 
-	public void mouseClicked(MouseEvent e) {
+	public void mousePressed(int x, int y) {
 		mouseIsDown = true;
 		println("SS");
 	}
