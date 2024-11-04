@@ -12,8 +12,6 @@ import acm.program.*;
 import acm.util.*;
 import sun.java2d.loops.DrawPolygons;
 
-import java.awt.MouseInfo;
-import java.awt.Point;
 import java.applet.*;
 import java.awt.*;
 import java.awt.event.*;
