@@ -464,7 +464,7 @@ public class advancedBreakout extends GraphicsProgram {
 					bricks[i][j].setFilled(false);
 					remove(bricks[i][j]);
 					
-					if(SUPER_SHOT) { // if its super shot direction do not changes
+					if(SUPER_SHOT && addedBall == false) { // if its super shot direction do not changes
 						continue;
 					}
 					double brickX = bricks[i][j].getX();
@@ -485,7 +485,8 @@ public class advancedBreakout extends GraphicsProgram {
 							if(ballY + BALL_RADIUS - brickY < BRICK_HEIGHT/2) {
 								// if ball is touching from left side
 								// and ball is moving right because otherwise it can not be touching block from left
-								if(ballY + BALL_RADIUS*2 - brickY > ballX + BALL_RADIUS*2 - brickX && ballMovementDirections[0] >= 0) {
+								// and there is not a block on the left side
+								if(ballY + BALL_RADIUS*2 - brickY > ballX + BALL_RADIUS*2 - brickX && ballMovementDirections[0] >= 0 && bricks[i][j-1].isFilled() == false) {
 									ballMovementDirections[0] *= -1;
 								} else {
 									ballMovementDirections[1] *= -1;
@@ -495,7 +496,8 @@ public class advancedBreakout extends GraphicsProgram {
 								
 								// if ball is touching from left
 								// and ball is moving right because otherwise it can not be touching block from left
-								if(brickY + BRICK_HEIGHT - ballY > ballX + BALL_RADIUS*2 - brickX && ballMovementDirections[0] >= 0) {
+								// and there is not a block on the left side
+								if(brickY + BRICK_HEIGHT - ballY > ballX + BALL_RADIUS*2 - brickX && ballMovementDirections[0] >= 0 && bricks[i][j-1].isFilled() == false) {
 									ballMovementDirections[0] *= -1;
 								} else {
 									ballMovementDirections[1] *= -1;
