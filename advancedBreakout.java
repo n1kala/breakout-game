@@ -78,6 +78,8 @@ public class advancedBreakout extends GraphicsProgram {
 	
 /** if player pops ball adder block */
 	private boolean addBalls = false;
+	private double newBallX;
+	private double newBallY;
 	
 /* Method: run() */
 
@@ -87,7 +89,7 @@ public class advancedBreakout extends GraphicsProgram {
 		setPlayButton();
 		GRect [][] bricks = setBricks();
 		GOval paddle = setPaddle();
-		GOval ball = setBall();
+		GOval ball = setBall(WIDTH/2 - BALL_RADIUS/2, HEIGHT/2 - BALL_RADIUS/2);
 		setFrame(); // setting walls
 		startGame(bricks, paddle, ball);
 	}
@@ -98,6 +100,13 @@ public class advancedBreakout extends GraphicsProgram {
 		int life = NTURNS;
 		
 		double ballMovementDirections [] = {(Math.random()-0.5)*4, 3}; // movement on X and Y
+		double ballMovementDirections1 [] = {(Math.random()-0.5)*4, 3}; // movement on X and Y
+		double ballMovementDirections2 [] = {(Math.random()-0.5)*4, 3}; // movement on X and Y
+		double ballMovementDirections3 [] = {(Math.random()-0.5)*4, 3}; // movement on X and Y
+		
+		GOval ball1 = null;
+		GOval ball2 = null;
+		GOval ball3 = null;
 		
 		GLine marks [] = new GLine[MARKS_COUNT];
 		
@@ -118,6 +127,14 @@ public class advancedBreakout extends GraphicsProgram {
 				ball.setFillColor(Color.ORANGE);
 			}
 			
+			if(addBalls) {
+				addBalls = false;
+				ball1 = setBall(newBallX - BALL_RADIUS/2,newBallY - BALL_RADIUS/2);
+				ball2 = setBall(newBallX - BALL_RADIUS/2,newBallY - BALL_RADIUS/2);
+				ball3 = setBall(newBallX - BALL_RADIUS/2,newBallY - BALL_RADIUS/2);
+				life += 3;
+			}
+			
 			// changing ball's position
 			ball.setLocation(ball.getX() + ballMovementDirections[0], ball.getY() + ballMovementDirections[1]);
 			
@@ -132,6 +149,9 @@ public class advancedBreakout extends GraphicsProgram {
 			int tempPop = POPPED_COUNT;
 			if(popped <= 0) {
 				ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks, marks);
+				ballMovementDirections1 = directionChanges(ballMovementDirections1, paddle, ball1, bricks, marks);
+				ballMovementDirections2 = directionChanges(ballMovementDirections2, paddle, ball2, bricks, marks);
+				ballMovementDirections3 = directionChanges(ballMovementDirections3, paddle, ball3, bricks, marks);
 			}
 			popped--;
 			
@@ -146,7 +166,7 @@ public class advancedBreakout extends GraphicsProgram {
 				setPlayButton();
 				bricks = setBricks();
 				paddle = setPaddle();
-				ball = setBall();
+				ball = setBall(WIDTH/2, HEIGHT/2);
 				setFrame();
 				startGame(bricks, paddle, ball);
 				break;
@@ -154,6 +174,17 @@ public class advancedBreakout extends GraphicsProgram {
 			
 			// if ball is out player loses one of the lives
 			life = looseBall(ball, paddle, ballMovementDirections, life);
+			if(ball1 != null) {
+				life = looseBall(ball1, paddle, ballMovementDirections1, life);
+			}
+			
+			if(ball2 != null) {
+				life = looseBall(ball2, paddle, ballMovementDirections2, life);
+			}
+			
+			if(ball3 != null) {
+				life = looseBall(ball3, paddle, ballMovementDirections3, life);
+			}
 			
 			if(life == 0) {
 				loserEmote();
@@ -264,8 +295,8 @@ public class advancedBreakout extends GraphicsProgram {
 	}
 	
 	// setting up ball
-	private GOval setBall() {
-		GOval ball = new GOval(getWidth()/2 - BALL_RADIUS*2, getHeight()/2, BALL_RADIUS*2, BALL_RADIUS*2);
+	private GOval setBall(double x, double y) {
+		GOval ball = new GOval(x, y);
 		ball.setFilled(true);
 		add(ball);
 		return ball;
@@ -393,6 +424,8 @@ public class advancedBreakout extends GraphicsProgram {
 					
 					if(bricks[i][j].getFillColor() == Color.BLACK) {
 						addBalls = true;
+						newBallX = bricks[i][j].getY() + BRICK_HEIGHT/2;
+						newBallY = bricks[i][j].getX() + BRICK_WIDTH/2;
 					}
 					
 					bricks[i][j].setFilled(false);
