@@ -132,6 +132,9 @@ public class advancedBreakout extends GraphicsProgram {
 				ball1 = setBall(newBallX - BALL_RADIUS/2,newBallY - BALL_RADIUS/2);
 				ball2 = setBall(newBallX - BALL_RADIUS/2,newBallY - BALL_RADIUS/2);
 				ball3 = setBall(newBallX - BALL_RADIUS/2,newBallY - BALL_RADIUS/2);
+				ball1.setFillColor(Color.YELLOW);
+				ball2.setFillColor(Color.YELLOW);
+				ball3.setFillColor(Color.YELLOW);
 				life += 3;
 			}
 			
@@ -561,6 +564,8 @@ public class advancedBreakout extends GraphicsProgram {
 				for(int i = 0; i < 100; i++) {
 					delay();
 				}
+			} else {
+				remove(ball);
 			}
 			life--;
 			
