@@ -181,15 +181,27 @@ public class advancedBreakout extends GraphicsProgram {
 			// if ball is out player loses one of the lives
 			life = looseBall(ball, paddle, ballMovementDirections, life);
 			if(ball1 != null) {
+				int tempLife = life;
 				life = looseBall(ball1, paddle, ballMovementDirections1, life);
+				if(tempLife != life) {
+					ball1 = null;
+				}
 			}
 			
 			if(ball2 != null) {
+				int tempLife = life;
 				life = looseBall(ball2, paddle, ballMovementDirections2, life);
+				if(tempLife != life) {
+					ball2 = null;
+				}
 			}
 			
 			if(ball3 != null) {
+				int tempLife = life;
 				life = looseBall(ball3, paddle, ballMovementDirections3, life);
+				if(tempLife != life) {
+					ball3 = null;
+				}
 			}
 			
 			if(life == 0) {
