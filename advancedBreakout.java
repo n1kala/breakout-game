@@ -156,7 +156,7 @@ public class advancedBreakout extends GraphicsProgram {
 				paddle.setLocation(paddle.getX() + padleX*3, paddle.getY());
 			}
 			
-			delay();
+			pause(SLEEP_TIME - LEVEL);
 			
 			int tempPop = POPPED_COUNT;
 			if(popped <= 0) {
@@ -376,15 +376,15 @@ public class advancedBreakout extends GraphicsProgram {
 		add(marks[count%MARKS_COUNT]);
 	}
 	
-	// function makes program have little delay to make it playable, otherwise everything will happen too fast
-	// i copied delay()'s code from Microsoft Copilot
-	private void delay() {
-		try {
-		    Thread.sleep(SLEEP_TIME - LEVEL); 
-		} catch (InterruptedException e) {
-		    Thread.currentThread().interrupt();
-		}
-	}
+//	// function makes program have little delay to make it playable, otherwise everything will happen too fast
+//	// i copied delay()'s code from Microsoft Copilot
+//	private void delay() {
+//		try {
+//		    Thread.sleep(SLEEP_TIME - LEVEL); 
+//		} catch (InterruptedException e) {
+//		    Thread.currentThread().interrupt();
+//		}
+//	}
 
 	public void mouseEntered(MouseEvent e) {  
     println("Mouse Entered");  
@@ -575,7 +575,7 @@ public class advancedBreakout extends GraphicsProgram {
 				// makes little delay until next ball spawns to correct mouse position
 				if(ball1 == null && ball2 == null && ball3 == null) {
 					for(int i = 0; i < 100; i++) {
-						delay();
+						pause(SLEEP_TIME - LEVEL);
 					}
 				}
 			} else {
