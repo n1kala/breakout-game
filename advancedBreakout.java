@@ -149,9 +149,15 @@ public class advancedBreakout extends GraphicsProgram {
 			int tempPop = POPPED_COUNT;
 			if(popped <= 0) {
 				ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks, marks);
-				ballMovementDirections1 = directionChanges(ballMovementDirections1, paddle, ball1, bricks, marks);
-				ballMovementDirections2 = directionChanges(ballMovementDirections2, paddle, ball2, bricks, marks);
-				ballMovementDirections3 = directionChanges(ballMovementDirections3, paddle, ball3, bricks, marks);
+				if(ball1 != null) {
+					ballMovementDirections1 = directionChanges(ballMovementDirections1, paddle, ball1, bricks, marks);
+				}
+				if(ball2 != null) {
+					ballMovementDirections2 = directionChanges(ballMovementDirections2, paddle, ball2, bricks, marks);
+				}
+				if(ball3 != null) {
+					ballMovementDirections3 = directionChanges(ballMovementDirections3, paddle, ball3, bricks, marks);
+				}
 			}
 			popped--;
 			
