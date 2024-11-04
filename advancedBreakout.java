@@ -424,7 +424,7 @@ public class advancedBreakout extends GraphicsProgram {
 			}
 			
 			// after every 10 popped blocks player gets super shot which pierces everything
-			if(POPPED_COUNT >= 10) {
+			if(POPPED_COUNT >= 10 && addedBall == false) {
 				SUPER_SHOT = true;
 				paddle.setFillColor(Color.RED);
 			}
