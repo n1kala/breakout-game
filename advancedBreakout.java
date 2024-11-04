@@ -76,6 +76,9 @@ public class advancedBreakout extends GraphicsProgram {
 /** if player pops all the blocks he goes to next level where ball moves faster */
 	private int LEVEL = 1;
 	
+/** if player pops ball adder block */
+	private boolean addBalls = false;
+	
 /* Method: run() */
 
 	public void run() {
@@ -387,7 +390,11 @@ public class advancedBreakout extends GraphicsProgram {
 				// if (ball is touching current block)
 				if(ball.getY() < bricks[i][j].getY() + BRICK_HEIGHT && ball.getY() + BALL_RADIUS*2 > bricks[i][j].getY() && 
 						ball.getX() < bricks[i][j].getX() + BRICK_WIDTH && ball.getX() + BALL_RADIUS*2 > bricks[i][j].getX()) {
-
+					
+					if(bricks[i][j].getFillColor() == Color.BLACK) {
+						addBalls = true;
+					}
+					
 					bricks[i][j].setFilled(false);
 					remove(bricks[i][j]);
 					
