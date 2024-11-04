@@ -451,8 +451,8 @@ public class advancedBreakout extends GraphicsProgram {
 					
 					if(bricks[i][j].getFillColor() == Color.BLACK) {
 						addBalls = true;
-						newBallX = bricks[i][j].getY() + BRICK_HEIGHT/2;
-						newBallY = bricks[i][j].getX() + BRICK_WIDTH/2;
+						newBallY = bricks[i][j].getY() + BRICK_HEIGHT/2;
+						newBallX = bricks[i][j].getX() + BRICK_WIDTH/2;
 					}
 					
 					bricks[i][j].setFilled(false);
