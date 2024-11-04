@@ -21,12 +21,12 @@ import java.util.concurrent.TimeUnit;
 public class advancedBreakout extends GraphicsProgram {
 
 /** Width and height of application window in pixels */
-	public static final int APPLICATION_WIDTH = 400;
-	public static final int APPLICATION_HEIGHT = 600;
+//	public static final int APPLICATION_WIDTH = ;
+//	public static final int APPLICATION_HEIGHT = 600;
 
 /** Dimensions of game board (usually the same) */
-	private static final int WIDTH = APPLICATION_WIDTH;
-	private static final int HEIGHT = APPLICATION_HEIGHT;
+	private static final int WIDTH = 400;
+	private static final int HEIGHT = 600;
 
 /** Dimensions of the paddle */
 	private static final int PADDLE_WIDTH = 60;
