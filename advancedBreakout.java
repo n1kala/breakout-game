@@ -82,7 +82,7 @@ public class advancedBreakout extends GraphicsProgram {
 	private double newBallY;
 	
 /** laser shot */
-	private boolean mouseIsOnPaddle = false;
+	private boolean mouseIsDown = false;
 	private boolean laserIsAvaliable = true;
 	private double LASER_WIDTH = 6;
 /* Method: run() */
@@ -95,6 +95,7 @@ public class advancedBreakout extends GraphicsProgram {
 		GOval paddle = setPaddle();
 		GOval ball = setBall(WIDTH/2 - BALL_RADIUS/2, HEIGHT/2 - BALL_RADIUS/2);
 		setFrame(); // setting walls
+		addMouseListeners(); // adding mouse commands
 		startGame(bricks, paddle, ball);
 	}
 
@@ -141,8 +142,7 @@ public class advancedBreakout extends GraphicsProgram {
 			double mouseX = MouseInfo.getPointerInfo().getLocation().getX();
 			double mouseY = MouseInfo.getPointerInfo().getLocation().getY();
 			
-			if(mouseX <= paddle.getX() + PADDLE_WIDTH && mouseX >= paddle.getX() && 
-					mouseY >= paddle.getY() && mouseY <= paddle.getY() + PADDLE_HEIGHT) {
+			if() {
 				mouseIsOnPaddle = true;
 			}
 			
@@ -269,6 +269,11 @@ public class advancedBreakout extends GraphicsProgram {
 			count++;
 			
 		}
+	}
+	
+	public void mouseClicked(MouseEvent e) {
+		super.mouseClicked(e);
+		mouseIsDown = true;
 	}
 	
 	private GLine [] shootLaser(GRect [][] bricks, double x, GOval paddle) {
