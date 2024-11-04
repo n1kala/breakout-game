@@ -407,7 +407,7 @@ public class advancedBreakout extends GraphicsProgram {
 							if(ballY + BALL_RADIUS - brickY < BRICK_HEIGHT/2) {
 								// if ball is touching from left side
 								// and ball is moving right because otherwise it can not be touching block from left
-								if(ballY + BALL_RADIUS*2 - brickY >= ballX + BALL_RADIUS*2 - brickX && ballMovementDirections[0] >= 0) {
+								if(ballY + BALL_RADIUS*2 - brickY > ballX + BALL_RADIUS*2 - brickX && ballMovementDirections[0] >= 0) {
 									ballMovementDirections[0] *= -1;
 								} else {
 									ballMovementDirections[1] *= -1;
@@ -417,7 +417,7 @@ public class advancedBreakout extends GraphicsProgram {
 								
 								// if ball is touching from left
 								// and ball is moving right because otherwise it can not be touching block from left
-								if(brickY + BRICK_HEIGHT - ballY >= ballX + BALL_RADIUS*2 - brickX && ballMovementDirections[0] >= 0) {
+								if(brickY + BRICK_HEIGHT - ballY > ballX + BALL_RADIUS*2 - brickX && ballMovementDirections[0] >= 0) {
 									ballMovementDirections[0] *= -1;
 								} else {
 									ballMovementDirections[1] *= -1;
@@ -440,7 +440,7 @@ public class advancedBreakout extends GraphicsProgram {
 								
 								// if ball is touching from bottom side
 								// or ball is moving to right because that time it can not be touching block from right side
-								if(brickX + BRICK_WIDTH - ballX >= brickY + BRICK_HEIGHT - ballY || ballMovementDirections[0] >= 0) {
+								if(brickX + BRICK_WIDTH - ballX > brickY + BRICK_HEIGHT - ballY || ballMovementDirections[0] >= 0) {
 									ballMovementDirections[1] *= -1;
 								} else {
 									ballMovementDirections[0] *= -1;
