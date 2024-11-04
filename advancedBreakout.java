@@ -181,6 +181,9 @@ public class advancedBreakout extends GraphicsProgram {
 			if(ballMovementDirections[1] == 0) {
 				LEVEL++;
 				removeAll();
+				ball1 = null;
+				ball2 = null;
+				ball3 = null;
 				setPlayButton();
 				bricks = setBricks();
 				paddle = setPaddle();
