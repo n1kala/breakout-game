@@ -601,6 +601,7 @@ public class advancedBreakout extends GraphicsProgram {
 
 	public void mouseClicked(MouseEvent e) {
 		mouseIsDown = true;
+		println("SS");
 	}
 }
 
