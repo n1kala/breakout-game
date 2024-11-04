@@ -138,7 +138,7 @@ public class advancedBreakout extends GraphicsProgram {
 					mouseY >= paddle.getY() && mouseY <= paddle.getY() + PADDLE_HEIGHT) {
 				mouseIsOnPaddle = true;
 			}
-			
+			print("s");
 			// makes laser charge
 			if(mouseIsOnPaddle && laserIsAvaliable) {
 				
