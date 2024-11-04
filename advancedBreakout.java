@@ -141,10 +141,9 @@ public class advancedBreakout extends GraphicsProgram {
 			}
 			
 			// makes laser charge
-			if(mouseIsOnPaddle && laserIsAvaliable) {
-				
-				//laserIsAvaliable = false;
-//				shootLaser(bricks);
+			if(mouseIsOnPaddle && laserIsAvaliable) {				
+				laserIsAvaliable = false;
+				shootLaser(bricks, paddle.getX() + PADDLE_WIDTH/2);
 			}
 			
 			if(addBalls) {
@@ -248,6 +247,10 @@ public class advancedBreakout extends GraphicsProgram {
 			count++;
 			
 		}
+	}
+	
+	private void shootLaser(GRect [][] bricks, double x, double y) {
+		
 	}
 
 	// function sets up play button and waits until player clicks mouse to start the game
