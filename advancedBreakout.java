@@ -369,10 +369,16 @@ public class advancedBreakout extends GraphicsProgram {
 				}
 				brickIsLeft = true;
 				
-				// if ball is hitting next block continue
+				// if ball is hitting next block in row continue
 				if(j < NBRICKS_PER_ROW - 1 && bricks[i][j+1].isFilled() == true && bricks[i][j+1].getX() - (ball.getX() + BALL_RADIUS) < BRICK_SEP/2) {
-							continue;
+					continue;
 				}
+				
+				// if ball is hitting next block in column continue
+				if(i < NBRICK_ROWS - 1 && bricks[i+1][j].isFilled() == true && bricks[i+1][j].getY() - (ball.getY() + BALL RADIUS) < BRICK_SEP/2) {
+					continue;
+				}
+				
 				// if (ball is touching current block)
 				if(ball.getY() < bricks[i][j].getY() + BRICK_HEIGHT && ball.getY() + BALL_RADIUS*2 > bricks[i][j].getY() && 
 						ball.getX() < bricks[i][j].getX() + BRICK_WIDTH && ball.getX() + BALL_RADIUS*2 > bricks[i][j].getX()) {
@@ -423,7 +429,7 @@ public class advancedBreakout extends GraphicsProgram {
 							// if ball is touching from top 
 							if(ballY + BALL_RADIUS - brickY < BRICK_HEIGHT/2) {
 								// if ball is touching from top side 
-								// or ball is moving to right because that time it can nott be touching block from right side
+								// or ball is moving to right because that time it can not be touching block from right side
 								if(brickX + BRICK_WIDTH - ballX >= ballY + BALL_RADIUS*2 - brickY || ballMovementDirections[0] >= 0) {
 									ballMovementDirections[1] *= -1;
 								} else {
