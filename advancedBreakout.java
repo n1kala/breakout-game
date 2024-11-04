@@ -386,6 +386,11 @@ public class advancedBreakout extends GraphicsProgram {
 		}
 	}
 
+	public void mouseEntered(MouseEvent e) {  
+    println("Mouse Entered");  
+
+}  
+	
 	// function changes ball's directions according to where did it hit
 	private double [] directionChanges(double [] ballMovementDirections, GOval paddle, GOval ball, GRect [][] bricks, GLine [] marks, boolean addedBall) {
 		double temp0 = ballMovementDirections[0], temp1 = ballMovementDirections[1];
