@@ -222,6 +222,9 @@ public class advancedBreakout extends GraphicsProgram {
 	private GRect [][] setBricks() {
 		GRect [][] bricks = new GRect[NBRICK_ROWS][NBRICKS_PER_ROW];
 		
+		int ballAdderBlock = NBRICK_ROWS*NBRICKS_PER_ROW-1;
+		ballAdderBlock *= Math.random();
+		
 		float [][] colors = {
 				{0.0f,0.99f,0.99f},
 				{0.0f,0.99f,0.99f},
@@ -239,7 +242,9 @@ public class advancedBreakout extends GraphicsProgram {
 			for(int x = BRICK_SEP/2,j = 0; x < WIDTH; x += BRICK_WIDTH + BRICK_SEP, j++) {
 				bricks[i][j] = new GRect(x,y,BRICK_WIDTH,BRICK_HEIGHT);
 				bricks[i][j].setFilled(true);
-				bricks[i][j].setColor(Color.getHSBColor(colors[paint][0], colors[paint][1], colors[paint][2]));
+				if(i*j != ballAdderBlock) {
+					bricks[i][j].setColor(Color.getHSBColor(colors[paint][0], colors[paint][1], colors[paint][2]));
+				}
 				add(bricks[i][j]);
 			}
 		}
