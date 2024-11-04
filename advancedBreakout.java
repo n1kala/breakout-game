@@ -336,7 +336,7 @@ public class advancedBreakout extends GraphicsProgram {
 	}
 	
 	// function sets up walls
-	// wall is just 4 GRects, black, whilte, grey and black again.
+	// wall is just 4 GRects, black, white, grey and black again.
 	private void setFrame() {
 		GRect frame1 = new GRect(0,0,WIDTH,HEIGHT); 
 		GRect frame2 = new GRect(1,1,WIDTH-2,HEIGHT-2); 
@@ -541,7 +541,7 @@ public class advancedBreakout extends GraphicsProgram {
 		return ballMovementDirections;
 	}
 	
-	// makes sound when ball hits something
+	// makes sound when ball hits something, sounds lag on my pc so i turned it off
 	private void makeSound() {
 		AudioClip bounceClip = MediaTools.loadAudioClip("bounce.au");
 		bounceClip.play();
