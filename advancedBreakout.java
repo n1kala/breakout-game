@@ -598,11 +598,12 @@ public class advancedBreakout extends GraphicsProgram {
 		removeAll();
 		add(new GLabel("Congratulations!!!!! I never throught beating this game was possible, well done!!", WIDTH/2 - 160, HEIGHT/2));
 	}
+	
 	@Override
-	public boolean mouseDown(Event evt, int x, int y) {
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		super.mouseClicked(e);
 		mouseIsDown = true;
-		
-		return true;
 	}
 }
 
