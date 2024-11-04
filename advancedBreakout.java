@@ -83,7 +83,7 @@ public class advancedBreakout extends GraphicsProgram {
 	
 /** laser shot */
 	private boolean mouseIsDown = false;
-	private boolean laserIsAvaliable = true;
+	private int laserIsAvaliable = 5;
 	private double LASER_WIDTH = 6;
 /* Method: run() */
 
@@ -140,8 +140,8 @@ public class advancedBreakout extends GraphicsProgram {
 			}
 			
 			// makes laser charge
-			if(mouseIsDown && laserIsAvaliable) {				
-				laserIsAvaliable = false;
+			if(mouseIsDown && laserIsAvaliable > 0) {				
+				laserIsAvaliable--;
 				laser = shootLaser(bricks, paddle.getX() + PADDLE_WIDTH/2, paddle);
 			}
 			
@@ -210,7 +210,7 @@ public class advancedBreakout extends GraphicsProgram {
 			// if there is no bricks left player gets to next level and everything resets
 			if(ballMovementDirections[1] == 0) {
 				LEVEL++;
-				laserIsAvaliable = true;
+				laserIsAvaliable = 5;
 				laser = null;
 				lineStart = 0;
 				lineEnd = (int)LASER_WIDTH*2 - 1;
@@ -325,7 +325,7 @@ public class advancedBreakout extends GraphicsProgram {
 		text.setColor(Color.BLACK);
 		GLabel reminder = new GLabel("Remember, after every 10 blocks popped you will get super shot!", WIDTH/2 - 180, HEIGHT/2 - 80);
 		reminder.setColor(Color.RED);
-		GLabel reminder1 = new GLabel("Use paddle's builtin laser with mouseclick. You get 1 shot each level.", WIDTH/2 - 180, HEIGHT/2 - 60);
+		GLabel reminder1 = new GLabel("Use paddle's builtin laser with mouseclick. You get" + laserIsAvaliable + "shot each level.", WIDTH/2 - 180, HEIGHT/2 - 60);
 		reminder1.setColor(Color.MAGENTA);
 		
 		if(LEVEL == 1) {
