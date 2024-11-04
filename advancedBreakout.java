@@ -81,6 +81,9 @@ public class advancedBreakout extends GraphicsProgram {
 	private double newBallX;
 	private double newBallY;
 	
+/** laser shot */
+	private boolean mouseIsDown = false;
+	private boolean laserIsAvaliable = true;
 /* Method: run() */
 
 	public void run() {
@@ -125,6 +128,13 @@ public class advancedBreakout extends GraphicsProgram {
 			if(SUPER_SHOT) {
 				leaveMark(marks, ballMovementDirections, count, ball);
 				ball.setFillColor(Color.ORANGE);
+			}
+			
+			// makes laser charge
+			if(mouseIsDown && laserIsAvaliable) {
+				print("WORKS");
+				laserIsAvaliable = false;
+//				shootLaser(bricks);
 			}
 			
 			if(addBalls) {
@@ -180,6 +190,7 @@ public class advancedBreakout extends GraphicsProgram {
 			// if there is no bricks left player gets to next level and everything resets
 			if(ballMovementDirections[1] == 0) {
 				LEVEL++;
+				laserIsAvaliable = true;
 				removeAll();
 				ball1 = null;
 				ball2 = null;
@@ -225,6 +236,7 @@ public class advancedBreakout extends GraphicsProgram {
 			}
 			
 			count++;
+			
 		}
 	}
 
@@ -585,6 +597,10 @@ public class advancedBreakout extends GraphicsProgram {
 	private void victoryEmote() {
 		removeAll();
 		add(new GLabel("Congratulations!!!!! I never throught beating this game was possible, well done!!", WIDTH/2 - 160, HEIGHT/2));
+	}
+
+	public void mouseClicked(MouseEvent e) {
+		mouseIsDown = true;
 	}
 }
 
