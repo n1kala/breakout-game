@@ -284,6 +284,7 @@ public class advancedBreakout extends GraphicsProgram {
 			} else {
 				laser[i].setColor(Color.BLACK);
 			}
+			add(laser[i]);
 		}
 		return laser;
 	}
