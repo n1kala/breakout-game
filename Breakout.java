@@ -253,6 +253,7 @@ public class Breakout extends GraphicsProgram {
 						if(ballY + BALL_RADIUS - brickY < BRICK_HEIGHT/2) {
 							// if ball is touching from left side
 							// and ball is moving right because otherwise it can not be touching block from left
+							// and there is no block on left side 
 							if(ballY + BALL_RADIUS*2 - brickY > ballX + BALL_RADIUS*2 - brickX && ballMovementDirections[0] >= 0 && bricks[i][j-1].isFilled() == false) {
 								ballMovementDirections[0] *= -1;
 							} else {
@@ -263,6 +264,7 @@ public class Breakout extends GraphicsProgram {
 							
 							// if ball is touching from left
 							// and ball is moving right because otherwise it can not be touching block from left
+							// and there is no block on left side
 							if(brickY + BRICK_HEIGHT - ballY > ballX + BALL_RADIUS*2 - brickX && ballMovementDirections[0] >= 0 && bricks[i][j-1].isFilled() == false) {
 								ballMovementDirections[0] *= -1;
 							} else {
