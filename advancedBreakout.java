@@ -369,6 +369,13 @@ public class advancedBreakout extends GraphicsProgram {
 				}
 				brickIsLeft = true;
 			
+				if(j < NBRICKS_PER_ROW - 1) {
+					if(bricks[i][j+1].isFilled() == true) {
+						if(bricks[i][j+1].getX() - (ball.getX() + BALL_RADIUS) < BRICK_SEP/2) {
+							continue;
+						}
+					}
+				}
 				// if (ball is touching current block)
 				if(ball.getY() < bricks[i][j].getY() + BRICK_HEIGHT && ball.getY() + BALL_RADIUS*2 > bricks[i][j].getY() && 
 						ball.getX() < bricks[i][j].getX() + BRICK_WIDTH && ball.getX() + BALL_RADIUS*2 > bricks[i][j].getX()) {
