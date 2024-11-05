@@ -77,7 +77,7 @@ public class advancedBreakout extends GraphicsProgram {
 	private boolean SUPER_SHOT = false;
 	
 /** If player pops all the blocks he goes to next level where ball moves faster */
-	private int LEVEL = 1;
+	private int LEVEL = 7;
 	
 /** If player pops ball adder block */
 	private boolean addBalls = false;
@@ -139,7 +139,7 @@ public class advancedBreakout extends GraphicsProgram {
 		while(true) {
 			
 			// If player beat the game. (I think its impossible, but lets have this option just for show)
-			if(LEVEL == 9) {
+			if(LEVEL == SLEEP_TIME) {
 				victoryEmote();
 				break;
 			}
