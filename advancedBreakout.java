@@ -67,31 +67,31 @@ public class advancedBreakout extends GraphicsProgram {
 	private static final double PADDLE_TRAJECTORY = 0.14;
 	
 ///////////////////////////////////////////   changeable global variables
-/** delay time, decrease this number to make program faster */ 
+/** Delay time, decrease this number to make program faster */ 
 	private long SLEEP_TIME = 8;
 	
-/** count of how many blocks did player pop */
+/** Count of how many blocks did player pop */
 	private int POPPED_COUNT = 0;
 	
-/** tells if player have super shot */
+/** Tells if player have super shot */
 	private boolean SUPER_SHOT = false;
 	
-/** if player pops all the blocks he goes to next level where ball moves faster */
+/** If player pops all the blocks he goes to next level where ball moves faster */
 	private int LEVEL = 1;
 	
-/** if player pops ball adder block */
+/** If player pops ball adder block */
 	private boolean addBalls = false;
 	private double newBallX;
 	private double newBallY;
 	
-/** laser shot */
+/** Laser shot */
 	private boolean mouseIsDown = false;
 	private boolean laserIsAvaliable = true;
 	private double LASER_WIDTH = 8;
 /* Method: run() */
 
 	public void run() {
-		/* for some reason setSize does not set size same as passed values so I needed to add 18 and 72 */
+		/* For some reason setSize does not set size same as passed values so I needed to add 18 and 72 */
 		setSize(WIDTH + 18, HEIGHT + 72);
 		setPlayButton();
 		GRect [][] bricks = setBricks();
@@ -103,14 +103,14 @@ public class advancedBreakout extends GraphicsProgram {
 	}
 
 	
-	// function is infinity loop which updates positions of game objects
+	// Function is infinity loop which updates positions of game objects
 	private void startGame(GRect [][] bricks, GOval paddle, GOval ball) {
 		
 		int life = NTURNS;
 		
 		double ballMovementDirections [] = {(Math.random()-0.5)*4, 3}; // movement on X and Y
 		
-		// additional balls are spawned after breaking black brick
+		// Additional balls are spawned after breaking black brick
 		double ballMovementDirections1 [] = {(Math.random()-0.5)*4, -3}; 
 		double ballMovementDirections2 [] = {(Math.random()-0.5)*4, -3}; 
 		double ballMovementDirections3 [] = {(Math.random()-0.5)*4, -3}; 
@@ -119,10 +119,10 @@ public class advancedBreakout extends GraphicsProgram {
 		GOval ball2 = null;
 		GOval ball3 = null;
 		
-		// ball leaves marks while super shot is active
+		// Ball leaves marks while super shot is active
 		GLine marks [] = new GLine[MARKS_COUNT];
 		
-		// count of loops in while true loop, i use it in order to add marks of ball's movement
+		// Count of loops in while true loop, i use it in order to add marks of ball's movement
 		int count = 0;
 		
 		int poppedBlocks = 0;
@@ -131,53 +131,71 @@ public class advancedBreakout extends GraphicsProgram {
 		int lineStartX = 0;
 		int lineEndX = (int)LASER_WIDTH*2-1;
 		
-		// laser is many black and red lines next to each other which disappears with little delay 
-		// and it annihilates every block other than black one in its range
+		// Laser on display is many black and red lines next to each other, which disappears with little delay 
+		// and laser annihilates every block other than black one in its range
 		GLine [] laser = null;
 		int laserDelay = 6;
 		
 		while(true) {
-			// if player beat the game
+			
+			// If player beat the game. (I think its impossible, but lets have this option just for show)
 			if(LEVEL == 9) {
 				victoryEmote();
 				break;
 			}
 			
-			// makes super shot after popping 10 blocks which 
-			// every block ball touches is popped without changing balls direction while super shot is active
+			// Makes super shot after popping 10 blocks.  
+			// Super shot makes every block ball touches pop without changing ball's direction 
 			if(SUPER_SHOT) {
+				
 				leaveMark(marks, ballMovementDirections, count, ball);
+				
 				ball.setFillColor(Color.ORANGE);
+				
 			}
 			
-			// makes laser charge on mouse click
+			// Makes laser charge on mouse click
 			if(mouseIsDown && laserIsAvaliable) {				
+				
 				laserIsAvaliable = false;
+				
 				laser = shootLaser(bricks, paddle.getX() + PADDLE_WIDTH/2, paddle);
+				
 			}
 			
-			// removes laser over time
+			// Removes laser over time
 			if(laser != null) {
+
 				laserDelay--;
+				
 				if(lineStartX < lineEndX && laserDelay == 0) {
+		
 					remove(laser[lineStartX]);
 					remove(laser[lineEndX]);
+					
 					lineStartX++;
 					lineEndX--;
 					laserDelay = 6;
+					
 				}
+				
 			}
 			
-			// adds additional 3 balls after black brick is broken
+			// Adds additional 3 balls after black brick is broken
 			if(addBalls) {
+				
 				addBalls = false;
+				
 				ball1 = setBall(newBallX - BALL_RADIUS/2,newBallY - BALL_RADIUS/2);
 				ball2 = setBall(newBallX - BALL_RADIUS/2,newBallY - BALL_RADIUS/2);
 				ball3 = setBall(newBallX - BALL_RADIUS/2,newBallY - BALL_RADIUS/2);
+				
 				ball1.setFillColor(Color.YELLOW);
 				ball2.setFillColor(Color.YELLOW);
 				ball3.setFillColor(Color.YELLOW);
+				
 				life += 3;
+				
 			}
 			
 			// changing ball's position
@@ -640,8 +658,10 @@ public class advancedBreakout extends GraphicsProgram {
 				double ballY = ball.getY();
 				
 				// if (ball is touching current block)
-				if(ballY < brickY + BRICK_HEIGHT && ballY + BALL_RADIUS*2 > brickY && 
-						ballX < brickX + BRICK_WIDTH && ballX + BALL_RADIUS*2 > brickX) {
+				if(ballY < brickY + BRICK_HEIGHT 
+						&& ballY + BALL_RADIUS*2 > brickY 
+						&& ballX < brickX + BRICK_WIDTH 
+						&& ballX + BALL_RADIUS*2 > brickX) {
 					
 					// If its black block this remembers where additional balls should be added at
 					if(bricks[i][j].getFillColor() == Color.BLACK) {
