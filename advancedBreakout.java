@@ -92,12 +92,18 @@ public class advancedBreakout extends GraphicsProgram {
 	public void run() {
 		/* For some reason setSize does not set size same as passed values so I needed to add 18 and 72 */
 		setSize(WIDTH + 18, HEIGHT + 72);
+		
 		setPlayButton();
+		
 		GRect [][] bricks = setBricks();
 		GOval paddle = setPaddle();
 		GOval ball = setBall(WIDTH/2 - BALL_RADIUS/2, HEIGHT/2 - BALL_RADIUS/2);
-		setFrame(); // setting walls
-		addMouseListeners(); // adding mouse commands
+		
+		setFrame(); 
+		
+		// Adding mouse listeners to tell when mouse got clicked
+		addMouseListeners(); 
+		
 		startGame(bricks, paddle, ball);
 	}
 
