@@ -63,7 +63,6 @@ public class Breakout extends GraphicsProgram {
 /** Sleep time of thread, decrease this to make program faster */
 	private static final int SLEEP_TIME = 7;
 	
-/* Method: run() */
 /** Runs the Breakout program. */
 	public void run() {
 		/* for some reason setSize does not set size same as passed values so I needed to add 18 and 72*/
@@ -75,12 +74,10 @@ public class Breakout extends GraphicsProgram {
 		startGame(bricks, paddle, ball);
 	}
 	
-	//function sets up bricks according to color requirements and returns bricks array
-	// for each row x coordinate is updated by brick's width + separation between bricks
-	// after each row y coordinate is updated by brick's height + separation
 	private GRect [][] setBricks() {
 		GRect [][] bricks = new GRect[NBRICK_ROWS][NBRICKS_PER_ROW];
 		
+		// colors of each row
 		float [][] colors = {
 				{0.0f,0.99f,0.99f},
 				{0.0f,0.99f,0.99f},
@@ -94,11 +91,11 @@ public class Breakout extends GraphicsProgram {
 				{0.5f,0.99f,0.99f}
 		};
 		
-		for(int y = 70,paint = 0,i = 0; y < BRICK_Y_OFFSET+NBRICK_ROWS*BRICK_HEIGHT + (NBRICK_ROWS-1)*BRICK_SEP; y += BRICK_HEIGHT + BRICK_SEP, paint++, i++) {
+		for(int y = 70,row = 0,i = 0; y < BRICK_Y_OFFSET + NBRICK_ROWS*BRICK_HEIGHT + (NBRICK_ROWS-1)*BRICK_SEP; y += BRICK_HEIGHT + BRICK_SEP, row++, i++) {
 			for(int x = BRICK_SEP/2,j = 0; x < APPLICATION_WIDTH; x += BRICK_WIDTH + BRICK_SEP, j++) {
 				bricks[i][j] = new GRect(x,y,BRICK_WIDTH,BRICK_HEIGHT);
 				bricks[i][j].setFilled(true);
-				bricks[i][j].setColor(Color.getHSBColor(colors[paint][0], colors[paint][1], colors[paint][2]));
+				bricks[i][j].setColor(Color.getHSBColor(colors[row][0], colors[row][1], colors[row][2]));
 				add(bricks[i][j]);
 			}
 		}
@@ -106,7 +103,6 @@ public class Breakout extends GraphicsProgram {
 		return bricks;
 	}
 
-	// function sets up paddle
 	private GRect setPaddle() {
 		GRect padle = new GRect(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT, PADDLE_WIDTH, PADDLE_HEIGHT);
 		padle.setFilled(true);
@@ -114,7 +110,6 @@ public class Breakout extends GraphicsProgram {
 		return padle;
 	}
 	
-	// function sets up ball
 	private GOval setBall() {
 		GOval ball = new GOval(getWidth()/2 - BALL_RADIUS*2, getHeight()/2, BALL_RADIUS*2, BALL_RADIUS*2);
 		ball.setFilled(true);
@@ -168,6 +163,7 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 
+	// function makes paddle follow mouse
 	private void correctPaddleLocation(GRect paddle) {
 		double mouseX =  MouseInfo.getPointerInfo().getLocation().getX();
 		if(mouseX + PADDLE_WIDTH/2 < WIDTH && mouseX > PADDLE_WIDTH/2) {
