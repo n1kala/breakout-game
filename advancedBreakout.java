@@ -106,57 +106,66 @@ public class advancedBreakout extends GraphicsProgram {
 		int life = NTURNS;
 		
 		double ballMovementDirections [] = {(Math.random()-0.5)*4, 3}; // movement on X and Y
-		double ballMovementDirections1 [] = {(Math.random()-0.5)*4, -3}; // movement on X and Y
-		double ballMovementDirections2 [] = {(Math.random()-0.5)*4, -3}; // movement on X and Y
-		double ballMovementDirections3 [] = {(Math.random()-0.5)*4, -3}; // movement on X and Y
+		
+		// additional balls are spawned after breaking black brick
+		double ballMovementDirections1 [] = {(Math.random()-0.5)*4, -3}; 
+		double ballMovementDirections2 [] = {(Math.random()-0.5)*4, -3}; 
+		double ballMovementDirections3 [] = {(Math.random()-0.5)*4, -3}; 
 		
 		GOval ball1 = null;
 		GOval ball2 = null;
 		GOval ball3 = null;
 		
+		// ball leaves marks while super shot is active
 		GLine marks [] = new GLine[MARKS_COUNT];
 		
-		int count = 0; // count of loops in while true loop, i use it in order to add marks of ball's movement
+		// count of loops in while true loop, i use it in order to add marks of ball's movement
+		int count = 0;
 		
-		int popped = 0;
+		int poppedBlocks = 0;
 		
-		int lineStart = 0;
-		int lineEnd = (int)LASER_WIDTH*2-1;
+		// X coordinates of laser shot beginning and end
+		int lineStartX = 0;
+		int lineEndX = (int)LASER_WIDTH*2-1;
 		
+		// laser is many black and red lines next to each other which disappears with little delay 
+		// and it annihilates every block other than black one in its range
 		GLine [] laser = null;
 		int laserDelay = 6;
 		
 		while(true) {
+			// if player beat the game
 			if(LEVEL == 9) {
 				victoryEmote();
 				break;
 			}
 			
 			// makes super shot after popping 10 blocks which 
-			// super shot pops up to 3 blocks until getting back
+			// every block ball touches is popped without changing balls direction while super shot is active
 			if(SUPER_SHOT) {
 				leaveMark(marks, ballMovementDirections, count, ball);
 				ball.setFillColor(Color.ORANGE);
 			}
 			
-			// makes laser charge
+			// makes laser charge on mouse click
 			if(mouseIsDown && laserIsAvaliable) {				
 				laserIsAvaliable = false;
 				laser = shootLaser(bricks, paddle.getX() + PADDLE_WIDTH/2, paddle);
 			}
 			
+			// removes laser over time
 			if(laser != null) {
 				laserDelay--;
-				if(lineStart < lineEnd && laserDelay == 0) {
-					remove(laser[lineStart]);
-					remove(laser[lineEnd]);
-					lineStart++;
-					lineEnd--;
+				if(lineStartX < lineEndX && laserDelay == 0) {
+					remove(laser[lineStartX]);
+					remove(laser[lineEndX]);
+					lineStartX++;
+					lineEndX--;
 					laserDelay = 6;
 				}
 			}
 			
-			
+			// adds additional 3 balls after black brick is broken
 			if(addBalls) {
 				addBalls = false;
 				ball1 = setBall(newBallX - BALL_RADIUS/2,newBallY - BALL_RADIUS/2);
@@ -170,50 +179,59 @@ public class advancedBreakout extends GraphicsProgram {
 			
 			// changing ball's position
 			ball.setLocation(ball.getX() + ballMovementDirections[0], ball.getY() + ballMovementDirections[1]);
+			
 			if(ball1 != null) {
 				ball1.setLocation(ball1.getX() + ballMovementDirections1[0], ball1.getY() + ballMovementDirections1[1]);
 			}
+			
 			if(ball2 != null) {
 				ball2.setLocation(ball2.getX() + ballMovementDirections2[0], ball2.getY() + ballMovementDirections2[1]);
 			}
+			
 			if(ball3 != null) {
 				ball3.setLocation(ball3.getX() + ballMovementDirections3[0], ball3.getY() + ballMovementDirections3[1]);
 			}
 			
-			// moves paddle close to mouse's x coordinate
+			// Moves paddle close to mouse's x coordinate slowly
 			double padleX = moveDirection(paddle.getX()); 
 			if((paddle.getX() + PADDLE_WIDTH < WIDTH && padleX == 1) || (paddle.getX() > 0 && padleX == -1)) {
 				paddle.setLocation(paddle.getX() + padleX*3, paddle.getY());
 			}
 			
+			// Makes program slow to make it playable. Speed increases on each level.
 			pause(SLEEP_TIME - LEVEL);
 			
 			int tempPop = POPPED_COUNT;
-			if(popped <= 0) {
+			if(poppedBlocks <= 0) {
+				
 				ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks, marks, false);
+				
 				if(ball1 != null) {
 					ballMovementDirections1 = directionChanges(ballMovementDirections1, paddle, ball1, bricks, marks, true);
 				}
+				
 				if(ball2 != null) {
 					ballMovementDirections2 = directionChanges(ballMovementDirections2, paddle, ball2, bricks, marks, true);
 				}
+				
 				if(ball3 != null) {
 					ballMovementDirections3 = directionChanges(ballMovementDirections3, paddle, ball3, bricks, marks, true);
 				}
 			}
-			popped--;
+			poppedBlocks--;
 			
 			if(tempPop != POPPED_COUNT) {
-				popped = 2;
+				poppedBlocks = 2;
 			}
 			
 			// if there is no bricks left player gets to next level and everything resets
 			if(ballMovementDirections[1] == 0) {
+				// reseting everything
 				LEVEL++;
 				laserIsAvaliable = true;
 				laser = null;
-				lineStart = 0;
-				lineEnd = (int)LASER_WIDTH*2 - 1;
+				lineStartX = 0;
+				lineEndX = (int)LASER_WIDTH*2 - 1;
 				removeAll();
 				ball1 = null;
 				ball2 = null;
@@ -223,7 +241,11 @@ public class advancedBreakout extends GraphicsProgram {
 				paddle = setPaddle();
 				ball = setBall(WIDTH/2, HEIGHT/2);
 				setFrame();
+				
+				// making little delay until next game starts
 				makeDelay();
+				
+				// starting game again with different speed and ending current one
 				startGame(bricks, paddle, ball);
 				break;
 			}
@@ -233,6 +255,8 @@ public class advancedBreakout extends GraphicsProgram {
 			if(ball1 != null) {
 				int tempLife = life;
 				life = looseBall(ball1, paddle, ballMovementDirections1, life, ball1, ball2, ball3, true);
+				
+				// if added ball got out it should not spawn again so i set it to null
 				if(tempLife != life) {
 					ball1 = null;
 				}
@@ -241,6 +265,7 @@ public class advancedBreakout extends GraphicsProgram {
 			if(ball2 != null) {
 				int tempLife = life;
 				life = looseBall(ball2, paddle, ballMovementDirections2, life, ball1, ball2, ball3, true);
+				
 				if(tempLife != life) {
 					ball2 = null;
 				}
@@ -249,21 +274,23 @@ public class advancedBreakout extends GraphicsProgram {
 			if(ball3 != null) {
 				int tempLife = life;
 				life = looseBall(ball3, paddle, ballMovementDirections3, life, ball1, ball2, ball3, true);
+				
 				if(tempLife != life) {
 					ball3 = null;
 				}
 			}
 			
+			// after player loses showing end screen
 			if(life == 0) {
 				loserEmote();
 				break;
 			}
 			
 			count++;
-			
 		}
 	}
 	
+	// if mouse is clicked player should shot laser if he has it
 	public void mouseClicked(MouseEvent e) {
 		super.mouseClicked(e);
 		mouseIsDown = true;
@@ -274,6 +301,7 @@ public class advancedBreakout extends GraphicsProgram {
 		GRect temp = new GRect(0,0,0,0);
 		temp.setFillColor(Color.BLACK);
 		
+		// removing every block other than black one in laser's range
 		for(int i = 0; i < NBRICK_ROWS; i++) {
 			for(int j = 0; j < NBRICKS_PER_ROW; j++) {
 				if(bricks[i][j].getX() <= x + LASER_WIDTH && bricks[i][j].getX() + BRICK_WIDTH >= x - LASER_WIDTH 
@@ -283,6 +311,8 @@ public class advancedBreakout extends GraphicsProgram {
 				}
 			}
 		}
+		
+		// adding laser on screen which is many black and red lines next to each other
 		GLine laser [] = new GLine[(int)LASER_WIDTH*2];
 		for(int i = 0; i < LASER_WIDTH*2; i++) {
 			laser[i] = new GLine(paddle.getX() + PADDLE_WIDTH/2 - LASER_WIDTH + i, paddle.getY(),
@@ -294,6 +324,7 @@ public class advancedBreakout extends GraphicsProgram {
 			}
 			add(laser[i]);
 		}
+		
 		return laser;
 	}
 
@@ -317,7 +348,28 @@ public class advancedBreakout extends GraphicsProgram {
 		mouseIsDown = false;
 	}
 	
-	// tells which level player is on
+	// I tried to add triangle to make button look like play button,
+	// but its just too many white lines, because I do not know how to make triangle
+	private void decoratePlayButton() {
+		
+		// Coordinates of top left bottom of triangle
+		int x = WIDTH/2 - 18; 
+		int y = HEIGHT/2 - 30;
+		
+		// Coordinates of bottom left corner of triangle
+		int x1 = x + 50;
+		int y1 = y + 30;
+		
+		// Makes line from middle right corner of triangle to everywhere on the side between other two corners
+		while(y != y1+30) {
+			GLine line = new GLine(x,y,x1,y1);
+			line.setColor(Color.WHITE);
+			add(line);
+			y++;
+		}
+	}
+	
+	// Sets starting text and which level player is entering to
 	private void setLevelLabel() {
 		GLabel level = new GLabel("LEVEL----> " + LEVEL, WIDTH/2 - 30, HEIGHT/2 - 45);
 		level.setColor(Color.BLUE);
@@ -336,35 +388,13 @@ public class advancedBreakout extends GraphicsProgram {
 		add(level);
 	}
 	
-	//i tried to add triangle to make button look like play button
-	// but its just too many white lines bc i dont know how to make triangle
-	private void decoratePlayButton() {
-		// coordinates of top left bottom of triangle
-		int x = WIDTH/2 - 18; 
-		int y = HEIGHT/2 - 30;
-		
-		// coordinates of bottom left corner of triangle
-		int x1 = x + 50;
-		int y1 = y + 30;
-		
-		// makes line from middle right corner of triangle to everywhere on the line between other two corners
-		while(y != y1+30) {
-			GLine line = new GLine(x,y,x1,y1);
-			line.setColor(Color.WHITE);
-			add(line);
-			y++;
-		}
-	}
-	
-	// function sets up bricks according to color requirements and returns bricks array
-	// for each row x coordinate is updated by brick's width + separation between bricks
-	// after each row y coordinate is updated by brick's height + separation
 	private GRect [][] setBricks() {
 		GRect [][] bricks = new GRect[NBRICK_ROWS][NBRICKS_PER_ROW];
 		
 		int ballAdderBlock = NBRICK_ROWS*NBRICKS_PER_ROW-1;
 		ballAdderBlock *= Math.random();
 		
+		// Colors for each row of bricks
 		float [][] colors = {
 				{0.0f,0.99f,0.99f},
 				{0.0f,0.99f,0.99f},
@@ -378,12 +408,13 @@ public class advancedBreakout extends GraphicsProgram {
 				{0.5f,0.99f,0.99f}
 		};
 		
-		for(int y = 70,paint = 0,i = 0; y < BRICK_Y_OFFSET+NBRICK_ROWS*BRICK_HEIGHT + (NBRICK_ROWS-1)*BRICK_SEP; y += BRICK_HEIGHT + BRICK_SEP, paint++, i++) {
+		// Creates bricks one by one on correct location and adds them into bricks[][] array
+		for(int y = 70,row = 0,i = 0; y < BRICK_Y_OFFSET+NBRICK_ROWS*BRICK_HEIGHT + (NBRICK_ROWS-1)*BRICK_SEP; y += BRICK_HEIGHT + BRICK_SEP, row++, i++) {
 			for(int x = BRICK_SEP/2,j = 0; x < WIDTH; x += BRICK_WIDTH + BRICK_SEP, j++) {
 				bricks[i][j] = new GRect(x,y,BRICK_WIDTH,BRICK_HEIGHT);
 				bricks[i][j].setFilled(true);
 				if(j + i*NBRICKS_PER_ROW != ballAdderBlock) {
-					bricks[i][j].setColor(Color.getHSBColor(colors[paint][0], colors[paint][1], colors[paint][2]));
+					bricks[i][j].setColor(Color.getHSBColor(colors[row][0], colors[row][1], colors[row][2]));
 				}
 				add(bricks[i][j]);
 			}
@@ -392,7 +423,6 @@ public class advancedBreakout extends GraphicsProgram {
 		return bricks;
 	}
 
-	// function sets up paddle and returns GRect of paddle
 	private GOval setPaddle() {
 		GOval padle = new GOval(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT, PADDLE_WIDTH, PADDLE_HEIGHT);
 		padle.setFilled(true);
@@ -400,7 +430,6 @@ public class advancedBreakout extends GraphicsProgram {
 		return padle;
 	}
 	
-	// setting up ball
 	private GOval setBall(double x, double y) {
 		GOval ball = new GOval(x, y, BALL_RADIUS*2, BALL_RADIUS*2);
 		ball.setFilled(true);
@@ -409,7 +438,7 @@ public class advancedBreakout extends GraphicsProgram {
 	}
 	
 	// function sets up walls
-	// wall is just 4 GRects, black, white, grey and black again.
+	// in reality wall is 4 GRects, black, white, grey and black again.
 	private void setFrame() {
 		GRect frame1 = new GRect(0,0,WIDTH,HEIGHT); 
 		GRect frame2 = new GRect(1,1,WIDTH-2,HEIGHT-2); 
@@ -427,11 +456,11 @@ public class advancedBreakout extends GraphicsProgram {
 	
 	// function returns in which direction paddle should move
 	private double moveDirection(double padleX) {
-		// if mouse pointer is in the middle of paddle in order for it to not start shaking left and right
-		// i made it so pointer should be away from paddles middle by at least 2 pixels to make paddle move
-		if(MouseInfo.getPointerInfo().getLocation().getX()-(padleX + PADDLE_WIDTH - 5) > 2) {
+		// If mouse pointer is in the middle of paddle, in order for paddle to not start shaking left and right,
+		// I made it such that mouse pointer should be away from paddles middle by at least 1 pixels to make paddle move
+		if(MouseInfo.getPointerInfo().getLocation().getX()-(padleX + PADDLE_WIDTH) > 1) {
 			return 1;
-		} else if (MouseInfo.getPointerInfo().getLocation().getX()-(padleX + PADDLE_WIDTH - 5) < -2){
+		} else if (MouseInfo.getPointerInfo().getLocation().getX()-(padleX + PADDLE_WIDTH) < -1){
 			return -1;
 		}
 		return 0;
