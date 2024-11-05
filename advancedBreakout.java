@@ -456,26 +456,37 @@ public class advancedBreakout extends GraphicsProgram {
 	
 	// function returns in which direction paddle should move
 	private double moveDirection(double padleX) {
+		
 		// If mouse pointer is in the middle of paddle, in order for paddle to not start shaking left and right,
 		// I made it such that mouse pointer should be away from paddles middle by at least 1 pixels to make paddle move
-		if(MouseInfo.getPointerInfo().getLocation().getX()-(padleX + PADDLE_WIDTH) > 1) {
+		
+		double mouseX = MouseInfo.getPointerInfo().getLocation().getX();
+		if(mouseX - (padleX + PADDLE_WIDTH) > 1) {
 			return 1;
-		} else if (MouseInfo.getPointerInfo().getLocation().getX()-(padleX + PADDLE_WIDTH) < -1){
+		} else if (mouseX - (padleX + PADDLE_WIDTH) < -1){
 			return -1;
 		}
+		
 		return 0;
 	}
 	
 	// function leaves lines so you know which movements ball did, it leaves up to 100 lines
 	private void leaveMark(GLine [] marks, double [] ballMovementDirections, int count, GOval ball) {
-		if(marks[count%MARKS_COUNT] != null) {
-			remove(marks[count%MARKS_COUNT]);
+		
+		// Each time ball moves, count is increased by one, so index will delete mark in array according to when it was added
+		int index = count%MARKS_COUNT; 
+		
+		if(marks[index] != null) {
+			remove(marks[index]);
 		}
+		
+		// Making mark from center location to next location of center after movement
 		double r = BALL_RADIUS;
-		marks[count%MARKS_COUNT] = new GLine(ball.getX() + r, ball.getY() + r,
+		marks[index] = new GLine(ball.getX() + r, ball.getY() + r,
 				ball.getX() + ballMovementDirections[0] + r, ball.getY() + ballMovementDirections[1] + r);
-		marks[count%MARKS_COUNT].setColor(Color.ORANGE);
-		add(marks[count%MARKS_COUNT]);
+		
+		marks[index].setColor(Color.ORANGE);
+		add(marks[index]);
 	} 
 	
 	// function changes ball's directions according to where did it hit
