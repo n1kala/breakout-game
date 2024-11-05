@@ -150,7 +150,7 @@ public class Breakout extends GraphicsProgram {
 			
 			// moves paddle closer to mouse's X location
 			double mouseX =  MouseInfo.getPointerInfo().getLocation().getX();
-			if(mouseX - PADDLE_WIDTH/2 < WIDTH && mouseX > PADDLE_WIDTH/2) {
+			if(mouseX + PADDLE_WIDTH/2 < WIDTH && mouseX > PADDLE_WIDTH/2) {
 				paddle.setLocation(mouseX - PADDLE_WIDTH/2, paddle.getY());
 			}
 			
