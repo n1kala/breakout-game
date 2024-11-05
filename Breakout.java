@@ -225,8 +225,8 @@ public class Breakout extends GraphicsProgram {
 					bricks[i][j].setFilled(false);
 					remove(bricks[i][j]);
 					
-					if((j > 0 && bricks[i][j-1].getX() + BRICK_WIDTH >= ballX) || 
-						(j < NBRICKS_PER_ROW-1 && bricks[i][j+1].getX() <= ballX + BALL_RADIUS*2)) {
+					if((j > 0 && bricks[i][j-1].getX() + BRICK_WIDTH >= ballX && ballMovementDirections[0] > 0) || 
+						(j < NBRICKS_PER_ROW-1 && bricks[i][j+1].getX() <= ballX + BALL_RADIUS*2 && ballMovementDirections[0] < 0)) {
 						ballMovementDirections[0] *= -1;
 					} else {
 						ballMovementDirections[1] *= -1;
