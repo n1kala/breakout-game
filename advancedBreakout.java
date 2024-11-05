@@ -646,13 +646,21 @@ public class advancedBreakout extends GraphicsProgram {
 				brickIsLeft = true;
 				
 				// If ball is hitting next block in row continue
-				if(j < NBRICKS_PER_ROW - 1 && bricks[i][j+1].isFilled() == true && bricks[i][j+1].getX() - (ball.getX() + BALL_RADIUS) < BRICK_SEP/2) {
+				if(j < NBRICKS_PER_ROW - 1 
+						&& bricks[i][j+1].isFilled() == true 
+						&& bricks[i][j+1].getX() - (ball.getX() + BALL_RADIUS) < BRICK_SEP/2) {
+					
 					continue;
+					
 				}
 				
 				// If ball is hitting next block in column continue
-				if(i < NBRICK_ROWS - 1 && bricks[i+1][j].isFilled() == true && bricks[i+1][j].getY() - (ball.getY() + BALL_RADIUS) < BRICK_SEP/2) {
+				if(i < NBRICK_ROWS - 1 
+						&& bricks[i+1][j].isFilled() == true 
+						&& bricks[i+1][j].getY() - (ball.getY() + BALL_RADIUS) < BRICK_SEP/2) {
+					
 					continue;
+					
 				}
 				
 				double brickX = bricks[i][j].getX();
