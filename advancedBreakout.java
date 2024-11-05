@@ -63,6 +63,9 @@ public class advancedBreakout extends GraphicsProgram {
 /** Number of marks while super shot is active */
 	private static final int MARKS_COUNT = 100;
 
+/** This number controls sensitivity of ball's rebound from paddle, make it 1 to turn off trajectory control */
+	private static final double PADDLE_TRAJECTORY = 0.14;
+	
 ///////////////////////////////////////////   changeable global variables
 /** delay time, decrease this number to make program faster */ 
 	private long SLEEP_TIME = 8;
@@ -489,33 +492,34 @@ public class advancedBreakout extends GraphicsProgram {
 		add(marks[index]);
 	} 
 	
-	// function changes ball's directions according to where did it hit
+	// Function changes ball's directions according to where did it hit
 	private double [] directionChanges(double [] ballMovementDirections, GOval paddle, GOval ball, GRect [][] bricks, GLine [] marks, boolean addedBall) {
 		double temp0 = ballMovementDirections[0], temp1 = ballMovementDirections[1];
 		
-		// when ball hits right wall
+		// When ball hits right wall
 		if(ball.getX() >= WIDTH - BALL_RADIUS*2 - 8) {
+			// I added absolute values, because, otherwise, ball gets stuck on paddle going back and forth
 			ballMovementDirections[0] = -Math.abs(ballMovementDirections[0]);
 		}
-		// when ball hits left wall
+		// When ball hits left wall
 		if(ball.getX() <= 8) {
 			ballMovementDirections[0] = Math.abs(ballMovementDirections[0]);
 		}
-		// when ball hits top wall
+		// When ball hits top wall
 		if(ball.getY() <= 8) {
 			ballMovementDirections[1] = Math.abs(ballMovementDirections[1]);
 		}
-		// when ball hits paddle
+		// When ball hits paddle
 		if(ball.getX() + BALL_RADIUS*2 >= paddle.getX() && ball.getX() <= paddle.getX() + PADDLE_WIDTH && ball.getY() >= paddle.getY() - BALL_RADIUS*2) {
 			
 			double place = ball.getX() + BALL_RADIUS - paddle.getX(); // place on paddle where ball did hit
 			
-			// direction changes of ball depending on where on paddle it will hit
-			ballMovementDirections[0] = (place - PADDLE_WIDTH/2)*0.14;
+			// Direction changes of ball, depending on where on paddle it will hit 
+			ballMovementDirections[0] = (place - PADDLE_WIDTH/2)*PADDLE_TRAJECTORY;
 			
 			ballMovementDirections[1] = -Math.abs(ballMovementDirections[1]);
 			
-			// reseting everything after super shot
+			// Reseting changes after super shot
 			if(SUPER_SHOT && addedBall == false) {
 				SUPER_SHOT = false;
 				paddle.setFillColor(Color.BLACK);
@@ -526,37 +530,45 @@ public class advancedBreakout extends GraphicsProgram {
 				POPPED_COUNT = 0;
 			}
 			
-			// after every 10 popped blocks player gets super shot which pierces everything
+			// After every 10 popped blocks player gets super shot which pierces everything
 			if(POPPED_COUNT >= 10 && addedBall == false) {
 				SUPER_SHOT = true;
 				paddle.setFillColor(Color.RED);
 			}
 		}
-		// when ball hits blocks
+		
+		// If brick is left in game and if ball hit block these booleans become true
 		boolean brickIsLeft = false;
 		boolean directionChanged = false;
+		
+		// When ball hits blocks
 		for(int i = 0; i < NBRICK_ROWS; i++) {
 			for(int j = 0; j < NBRICKS_PER_ROW; j++) {
 				
-				// when block is already taken out
+				// When block is already taken out
 				if(bricks[i][j].isFilled() == false || directionChanged) {
 					continue;
 				}
 				brickIsLeft = true;
 				
-				// if ball is hitting next block in row continue
+				// If ball is hitting next block in row continue
 				if(j < NBRICKS_PER_ROW - 1 && bricks[i][j+1].isFilled() == true && bricks[i][j+1].getX() - (ball.getX() + BALL_RADIUS) < BRICK_SEP/2) {
 					continue;
 				}
 				
-				// if ball is hitting next block in column continue
+				// If ball is hitting next block in column continue
 				if(i < NBRICK_ROWS - 1 && bricks[i+1][j].isFilled() == true && bricks[i+1][j].getY() - (ball.getY() + BALL_RADIUS) < BRICK_SEP/2) {
 					continue;
 				}
 				
+				double brickX = bricks[i][j].getX();
+				double brickY = bricks[i][j].getY();
+				double ballX = ball.getX();
+				double ballY = ball.getY();
+				
 				// if (ball is touching current block)
-				if(ball.getY() < bricks[i][j].getY() + BRICK_HEIGHT && ball.getY() + BALL_RADIUS*2 > bricks[i][j].getY() && 
-						ball.getX() < bricks[i][j].getX() + BRICK_WIDTH && ball.getX() + BALL_RADIUS*2 > bricks[i][j].getX()) {
+				if(ball.getY() < brickY + BRICK_HEIGHT && ballY + BALL_RADIUS*2 > brickY && 
+						ball.getX() < brickX + BRICK_WIDTH && ballX + BALL_RADIUS*2 > brickX) {
 					
 					if(bricks[i][j].getFillColor() == Color.BLACK) {
 						addBalls = true;
@@ -570,10 +582,6 @@ public class advancedBreakout extends GraphicsProgram {
 					if(SUPER_SHOT && addedBall == false) { // if its super shot direction do not changes
 						continue;
 					}
-					double brickX = bricks[i][j].getX();
-					double brickY = bricks[i][j].getY();
-					double ballX = ball.getX();
-					double ballY = ball.getY();
 					
 					// if ball is touching block from left half
 					if(ballX + BALL_RADIUS - brickX < BRICK_WIDTH/2) {
