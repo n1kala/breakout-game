@@ -75,7 +75,7 @@ public class Breakout extends GraphicsProgram {
 		startGame(bricks, paddle, ball);
 	}
 	
-	//function sets up bricks according to color requirements and returns bricks array
+	// function sets up bricks according to color requirements and returns bricks array
 	// for each row x coordinate is updated by brick's width + separation between bricks
 	// after each row y coordinate is updated by brick's height + separation
 	private GRect [][] setBricks() {
@@ -106,7 +106,6 @@ public class Breakout extends GraphicsProgram {
 		return bricks;
 	}
 
-	// function sets up paddle
 	private GRect setPaddle() {
 		GRect padle = new GRect(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT, PADDLE_WIDTH, PADDLE_HEIGHT);
 		padle.setFilled(true);
@@ -114,7 +113,6 @@ public class Breakout extends GraphicsProgram {
 		return padle;
 	}
 	
-	// function sets up ball
 	private GOval setBall() {
 		GOval ball = new GOval(getWidth()/2 - BALL_RADIUS*2, getHeight()/2, BALL_RADIUS*2, BALL_RADIUS*2);
 		ball.setFilled(true);
@@ -145,16 +143,12 @@ public class Breakout extends GraphicsProgram {
 		double ballMovementDirections [] = {(Math.random()-0.5)*4, 3}; // ball's movement on X and Y
 		
 		while(true) {
-			// changing ball's position
+			
 			ball.setLocation(ball.getX() + ballMovementDirections[0], ball.getY() + ballMovementDirections[1]);
 			
-			// moves paddle closer to mouse's X location
-			double mouseX =  MouseInfo.getPointerInfo().getLocation().getX();
-			if(mouseX + PADDLE_WIDTH/2 < WIDTH && mouseX > PADDLE_WIDTH/2) {
-				paddle.setLocation(mouseX - PADDLE_WIDTH/2, paddle.getY());
-			}
+			correctPaddleLocation(paddle);
 			
-			pause(SLEEP_TIME);
+			pause(SLEEP_TIME); 
 	
 			ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks);
 			
@@ -163,7 +157,6 @@ public class Breakout extends GraphicsProgram {
 				break;
 			}
 			
-			// if ball is out player loses one of the lives
 			life = looseBall(ball, paddle, ballMovementDirections, life);
 			
 			if(life == 0) {
@@ -173,6 +166,13 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 
+	private void correctPaddleLocation(GRect paddle) {
+		double mouseX =  MouseInfo.getPointerInfo().getLocation().getX();
+		if(mouseX + PADDLE_WIDTH/2 < WIDTH && mouseX > PADDLE_WIDTH/2) {
+			paddle.setLocation(mouseX - PADDLE_WIDTH/2, paddle.getY());
+		}
+	}
+	
 	// function changes ball's directions according to where did it hit
 	private double [] directionChanges(double [] ballMovementDirections, GRect paddle, GOval ball, GRect [][] bricks) {
 		// when ball hits right wall
@@ -225,54 +225,13 @@ public class Breakout extends GraphicsProgram {
 					bricks[i][j].setFilled(false);
 					remove(bricks[i][j]);
 					
-					// if ball is touching block from left half
-					if(ballX + BALL_RADIUS - brickX < BRICK_WIDTH/2) {
-						// if ball is touching block from top half
-						if(ballY + BALL_RADIUS - brickY < BRICK_HEIGHT/2) {
-							// if ball is touching from left side
-							// and ball is moving right because otherwise it can not be touching block from left
-							// and there is no block on left side 
-							if(ballY + BALL_RADIUS*2 - brickY > ballX + BALL_RADIUS*2 - brickX && ballMovementDirections[0] >= 0 && bricks[i][j-1].isFilled() == false) {
-								ballMovementDirections[0] *= -1;
-							} else {
-								ballMovementDirections[1] *= -1;
-							}
-						} else { 
-							// ball is touching from bottom left half
-							
-							// if ball is touching from left
-							// and ball is moving right because otherwise it can not be touching block from left
-							// and there is no block on left side
-							if(brickY + BRICK_HEIGHT - ballY > ballX + BALL_RADIUS*2 - brickX && ballMovementDirections[0] >= 0 && bricks[i][j-1].isFilled() == false) {
-								ballMovementDirections[0] *= -1;
-							} else {
-								ballMovementDirections[1] *= -1;
-							}
-						}
+					if((j > 0 && bricks[i][j-1].getX() + BRICK_WIDTH >= ballX) || 
+						(j < NBRICKS_PER_ROW-1 && bricks[i][j+1].getX() <= ballX + BALL_RADIUS*2)) {
+						ballMovementDirections[0] *= -1;
 					} else {
-						// ball is touching from right half
-						
-						// if ball is touching from top 
-						if(ballY + BALL_RADIUS - brickY < BRICK_HEIGHT/2) {
-							// if ball is touching from top side 
-							// or ball is moving to right because that time it can not be touching block from right side
-							if(brickX + BRICK_WIDTH - ballX > ballY + BALL_RADIUS*2 - brickY || ballMovementDirections[0] >= 0) {
-								ballMovementDirections[1] *= -1;
-							} else {
-								ballMovementDirections[0] *= -1;
-							}
-						} else {
-							// ball is touching from bottom right half
-							
-							// if ball is touching from bottom side
-							// or ball is moving to right because that time it can not be touching block from right side
-							if(brickX + BRICK_WIDTH - ballX > brickY + BRICK_HEIGHT - ballY || ballMovementDirections[0] >= 0) {
-								ballMovementDirections[1] *= -1;
-							} else {
-								ballMovementDirections[0] *= -1;
-							}
-						}
+						ballMovementDirections[1] *= -1;
 					}
+					
 					directionChanged = true;
 				}
 				
