@@ -857,7 +857,7 @@ public class advancedBreakout extends GraphicsProgram {
 		
 	}
 	
-	// shows some text after player loses.
+	// Shows some text after player loses.
 	private void loserEmote() {
 		
 		removeAll();
