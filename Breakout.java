@@ -265,35 +265,53 @@ public class Breakout extends GraphicsProgram {
 							// if ball is touching from bottom side
 							// or ball is moving to right because that time it can not be touching block from right side
 							if(brickX + BRICK_WIDTH - ballX > brickY + BRICK_HEIGHT - ballY || ballMovementDirections[0] >= 0) {
+								
 								ballMovementDirections[1] *= -1;
+								
 							} else {
+								
 								ballMovementDirections[0] *= -1;
+								
 							}
+							
 						}
+						
 					}
+					
 					directionChanged = true;
+					
 				}
 				
 			}
 			
 		}
+		
 		// if there is not any bricks left this stops game
 		if(brickIsLeft == false) {
+		
 			ballMovementDirections[1] = 0;
+		
 		}
+		
 		return ballMovementDirections;
+		
 	}
 	
 	// function checks if player did not manage save the ball and in that case resets locations of paddle and ball
 	private int looseBall(GOval ball, GRect paddle, double [] ballMovementDirections, int life) {
+		
 		if(ball.getY() > paddle.getY()) {
+			
 			ball.setLocation(WIDTH/2 - BALL_RADIUS, HEIGHT/2);
 			paddle.setLocation(WIDTH/2 - PADDLE_WIDTH/2, HEIGHT - PADDLE_Y_OFFSET - PADDLE_HEIGHT);
 			ballMovementDirections[0] = (Math.random()-0.5)*4;
 			ballMovementDirections[1] = 3;
 			life--;
+			
 		}
-		return life;
+		
+		return life; // At the end, function returns life and die >_<
+		
 	}
 }
 
