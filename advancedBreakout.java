@@ -79,17 +79,16 @@ public class advancedBreakout extends GraphicsProgram {
 /** If player pops all the blocks he goes to next level where ball moves faster */
 	private int LEVEL = 1;
 	
-/** If player pops ball adder block */
+/** If player pops ball adder block, these variables tell when and where should it be added */
 	private boolean addBalls = false;
 	private double newBallX;
 	private double newBallY;
 	
-/** Laser shot */
+/** These variables tell when laser should be shoot and how big it should be */
 	private boolean mouseIsDown = false;
 	private boolean laserIsAvaliable = true;
 	private double LASER_WIDTH = 8;
-/* Method: run() */
-
+	
 	public void run() {
 		/* For some reason setSize does not set size same as passed values so I needed to add 18 and 72 */
 		setSize(WIDTH + 18, HEIGHT + 72);
