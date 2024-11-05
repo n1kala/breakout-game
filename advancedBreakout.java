@@ -490,7 +490,11 @@ public class advancedBreakout extends GraphicsProgram {
 
 	private GOval setPaddle() {
 		
-		GOval padle = new GOval(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT, PADDLE_WIDTH, PADDLE_HEIGHT);
+		GOval padle = new GOval(getWidth()/2 - PADDLE_WIDTH/2,
+				getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT,
+				PADDLE_WIDTH,
+				PADDLE_HEIGHT);
+		
 		padle.setFilled(true);
 		add(padle);
 		
