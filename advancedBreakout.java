@@ -77,7 +77,7 @@ public class advancedBreakout extends GraphicsProgram {
 	private boolean SUPER_SHOT = false;
 	
 /** If player pops all the blocks he goes to next level where ball moves faster */
-	private int LEVEL = 7;
+	private int LEVEL = 1;
 	
 /** If player pops ball adder block */
 	private boolean addBalls = false;
