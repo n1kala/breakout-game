@@ -567,9 +567,10 @@ public class advancedBreakout extends GraphicsProgram {
 				double ballY = ball.getY();
 				
 				// if (ball is touching current block)
-				if(ball.getY() < brickY + BRICK_HEIGHT && ballY + BALL_RADIUS*2 > brickY && 
-						ball.getX() < brickX + BRICK_WIDTH && ballX + BALL_RADIUS*2 > brickX) {
+				if(ballY < brickY + BRICK_HEIGHT && ballY + BALL_RADIUS*2 > brickY && 
+						ballX < brickX + BRICK_WIDTH && ballX + BALL_RADIUS*2 > brickX) {
 					
+					// If its black block this remembers where additional balls should be added at
 					if(bricks[i][j].getFillColor() == Color.BLACK) {
 						addBalls = true;
 						newBallY = bricks[i][j].getY() + BRICK_HEIGHT/2;
@@ -579,75 +580,111 @@ public class advancedBreakout extends GraphicsProgram {
 					bricks[i][j].setFilled(false);
 					remove(bricks[i][j]);
 					
-					if(SUPER_SHOT && addedBall == false) { // if its super shot direction do not changes
+					// If its super shot direction do not changes
+					if(SUPER_SHOT && addedBall == false) { 
 						continue;
 					}
 					
-					// if ball is touching block from left half
+					// If ball is touching block from left half
 					if(ballX + BALL_RADIUS - brickX < BRICK_WIDTH/2) {
-						// if ball is touching block from top half
+						
+						// If ball is touching block from top half
 						if(ballY + BALL_RADIUS - brickY < BRICK_HEIGHT/2) {
-							// if ball is touching from left side
+							
+							// If ball is touching from left side
 							// and ball is moving right because otherwise it can not be touching block from left
 							// and there is no block on left side 
-							if(ballY + BALL_RADIUS*2 - brickY > ballX + BALL_RADIUS*2 - brickX && ballMovementDirections[0] >= 0 && bricks[i][j-1].isFilled() == false) {
+							if(ballY + BALL_RADIUS*2 - brickY > ballX + BALL_RADIUS*2 - brickX 
+									&& ballMovementDirections[0] >= 0 
+									&& bricks[i][j-1].isFilled() == false) {
+								
 								ballMovementDirections[0] *= -1;
+								
 							} else {
-								ballMovementDirections[1] *= -1;
-							}
-						} else { 
-							// ball is touching from bottom left half
 							
-							// if ball is touching from left
+								ballMovementDirections[1] *= -1;
+							
+							}
+							
+						} else { 
+							
+							// Ball is touching from bottom left half
+							
+							// If ball is touching from left
 							// and ball is moving right because otherwise it can not be touching block from left
 							// and there is no block on left side
-							if(brickY + BRICK_HEIGHT - ballY > ballX + BALL_RADIUS*2 - brickX && ballMovementDirections[0] >= 0 && bricks[i][j-1].isFilled() == false) {
+							if(brickY + BRICK_HEIGHT - ballY > ballX + BALL_RADIUS*2 - brickX 
+									&& ballMovementDirections[0] >= 0 
+									&& bricks[i][j-1].isFilled() == false) {
+								
 								ballMovementDirections[0] *= -1;
+							
 							} else {
+								
 								ballMovementDirections[1] *= -1;
+								
 							}
+							
 						}
-					} else {
-						// ball is touching from right half
 						
-						// if ball is touching from top 
+					} else {
+						// Ball is touching from right half
+						
+						// If ball is touching from top 
 						if(ballY + BALL_RADIUS - brickY < BRICK_HEIGHT/2) {
-							// if ball is touching from top side 
+							
+							// If ball is touching from top side 
 							// or ball is moving to right because that time it can not be touching block from right side
-							if(brickX + BRICK_WIDTH - ballX > ballY + BALL_RADIUS*2 - brickY || ballMovementDirections[0] >= 0) {
+							if(brickX + BRICK_WIDTH - ballX > ballY + BALL_RADIUS*2 - brickY 
+									|| ballMovementDirections[0] >= 0) {
+								
 								ballMovementDirections[1] *= -1;
+							
 							} else {
+								
 								ballMovementDirections[0] *= -1;
+								
 							}
 						} else {
-							// ball is touching from bottom right half
+							// Ball is touching from bottom right half
 							
-							// if ball is touching from bottom side
+							// If ball is touching from bottom side
 							// or ball is moving to right because that time it can not be touching block from right side
-							if(brickX + BRICK_WIDTH - ballX > brickY + BRICK_HEIGHT - ballY || ballMovementDirections[0] >= 0) {
+							if(brickX + BRICK_WIDTH - ballX > brickY + BRICK_HEIGHT - ballY 
+									|| ballMovementDirections[0] >= 0) {
+								
 								ballMovementDirections[1] *= -1;
+							
 							} else {
+								
 								ballMovementDirections[0] *= -1;
+								
 							}
+							
 						}
+						
 					}
+					
 					directionChanged = true;
+					
 				}
 				
 			}
 			
 		}
-		// if direction changed that means ball popped block
+		
+		// If direction changed that means ball popped block
 		if(directionChanged) {
 			POPPED_COUNT++;
 		}
-		// if there is not any bricks left this stops game and takes player to next level
+		
+		// If there is not any bricks left this stops game and takes player to next level
 		if(brickIsLeft == false) {
 			ballMovementDirections[1] = 0;
 		}
 		
 		if(temp0 != ballMovementDirections[0] || temp1 != ballMovementDirections[1]) {
-//			 makeSound();
+			makeSound();
 			// line above this will make sound whlie ball hits something, but it lags on my computer for some reason
 		}
 		
