@@ -149,9 +149,9 @@ public class Breakout extends GraphicsProgram {
 			ball.setLocation(ball.getX() + ballMovementDirections[0], ball.getY() + ballMovementDirections[1]);
 			
 			// moves paddle closer to mouse's X location
-			double padleX = moveDirection(paddle.getX()); 
-			if((paddle.getX() + PADDLE_WIDTH < WIDTH && padleX == 1) || (paddle.getX() > 0 && padleX == -1)) {
-				paddle.setLocation(paddle.getX() + padleX*3, paddle.getY());
+			double mouseX =  MouseInfo.getPointerInfo().getLocation().getX();
+			if(mouseX - PADDLE_WIDTH/2 < WIDTH && mouseX > PADDLE_WIDTH/2) {
+				paddle.setLocation(mouseX - PADDLE_WIDTH/2, paddle.getY());
 			}
 			
 			pause(SLEEP_TIME);
@@ -171,18 +171,6 @@ public class Breakout extends GraphicsProgram {
 			}
 			
 		}
-	}
-	
-	// function returns in which direction paddle should move
-	private double moveDirection(double padleX) {
-		// if mouse pointer is in the middle of paddle in order for it to not start shaking left and right
-		// i made it so pointer should be away from paddles middle by at least 2 pixels to make paddle move
-		if(MouseInfo.getPointerInfo().getLocation().getX()-(padleX + PADDLE_WIDTH - 5) > 2) {
-			return 1;
-		} else if (MouseInfo.getPointerInfo().getLocation().getX()-(padleX + PADDLE_WIDTH - 5) < -2){
-			return -1;
-		}
-		return 0;
 	}
 
 	// function changes ball's directions according to where did it hit
