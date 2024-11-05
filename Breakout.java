@@ -115,7 +115,11 @@ public class Breakout extends GraphicsProgram {
 
 	private GRect setPaddle() {
 		
-		GRect padle = new GRect(getWidth()/2 - PADDLE_WIDTH/2, getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT, PADDLE_WIDTH, PADDLE_HEIGHT);
+		GRect padle = new GRect(getWidth()/2 - PADDLE_WIDTH/2,
+				getHeight() - PADDLE_Y_OFFSET - PADDLE_HEIGHT,
+				PADDLE_WIDTH, 
+				PADDLE_HEIGHT);
+		
 		padle.setFilled(true);
 		add(padle);
 		
@@ -124,7 +128,11 @@ public class Breakout extends GraphicsProgram {
 	
 	private GOval setBall() {
 		
-		GOval ball = new GOval(getWidth()/2 - BALL_RADIUS*2, getHeight()/2, BALL_RADIUS*2, BALL_RADIUS*2);
+		GOval ball = new GOval(getWidth()/2 - BALL_RADIUS*2,
+				getHeight()/2,
+				BALL_RADIUS*2,
+				BALL_RADIUS*2);
+		
 		ball.setFilled(true);
 		add(ball);
 		
