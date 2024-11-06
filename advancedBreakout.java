@@ -98,6 +98,9 @@ public class advancedBreakout extends GraphicsProgram {
 		/* For some reason setSize does not set size same as passed values so I needed to add 18 and 72 */
 		setSize(WIDTH + 18, HEIGHT + 72);
 		
+		// Adding mouse listeners to tell when mouse got clicked
+		addMouseListeners(); 
+		
 		setPlayButton();
 		
 		GRect [][] bricks = setBricks();
@@ -105,9 +108,6 @@ public class advancedBreakout extends GraphicsProgram {
 		GOval ball = setBall(WIDTH/2 - BALL_RADIUS/2, HEIGHT/2 - BALL_RADIUS/2);
 		
 		setFrame(); 
-		
-		// Adding mouse listeners to tell when mouse got clicked
-		addMouseListeners(); 
 		
 		startGame(bricks, paddle, ball);
 	}
