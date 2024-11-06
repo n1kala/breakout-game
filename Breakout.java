@@ -198,15 +198,15 @@ public class Breakout extends GraphicsProgram {
 	//Mouse tracker to make paddle follow
 	public void mouseMoved(MouseEvent e) {
 		super.mouseMoved(e);
-		MOUSE_X; = e.getX();
+		MOUSE_X = e.getX();
 	}
 	
 	// Function makes paddle follow mouse
 	private void correctPaddleLocation(GRect paddle) {
 		
-		if(MOUSE_X; + PADDLE_WIDTH/2 < WIDTH && MOUSE_X; > PADDLE_WIDTH/2) {
+		if(MOUSE_X + PADDLE_WIDTH/2 < WIDTH && MOUSE_X > PADDLE_WIDTH/2) {
 		
-			paddle.setLocation(MOUSE_X; - PADDLE_WIDTH/2, paddle.getY());
+			paddle.setLocation(MOUSE_X - PADDLE_WIDTH/2, paddle.getY());
 	
 		}
 		
