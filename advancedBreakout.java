@@ -73,6 +73,9 @@ public class advancedBreakout extends GraphicsProgram {
 /** Count of how many blocks did player pop */
 	private int POPPED_COUNT = 0;
 	
+/** Tells if player have super shot */
+	private boolean SUPER_SHOT = false;
+	
 /** If player pops all the blocks he goes to next level where ball moves faster */
 	private int LEVEL = 1;
 	
@@ -111,9 +114,6 @@ public class advancedBreakout extends GraphicsProgram {
 		int life = NTURNS;
 		
 		double ballMovementDirections [] = {(Math.random()-0.5)*4, 3}; // movement on X and Y
-		
-		/** Tells if player have super shot */
-		boolean SUPER_SHOT = false;
 		
 		// Additional balls are spawned after breaking black brick
 		double ballMovementDirections1 [] = {(Math.random()-0.5)*4, -3}; 
@@ -229,18 +229,18 @@ public class advancedBreakout extends GraphicsProgram {
 			
 			if(poppedBlocks <= 0) {
 				
-				ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks, marks, false, SUPER_SHOT);
+				ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks, marks, false);
 				
 				if(ball1 != null) {
-					ballMovementDirections1 = directionChanges(ballMovementDirections1, paddle, ball1, bricks, marks, true, SUPER_SHOT);
+					ballMovementDirections1 = directionChanges(ballMovementDirections1, paddle, ball1, bricks, marks, true);
 				}
 				
 				if(ball2 != null) {
-					ballMovementDirections2 = directionChanges(ballMovementDirections2, paddle, ball2, bricks, marks, true, SUPER_SHOT);
+					ballMovementDirections2 = directionChanges(ballMovementDirections2, paddle, ball2, bricks, marks, true);
 				}
 				
 				if(ball3 != null) {
-					ballMovementDirections3 = directionChanges(ballMovementDirections3, paddle, ball3, bricks, marks, true, SUPER_SHOT);
+					ballMovementDirections3 = directionChanges(ballMovementDirections3, paddle, ball3, bricks, marks, true);
 				}
 			
 			}
@@ -440,13 +440,13 @@ public class advancedBreakout extends GraphicsProgram {
 		text.setColor(Color.BLACK);
 		
 		GLabel reminderSuperShot = new GLabel("Remember, after every 10 blocks popped you will get super shot!", WIDTH/2 - 180, HEIGHT/2 - 100);
-		reminderSuperShot.setColor(Color.BLACK);
+		reminderSuperShot.setColor(Color.RED);
 		
 		GLabel reminderLaser = new GLabel("Use paddle's builtin laser with mouseclick. You get 1 shot each level.", WIDTH/2 - 180, HEIGHT/2 - 80);
-		reminderLaser.setColor(Color.BLACK);
+		reminderLaser.setColor(Color.MAGENTA);
 		
 		GLabel reminderBallAdder = new GLabel("Also popping black block will spawn 3 additional balls.", WIDTH/2 - 160, HEIGHT/2 - 60);
-		reminderBallAdder.setColor(Color.BLACK);
+		reminderBallAdder.setColor(Color.ORANGE);
 		
 		if(LEVEL == 1) {
 			add(text);
@@ -590,25 +590,24 @@ public class advancedBreakout extends GraphicsProgram {
 	} 
 	
 	// Function changes ball's directions according to where did it hit
-	private double [] directionChanges(double [] BALL_MOVEMENT_DIRECTIONS, GOval paddle, GOval ball, GRect [][] bricks, GLine [] marks, boolean ADDED_BALL, boolean SUPER_SHOT) {
+	private double [] directionChanges(double [] ballMovementDirections, GOval paddle, GOval ball, GRect [][] bricks, GLine [] marks, boolean addedBall) {
 		
-		// If any of this values change bounce sound gets played
-		double temp0 = BALL_MOVEMENT_DIRECTIONS[0], temp1 = BALL_MOVEMENT_DIRECTIONS[1];
+		double temp0 = ballMovementDirections[0], temp1 = ballMovementDirections[1];
 		
 		// When ball hits right wall
 		if(ball.getX() >= WIDTH - BALL_RADIUS*2 - 8) {
 			// I added absolute values, because, otherwise, ball gets stuck on paddle going back and forth
-			BALL_MOVEMENT_DIRECTIONS[0] = -Math.abs(BALL_MOVEMENT_DIRECTIONS[0]);
+			ballMovementDirections[0] = -Math.abs(ballMovementDirections[0]);
 		}
 		
 		// When ball hits left wall
 		if(ball.getX() <= 8) {
-			BALL_MOVEMENT_DIRECTIONS[0] = Math.abs(BALL_MOVEMENT_DIRECTIONS[0]);
+			ballMovementDirections[0] = Math.abs(ballMovementDirections[0]);
 		}
 		
 		// When ball hits top wall
 		if(ball.getY() <= 8) {
-			BALL_MOVEMENT_DIRECTIONS[1] = Math.abs(BALL_MOVEMENT_DIRECTIONS[1]);
+			ballMovementDirections[1] = Math.abs(ballMovementDirections[1]);
 		}
 		
 		// When ball hits paddle
@@ -619,12 +618,12 @@ public class advancedBreakout extends GraphicsProgram {
 			double place = ball.getX() + BALL_RADIUS - paddle.getX(); // place on paddle where ball did hit
 			
 			// Direction changes of ball, depending on where on paddle it will hit 
-			BALL_MOVEMENT_DIRECTIONS[0] = (place - PADDLE_WIDTH/2)*PADDLE_TRAJECTORY;
+			ballMovementDirections[0] = (place - PADDLE_WIDTH/2)*PADDLE_TRAJECTORY;
 			
-			BALL_MOVEMENT_DIRECTIONS[1] = -Math.abs(BALL_MOVEMENT_DIRECTIONS[1]);
+			ballMovementDirections[1] = -Math.abs(ballMovementDirections[1]);
 			
 			// Reseting changes after super shot
-			if(SUPER_SHOT && ADDED_BALL == false) {
+			if(SUPER_SHOT && addedBall == false) {
 				
 				SUPER_SHOT = false;
 				paddle.setFillColor(Color.BLACK);
@@ -639,7 +638,7 @@ public class advancedBreakout extends GraphicsProgram {
 			}
 			
 			// After every 10 popped blocks player gets super shot which pierces everything
-			if(POPPED_COUNT >= 10 && ADDED_BALL == false) {
+			if(POPPED_COUNT >= 10 && addedBall == false) {
 			
 				SUPER_SHOT = true;
 				paddle.setFillColor(Color.RED);
@@ -704,7 +703,7 @@ public class advancedBreakout extends GraphicsProgram {
 					remove(bricks[i][j]);
 					
 					// If its super shot direction do not changes
-					if(SUPER_SHOT && ADDED_BALL == false) { 
+					if(SUPER_SHOT && addedBall == false) { 
 						continue;
 					}
 					
@@ -718,14 +717,14 @@ public class advancedBreakout extends GraphicsProgram {
 							// and ball is moving right because otherwise it can not be touching block from left
 							// and there is no block on left side 
 							if(ballY + BALL_RADIUS*2 - brickY > ballX + BALL_RADIUS*2 - brickX 
-									&& BALL_MOVEMENT_DIRECTIONS[0] >= 0 
+									&& ballMovementDirections[0] >= 0 
 									&& bricks[i][j-1].isFilled() == false) {
 								
-								BALL_MOVEMENT_DIRECTIONS[0] *= -1;
+								ballMovementDirections[0] *= -1;
 								
 							} else {
 							
-								BALL_MOVEMENT_DIRECTIONS[1] *= -1;
+								ballMovementDirections[1] *= -1;
 							
 							}
 							
@@ -737,14 +736,14 @@ public class advancedBreakout extends GraphicsProgram {
 							// and ball is moving right because otherwise it can not be touching block from left
 							// and there is no block on left side
 							if(brickY + BRICK_HEIGHT - ballY > ballX + BALL_RADIUS*2 - brickX 
-									&& BALL_MOVEMENT_DIRECTIONS[0] >= 0 
+									&& ballMovementDirections[0] >= 0 
 									&& bricks[i][j-1].isFilled() == false) {
 								
-								BALL_MOVEMENT_DIRECTIONS[0] *= -1;
+								ballMovementDirections[0] *= -1;
 							
 							} else {
 								
-								BALL_MOVEMENT_DIRECTIONS[1] *= -1;
+								ballMovementDirections[1] *= -1;
 								
 							}
 							
@@ -759,13 +758,13 @@ public class advancedBreakout extends GraphicsProgram {
 							// If ball is touching from top side 
 							// or ball is moving to right because that time it can not be touching block from right side
 							if(brickX + BRICK_WIDTH - ballX > ballY + BALL_RADIUS*2 - brickY 
-									|| BALL_MOVEMENT_DIRECTIONS[0] >= 0) {
+									|| ballMovementDirections[0] >= 0) {
 								
-								BALL_MOVEMENT_DIRECTIONS[1] *= -1;
+								ballMovementDirections[1] *= -1;
 							
 							} else {
 								
-								BALL_MOVEMENT_DIRECTIONS[0] *= -1;
+								ballMovementDirections[0] *= -1;
 								
 							}
 						} else {
@@ -774,13 +773,13 @@ public class advancedBreakout extends GraphicsProgram {
 							// If ball is touching from bottom side
 							// or ball is moving to right because that time it can not be touching block from right side
 							if(brickX + BRICK_WIDTH - ballX > brickY + BRICK_HEIGHT - ballY 
-									|| BALL_MOVEMENT_DIRECTIONS[0] >= 0) {
+									|| ballMovementDirections[0] >= 0) {
 								
-								BALL_MOVEMENT_DIRECTIONS[1] *= -1;
+								ballMovementDirections[1] *= -1;
 							
 							} else {
 								
-								BALL_MOVEMENT_DIRECTIONS[0] *= -1;
+								ballMovementDirections[0] *= -1;
 								
 							}
 							
@@ -803,15 +802,15 @@ public class advancedBreakout extends GraphicsProgram {
 		
 		// If there is not any bricks left this stops game and takes player to next level
 		if(brickIsLeft == false) {
-			BALL_MOVEMENT_DIRECTIONS[1] = 0;
+			ballMovementDirections[1] = 0;
 		}
 	
 		// This should adds sound on bounce, but it lags on my computer for some reason
-		if(temp0 != BALL_MOVEMENT_DIRECTIONS[0] || temp1 != BALL_MOVEMENT_DIRECTIONS[1]) {
+		if(temp0 != ballMovementDirections[0] || temp1 != ballMovementDirections[1]) {
 			// makeSound();
 		}
 		
-		return BALL_MOVEMENT_DIRECTIONS;
+		return ballMovementDirections;
 	}
 	
 	// Makes sound when ball hits something
