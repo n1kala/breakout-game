@@ -437,16 +437,16 @@ public class advancedBreakout extends GraphicsProgram {
 		level.setColor(Color.BLUE);
 		
 		GLabel text = new GLabel("Lets see how far will you get. My personal best is level 4. Good luck!", WIDTH/2 - 180, HEIGHT/2 - 120);
-		text.setColor(Color.RED);
+		text.setColor(Color.BLACK);
 		
 		GLabel reminderSuperShot = new GLabel("Remember, after every 10 blocks popped you will get super shot!", WIDTH/2 - 180, HEIGHT/2 - 100);
-		reminderSuperShot.setColor(Color.RED);
+		reminderSuperShot.setColor(Color.BLACK);
 		
 		GLabel reminderLaser = new GLabel("Use paddle's builtin laser with mouseclick. You get 1 shot each level.", WIDTH/2 - 180, HEIGHT/2 - 80);
-		reminderLaser.setColor(Color.RED);
+		reminderLaser.setColor(Color.BLACK);
 		
 		GLabel reminderBallAdder = new GLabel("Also popping black block will spawn 3 additional balls.", WIDTH/2 - 160, HEIGHT/2 - 60);
-		reminderBallAdder.setColor(Color.RED);
+		reminderBallAdder.setColor(Color.BLACK);
 		
 		if(LEVEL == 1) {
 			add(text);
