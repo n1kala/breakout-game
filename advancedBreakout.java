@@ -65,10 +65,16 @@ public class advancedBreakout extends GraphicsProgram {
 
 /** This number controls sensitivity of ball's rebound from paddle, make it 1 to turn off trajectory control */
 	private static final double PADDLE_TRAJECTORY = 0.14;
+
+/** Delay time, decrease this number to make program faster */ 
+	private static final long SLEEP_TIME = 8;
+	
+/** Laser's width */
+	private static final double LASER_WIDTH = 8;
 	
 ///////////////////// changeable global variables ////////////////////// 
-/** Delay time, decrease this number to make program faster */ 
-	private long SLEEP_TIME = 8;
+/** Mouses X coordinate to make paddle follow */
+	private double mouseX;
 	
 /** Count of how many blocks did player pop */
 	private int POPPED_COUNT = 0;
@@ -84,10 +90,9 @@ public class advancedBreakout extends GraphicsProgram {
 	private double newBallX;
 	private double newBallY;
 	
-/** These variables tell when laser should be shoot and how big it should be */
+/** These variables tell when laser should be shoot */
 	private boolean mouseIsDown = false;
 	private boolean laserIsAvaliable = true;
-	private double LASER_WIDTH = 8;
 	
 	public void run() {
 		/* For some reason setSize does not set size same as passed values so I needed to add 18 and 72 */
@@ -129,8 +134,6 @@ public class advancedBreakout extends GraphicsProgram {
 		
 		// Count of loops in while true loop, i use it in order to add marks of ball's movement
 		int count = 0;
-		
-		int poppedBlocks = 0;
 		
 		// X coordinates of laser shot beginning and end
 		int lineStartX = 0;
@@ -219,30 +222,30 @@ public class advancedBreakout extends GraphicsProgram {
 			}
 			
 			// Moves paddle close to mouse's x coordinate slowly
-			double padleX = moveDirection(paddle.getX()); 
-			if((paddle.getX() + PADDLE_WIDTH < WIDTH && padleX == 1) || (paddle.getX() > 0 && padleX == -1)) {
-				paddle.setLocation(paddle.getX() + padleX*3, paddle.getY());
+			double paddleMovementDirection = moveDirection(paddle.getX()); 
+			if((paddle.getX() + PADDLE_WIDTH < WIDTH && paddleMovementDirection == 1) 
+					|| (paddle.getX() > 0 && paddleMovementDirection == -1)) {
+				
+				paddle.setLocation(paddle.getX() + paddleMovementDirection*3, paddle.getY());
+				
 			}
 			
 			// Makes program slow to make it playable. Speed increases on each level.
 			pause(SLEEP_TIME - LEVEL);
 			
-			if(poppedBlocks <= 0) {
-				
-				ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks, marks, false);
-				
-				if(ball1 != null) {
-					ballMovementDirections1 = directionChanges(ballMovementDirections1, paddle, ball1, bricks, marks, true);
-				}
-				
-				if(ball2 != null) {
-					ballMovementDirections2 = directionChanges(ballMovementDirections2, paddle, ball2, bricks, marks, true);
-				}
-				
-				if(ball3 != null) {
-					ballMovementDirections3 = directionChanges(ballMovementDirections3, paddle, ball3, bricks, marks, true);
-				}
+			// Updating balls movement directions
+			ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks, marks, false);
 			
+			if(ball1 != null) {
+				ballMovementDirections1 = directionChanges(ballMovementDirections1, paddle, ball1, bricks, marks, true);
+			}
+			
+			if(ball2 != null) {
+				ballMovementDirections2 = directionChanges(ballMovementDirections2, paddle, ball2, bricks, marks, true);
+			}
+			
+			if(ball3 != null) {
+				ballMovementDirections3 = directionChanges(ballMovementDirections3, paddle, ball3, bricks, marks, true);
 			}
 			
 			// If there is no bricks left player gets to next level and everything resets
@@ -327,6 +330,13 @@ public class advancedBreakout extends GraphicsProgram {
 		
 		}
 	}
+	
+	// Mouse tracker to make paddle follow
+	public void mouseMoved(MouseEvent e) {
+		super.mouseMoved(e);
+		mouseX = e.getX();
+	}	
+	
 	
 	// If mouse is clicked player should shot laser if he has it
 	public void mouseClicked(MouseEvent e) {
@@ -543,19 +553,11 @@ public class advancedBreakout extends GraphicsProgram {
 		
 	}
 	
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-		super.mouseMoved(e);
-	}	
-	
 	// function returns in which direction paddle should move
 	private double moveDirection(double padleX) {
 		
 		// If mouse pointer is in the middle of paddle, in order for paddle to not start shaking left and right,
 		// I made it such that mouse pointer should be away from paddles middle by at least 1 pixels to make paddle move
-		
-		double mouseX = MouseInfo.getPointerInfo().getLocation().getX();
 		if(mouseX - (padleX + PADDLE_WIDTH) > 1) {
 		
 			return 1;
