@@ -72,6 +72,9 @@ public class Breakout extends GraphicsProgram {
 		/* For some reason setSize does not set size same as passed values so I needed to add 18 and 72*/
 		setSize(APPLICATION_WIDTH + 18, APPLICATION_HEIGHT + 72);
 		
+		// Adding mouse listeners to know when it moved
+		addMouseListeners();
+		
 		GRect [][] bricks = setBricks();
 		GRect paddle = setPaddle();
 		GOval ball = setBall();
