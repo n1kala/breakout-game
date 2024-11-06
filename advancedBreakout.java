@@ -538,11 +538,13 @@ public class advancedBreakout extends GraphicsProgram {
 		add(frame4);
 		
 	}
+	
 	@Override
-		public void mouseMoved(MouseEvent e) {
-			// TODO Auto-generated method stub
-			super.mouseMoved(e);
-		}
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		super.mouseMoved(e);
+	}	
+	
 	// function returns in which direction paddle should move
 	private double moveDirection(double padleX) {
 		
