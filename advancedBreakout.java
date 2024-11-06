@@ -74,7 +74,7 @@ public class advancedBreakout extends GraphicsProgram {
 	
 ///////////////////// changeable global variables ////////////////////// 
 /** Mouses X coordinate to make paddle follow */
-	private double mouseX;
+	private double MOUSE_X;
 	
 /** Count of how many blocks did player pop */
 	private int POPPED_COUNT = 0;
@@ -86,13 +86,13 @@ public class advancedBreakout extends GraphicsProgram {
 	private int LEVEL = 1;
 	
 /** If player pops ball adder block, these variables tell when and where should it be added */
-	private boolean addBalls = false;
-	private double newBallX;
-	private double newBallY;
+	private boolean ADD_BALLS = false;
+	private double NEW_BALL_X;
+	private double NEW_BALL_Y;
 	
 /** These variables tell when laser should be shoot */
-	private boolean mouseIsDown = false;
-	private boolean laserIsAvaliable = true;
+	private boolean MOUSE_IS_DOWN = false;
+	private boolean LASER_IS_AVALIABLE = true;
 	
 	public void run() {
 		/* For some reason setSize does not set size same as passed values so I needed to add 18 and 72 */
@@ -163,9 +163,9 @@ public class advancedBreakout extends GraphicsProgram {
 			}
 			
 			// Makes laser charge on mouse click
-			if(mouseIsDown && laserIsAvaliable) {				
+			if(MOUSE_IS_DOWN && LASER_IS_AVALIABLE) {				
 				
-				laserIsAvaliable = false;
+				LASER_IS_AVALIABLE = false;
 				
 				laser = shootLaser(bricks, paddle.getX() + PADDLE_WIDTH/2, paddle);
 				
@@ -190,13 +190,13 @@ public class advancedBreakout extends GraphicsProgram {
 			}
 			
 			// Adds additional 3 balls after black brick is broken
-			if(addBalls) {
+			if(ADD_BALLS) {
 				
-				addBalls = false;
+				ADD_BALLS = false;
 				
-				ball1 = setBall(newBallX - BALL_RADIUS/2,newBallY - BALL_RADIUS/2);
-				ball2 = setBall(newBallX - BALL_RADIUS/2,newBallY - BALL_RADIUS/2);
-				ball3 = setBall(newBallX - BALL_RADIUS/2,newBallY - BALL_RADIUS/2);
+				ball1 = setBall(NEW_BALL_X - BALL_RADIUS/2,NEW_BALL_Y - BALL_RADIUS/2);
+				ball2 = setBall(NEW_BALL_X - BALL_RADIUS/2,NEW_BALL_Y - BALL_RADIUS/2);
+				ball3 = setBall(NEW_BALL_X - BALL_RADIUS/2,NEW_BALL_Y - BALL_RADIUS/2);
 				
 				ball1.setFillColor(Color.YELLOW);
 				ball2.setFillColor(Color.YELLOW);
@@ -254,7 +254,7 @@ public class advancedBreakout extends GraphicsProgram {
 				// Reseting everything
 				LEVEL++;
 				
-				laserIsAvaliable = true;
+				LASER_IS_AVALIABLE = true;
 				laser = null;
 				
 				lineStartX = 0;
@@ -334,7 +334,7 @@ public class advancedBreakout extends GraphicsProgram {
 	// Mouse tracker to make paddle follow
 	public void mouseMoved(MouseEvent e) {
 		super.mouseMoved(e);
-		mouseX = e.getX();
+		MOUSE_X = e.getX();
 	}	
 	
 	
@@ -342,7 +342,7 @@ public class advancedBreakout extends GraphicsProgram {
 	public void mouseClicked(MouseEvent e) {
 		
 		super.mouseClicked(e);
-		mouseIsDown = true;
+		MOUSE_IS_DOWN = true;
 		
 	}
 	
@@ -412,7 +412,7 @@ public class advancedBreakout extends GraphicsProgram {
 		
 		waitForClick();
 		removeAll();
-		mouseIsDown = false;
+		MOUSE_IS_DOWN = false;
 	
 	}
 	
@@ -558,11 +558,11 @@ public class advancedBreakout extends GraphicsProgram {
 		
 		// If mouse pointer is in the middle of paddle, in order for paddle to not start shaking left and right,
 		// I made it such that mouse pointer should be away from paddles middle by at least 1 pixels to make paddle move
-		if(mouseX - (padleX + PADDLE_WIDTH) > 1) {
+		if(MOUSE_X - (padleX + PADDLE_WIDTH) > 1) {
 		
 			return 1;
 		
-		} else if (mouseX - (padleX + PADDLE_WIDTH) < -1){
+		} else if (MOUSE_X - (padleX + PADDLE_WIDTH) < -1){
 		
 			return -1;
 		
@@ -695,9 +695,9 @@ public class advancedBreakout extends GraphicsProgram {
 					// If its black block this remembers where additional balls should be added at
 					if(bricks[i][j].getFillColor() == Color.BLACK) {
 						
-						addBalls = true;
-						newBallY = bricks[i][j].getY() + BRICK_HEIGHT/2;
-						newBallX = bricks[i][j].getX() + BRICK_WIDTH/2;
+						ADD_BALLS = true;
+						NEW_BALL_Y = bricks[i][j].getY() + BRICK_HEIGHT/2;
+						NEW_BALL_X = bricks[i][j].getX() + BRICK_WIDTH/2;
 						
 					}
 					
