@@ -66,7 +66,7 @@ public class advancedBreakout extends GraphicsProgram {
 /** This number controls sensitivity of ball's rebound from paddle, make it 1 to turn off trajectory control */
 	private static final double PADDLE_TRAJECTORY = 0.14;
 	
-///////////////////////////////////////////   changeable global variables
+///////////////////// changeable global variables ////////////////////// 
 /** Delay time, decrease this number to make program faster */ 
 	private long SLEEP_TIME = 8;
 	
@@ -538,7 +538,11 @@ public class advancedBreakout extends GraphicsProgram {
 		add(frame4);
 		
 	}
-	
+	@Override
+		public void mouseMoved(MouseEvent e) {
+			// TODO Auto-generated method stub
+			super.mouseMoved(e);
+		}
 	// function returns in which direction paddle should move
 	private double moveDirection(double padleX) {
 		
