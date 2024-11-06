@@ -63,6 +63,9 @@ public class Breakout extends GraphicsProgram {
 /** Sleep time of thread, decrease this to make program faster */
 	private static final int SLEEP_TIME = 7;
 	
+///// Changeable variable /////
+	private double MOUSE_X;
+	
 /** Runs the Breakout program. */
 	public void run() {
 		
@@ -192,14 +195,18 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 
+	//Mouse tracker to make paddle follow
+	public void mouseMoved(MouseEvent e) {
+		super.mouseMoved(e);
+		MOUSE_X; = e.getX();
+	}
+	
 	// Function makes paddle follow mouse
 	private void correctPaddleLocation(GRect paddle) {
 		
-		double mouseX =  MouseInfo.getPointerInfo().getLocation().getX();
+		if(MOUSE_X; + PADDLE_WIDTH/2 < WIDTH && MOUSE_X; > PADDLE_WIDTH/2) {
 		
-		if(mouseX + PADDLE_WIDTH/2 < WIDTH && mouseX > PADDLE_WIDTH/2) {
-		
-			paddle.setLocation(mouseX - PADDLE_WIDTH/2, paddle.getY());
+			paddle.setLocation(MOUSE_X; - PADDLE_WIDTH/2, paddle.getY());
 	
 		}
 		
