@@ -815,9 +815,9 @@ public class advancedBreakout extends GraphicsProgram {
 	
 		// This should adds sound on bounce, but it lags on my computer for some reason
 		if(temp0 != ballMovementDirections[0] || temp1 != ballMovementDirections[1]) {
-			makeSound();
+			//makeSound();
 			skipMove = 2;
-			println("S");
+			//println("S");
 		}
 		
 		return ballMovementDirections;
