@@ -594,8 +594,6 @@ public class advancedBreakout extends GraphicsProgram {
 	// Function changes ball's directions according to where did it hit
 	private double [] directionChanges(double [] ballMovementDirections, GOval paddle, GOval ball, GRect [][] bricks, GLine [] marks, boolean addedBall) {
 		
-		double temp0 = ballMovementDirections[0], temp1 = ballMovementDirections[1];
-		
 		// When ball hits right wall
 		if(ball.getX() >= WIDTH - BALL_RADIUS*2 - 8) {
 			// I added absolute values, because, otherwise, ball gets stuck on paddle going back and forth
@@ -808,8 +806,8 @@ public class advancedBreakout extends GraphicsProgram {
 		}
 	
 		// This should adds sound on bounce, but it lags on my computer for some reason
-		if(temp0 != ballMovementDirections[0] || temp1 != ballMovementDirections[1]) {
-			// makeSound();
+		if(directionChanged) {
+			makeSound();
 		}
 		
 		return ballMovementDirections;
