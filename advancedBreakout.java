@@ -564,11 +564,11 @@ public class advancedBreakout extends GraphicsProgram {
 		
 		// If mouse pointer is in the middle of paddle, in order for paddle to not start shaking left and right,
 		// I made it such that mouse pointer should be away from paddles middle by at least 1 pixels to make paddle move
-		if(MOUSE_X - (padleX + PADDLE_WIDTH) > 1) {
+		if(MOUSE_X - (padleX + PADDLE_WIDTH/2) > 1) {
 		
 			return 1;
 		
-		} else if (MOUSE_X - (padleX + PADDLE_WIDTH) < -1){
+		} else if (MOUSE_X - (padleX + PADDLE_WIDTH/2) < -1){
 		
 			return -1;
 		
