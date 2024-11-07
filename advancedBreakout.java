@@ -94,7 +94,8 @@ public class advancedBreakout extends GraphicsProgram {
 	private boolean MOUSE_IS_DOWN = false;
 	private boolean LASER_IS_AVALIABLE = true;
 	
-	private boolean skipMove = false;
+	private int skipMove = 0;
+	
 	public void run() {
 		/* For some reason setSize does not set size same as passed values so I needed to add 18 and 72 */
 		setSize(WIDTH + 18, HEIGHT + 72);
@@ -235,10 +236,10 @@ public class advancedBreakout extends GraphicsProgram {
 			pause(SLEEP_TIME - LEVEL);
 			
 			// Updating balls movement directions
-			if(skipMove == false) {
+			if(skipMove == 0) {
 				ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks, marks, false);
 			} else {
-				skipMove = false;
+				skipMove--;
 			}
 			
 			if(ball1 != null) {
@@ -815,7 +816,7 @@ public class advancedBreakout extends GraphicsProgram {
 		// This should adds sound on bounce, but it lags on my computer for some reason
 		if(temp0 != ballMovementDirections[0] || temp1 != ballMovementDirections[1]) {
 			makeSound();
-			skipMove = true;
+			skipMove = 2;
 			print("S");
 		}
 		
