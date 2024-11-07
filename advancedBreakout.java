@@ -817,7 +817,7 @@ public class advancedBreakout extends GraphicsProgram {
 		if(temp0 != ballMovementDirections[0] || temp1 != ballMovementDirections[1]) {
 			makeSound();
 			skipMove = 2;
-			print("S");
+			println("S");
 		}
 		
 		return ballMovementDirections;
