@@ -905,6 +905,9 @@ public class advancedBreakout extends GraphicsProgram {
 	private void bombModeExplosion(GRect [][] bricks, GOval ball) {
 		if(BOMB_MODE) {
 			
+			GRect temp = new GRect(0,0,0,0);
+			temp.setFillColor(Color.BLACK);
+			
 			GOval explosion = new GOval(ball.getX() + BALL_RADIUS - ANNIHILATION_RADIUS,
 					ball.getY() + BALL_RADIUS - ANNIHILATION_RADIUS,
 					ANNIHILATION_RADIUS*2, ANNIHILATION_RADIUS*2);
@@ -913,6 +916,10 @@ public class advancedBreakout extends GraphicsProgram {
 			
 			for(int k = 0; k < NBRICK_ROWS; k++) {
 				for(int l = 0; l < NBRICKS_PER_ROW; l++) {
+					
+					if(bricks[k][l].getFillColor() == temp.getFillColor()) {
+						continue;
+					}
 					
 					GObject collider1 = getElementAt(bricks[k][l].getX(), bricks[k][l].getY());
 					GObject collider2 = getElementAt(bricks[k][l].getX() + BRICK_WIDTH, bricks[k][l].getY());
