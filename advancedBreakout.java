@@ -748,10 +748,15 @@ public class advancedBreakout extends GraphicsProgram {
 						for(int k = 0; k < NBRICK_ROWS; k++) {
 							for(int l = 0; l < NBRICKS_PER_ROW; l++) {
 								
-								if(getElementAt(bricks[k][l].getX(), bricks[k][l].getY()) == explosion 
-										|| getElementAt(bricks[k][l].getX() + BRICK_WIDTH, bricks[k][l].getY()) == explosion
-										|| getElementAt(bricks[k][l].getX(), bricks[k][l].getY() + BRICK_HEIGHT) == explosion
-										|| getElementAt(bricks[k][l].getX() + BRICK_WIDTH, bricks[k][l].getY() + BRICK_HEIGHT) == explosion) {
+								GObject collider1 = getElementAt(bricks[k][l].getX(), bricks[k][l].getY());
+								GObject collider2 = getElementAt(bricks[k][l].getX() + BRICK_WIDTH, bricks[k][l].getY());
+								GObject collider3 = getElementAt(bricks[k][l].getX(), bricks[k][l].getY() + BRICK_HEIGHT);
+								GObject collider4 = getElementAt(bricks[k][l].getX() + BRICK_WIDTH, bricks[k][l].getY() + BRICK_HEIGHT);
+								
+								if(collider1 == explosion 
+										|| collider2 == explosion
+										|| collider3 == explosion
+										|| collider4 == explosion) {
 									
 									remove(bricks[k][l]);
 									
