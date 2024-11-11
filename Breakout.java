@@ -179,7 +179,7 @@ public class Breakout extends GraphicsProgram {
 			
 			pause(SLEEP_TIME);
 	
-			ballMovementDirections = directionChanges(ballMovementDirections, paddle, ball, bricks);
+			ballMovementDirections = directionChanges(ballMovementDirections, ball, bricks);
 			
 			// If there is no bricks left
 			if(ballMovementDirections[1] == 0) {
@@ -187,7 +187,7 @@ public class Breakout extends GraphicsProgram {
 			}
 			
 			// If ball is out player loses one of the lives
-			life = looseBall(ball, paddle, ballMovementDirections, life);
+			life = looseBall(ball, ballMovementDirections, life);
 			
 			if(life == 0) {
 				break;
@@ -210,7 +210,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	// Function changes ball's directions according to where did it hit
-	private double [] directionChanges(double [] ballMovementDirections, GRect paddle, GOval ball, GRect [][] bricks) {
+	private double [] directionChanges(double [] ballMovementDirections, GOval ball, GRect [][] bricks) {
 		
 		// When ball hits right wall
 		if(ball.getX() >= WIDTH - BALL_RADIUS*2) {
@@ -374,7 +374,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	// Function checks if player did not manage save the ball and in that case resets locations of paddle and ball
-	private int looseBall(GOval ball, GRect paddle, double [] ballMovementDirections, int life) {
+	private int looseBall(GOval ball, double [] ballMovementDirections, int life) {
 		
 		if(ball.getY() > paddle.getY()) {
 			
