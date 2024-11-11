@@ -64,7 +64,7 @@ public class Breakout extends GraphicsProgram {
 	private static final int SLEEP_TIME = 7;
 	
 ///// Changeable variable /////
-	private double MOUSE_X;
+	private GRect paddle;
 	
 /** Runs the Breakout program. */
 	public void run() {
@@ -76,12 +76,12 @@ public class Breakout extends GraphicsProgram {
 		addMouseListeners();
 		
 		GRect [][] bricks = setBricks();
-		GRect paddle = setPaddle();
+		paddle = setPaddle();
 		GOval ball = setBall();
 		
 		setFrame();
 		
-		startGame(bricks, paddle, ball);
+		startGame(bricks, ball);
 		
 	}
 	
@@ -166,7 +166,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	// Function is infinity loop which updates positions of game objects
-	private void startGame(GRect [][] bricks, GRect paddle, GOval ball) {
+	private void startGame(GRect [][] bricks, GOval ball) {
 		
 		int life = NTURNS;
 		
@@ -176,8 +176,6 @@ public class Breakout extends GraphicsProgram {
 		while(true) {
 		
 			ball.setLocation(ball.getX() + ballMovementDirections[0], ball.getY() + ballMovementDirections[1]);
-			
-			correctPaddleLocation(paddle);
 			
 			pause(SLEEP_TIME);
 	
@@ -198,21 +196,17 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 
-	//Mouse tracker to make paddle follow
+	//Mouse tracker to make paddle follow mouse
 	public void mouseMoved(MouseEvent e) {
 		super.mouseMoved(e);
-		MOUSE_X = e.getX();
-	}
-	
-	// Function makes paddle follow mouse
-	private void correctPaddleLocation(GRect paddle) {
 		
-		if(MOUSE_X + PADDLE_WIDTH/2 < WIDTH && MOUSE_X > PADDLE_WIDTH/2) {
+		double mouseX = e.getX();
 		
-			paddle.setLocation(MOUSE_X - PADDLE_WIDTH/2, paddle.getY());
+		if(mouseX + PADDLE_WIDTH/2 < WIDTH && mouseX > PADDLE_WIDTH/2) {
+		
+			paddle.setLocation(mouseX - PADDLE_WIDTH/2, paddle.getY());
 	
 		}
-		
 	}
 	
 	// Function changes ball's directions according to where did it hit
@@ -232,11 +226,9 @@ public class Breakout extends GraphicsProgram {
 		if(ball.getY() <= 5) {
 			ballMovementDirections[1] = Math.abs(ballMovementDirections[1]);
 		}
-		
+
 		// When ball hits paddle
-		if(ball.getX() + BALL_RADIUS*2 >= paddle.getX() 
-				&& ball.getX() <= paddle.getX() + PADDLE_WIDTH 
-				&& ball.getY() >= paddle.getY() - BALL_RADIUS*2) {
+		if(getElementAt(ball.getX(), ball.getY()) == paddle) {
 			
 			ballMovementDirections[1] = -Math.abs(ballMovementDirections[1]);
 			

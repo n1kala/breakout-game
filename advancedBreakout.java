@@ -623,6 +623,8 @@ public class advancedBreakout extends GraphicsProgram {
 				&& ball.getX() <= paddle.getX() + PADDLE_WIDTH 
 				&& ball.getY() >= paddle.getY() - BALL_RADIUS*2) {
 			
+			
+			
 			double place = ball.getX() + BALL_RADIUS - paddle.getX(); // place on paddle where ball did hit
 			
 			// Direction changes of ball, depending on where on paddle it will hit 
