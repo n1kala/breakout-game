@@ -98,6 +98,9 @@ public class advancedBreakout extends GraphicsProgram {
 	private boolean MOUSE_IS_DOWN = false;
 	private boolean LASER_IS_AVALIABLE = true;
 	
+/** This variable tells when bomb mode should activate */
+	private boolean BOMB_MODE = false;
+	
 	/*	Program has oval shaped paddle, which makes player able to have more control over the direction of ball.
 	 *	After popping at least 10 blocks, next shot will be super shot, which pierces through every block.
 	 *  On mouse click, player can shoot laser from the middle of the paddle, which pops every block in its radius
@@ -106,6 +109,7 @@ public class advancedBreakout extends GraphicsProgram {
 	 *  but main ball still is main ball and only that one will spawn from middle after falling out.
 	 *  Also popping white block will change parameters of popping, it will activate bomb mode. 
 	 *  In bomb mode ball will pop every block in ANNIHILATION_RADIUS range after each collision.
+	 *  Only main ball goes into bomb mode.
 	*/
 	public void run() {
 		/* For some reason setSize does not set size same as passed values so I needed to add 18 and 72 */
@@ -269,6 +273,8 @@ public class advancedBreakout extends GraphicsProgram {
 				
 				LASER_IS_AVALIABLE = true;
 				laser = null;
+				
+				BOMB_MODE = false;
 				
 				lineStartX = 0;
 				lineEndX = (int)LASER_WIDTH*2 - 1;
@@ -715,6 +721,37 @@ public class advancedBreakout extends GraphicsProgram {
 						ADD_BALLS = true;
 						NEW_BALL_Y = bricks[i][j].getY() + BRICK_HEIGHT/2;
 						NEW_BALL_X = bricks[i][j].getX() + BRICK_WIDTH/2;
+						
+					}
+					
+					
+					if(BOMB_MODE) {
+						
+						if(addedBall == false) {
+							ball.setFillColor(Color.RED);
+						}
+						
+						GOval explosion = new GOval(ballX + BALL_RADIUS, ballY + BALL_RADIUS, ANNIHILATION_RADIUS, ANNIHILATION_RADIUS);
+						for(int k = 0; k < NBRICK_ROWS; k++) {
+							for(int l = 0; l < NBRICKS_PER_ROW; l++) {
+								
+								if(getElementAt(bricks[k][l].getX(), bricks[k][l].getY()) == explosion 
+										|| getElementAt(bricks[k][l].getX() + BRICK_WIDTH, bricks[k][l].getY()) == explosion
+										|| getElementAt(bricks[k][l].getX(), bricks[k][l].getY() + BRICK_HEIGHT) == explosion
+										|| getElementAt(bricks[k][l].getX() + BRICK_WIDTH, bricks[k][l].getY() + BRICK_HEIGHT) == explosion) {
+									
+									remove(bricks[k][l]);
+									
+								}
+								
+							}
+						}
+					}
+					
+					// If its white block bomb mode activates
+					if(bricks[i][j].getFillColor() == Color.WHITE) {
+						
+						BOMB_MODE = true;
 						
 					}
 					
