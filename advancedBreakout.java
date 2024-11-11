@@ -212,6 +212,9 @@ public class advancedBreakout extends GraphicsProgram {
 					
 				} else {
 					laser = null;
+					
+					lineStartX = 0;
+					lineEndX = (int)LASER_WIDTH*2-1;
 				}
 				
 			}
