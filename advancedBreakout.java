@@ -764,6 +764,7 @@ public class advancedBreakout extends GraphicsProgram {
 								ballY + BALL_RADIUS - ANNIHILATION_RADIUS,
 								ANNIHILATION_RADIUS*2, ANNIHILATION_RADIUS*2);
 						explosion.setFilled(false);
+						add(explosion);
 						
 						for(int k = 0; k < NBRICK_ROWS; k++) {
 							for(int l = 0; l < NBRICKS_PER_ROW; l++) {
@@ -786,7 +787,7 @@ public class advancedBreakout extends GraphicsProgram {
 							}
 						}
 						
-						//remove(explosion);
+						remove(explosion);
 					}
 					
 					// If ball is touching block from left half
