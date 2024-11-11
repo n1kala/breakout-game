@@ -73,7 +73,7 @@ public class advancedBreakout extends GraphicsProgram {
 	private static final double LASER_WIDTH = 8;
 	
 /** Radius of popping in bomb mode (after popping white block bomb mode activates */
-	private static final double ANNIHILATION_RADIUS = 99;
+	private static final double ANNIHILATION_RADIUS = 77;
 	
 ///////////////////// changeable global variables ////////////////////// 
 	
@@ -742,14 +742,21 @@ public class advancedBreakout extends GraphicsProgram {
 						
 					}
 					
+					bricks[i][j].setFilled(false);
+					remove(bricks[i][j]);
 					
+					// If its super shot direction do not changes
+					if(SUPER_SHOT && addedBall == false) { 
+						continue;
+					}
+					
+					// If ball is in bomb mode it pops blocks in radius
 					if(BOMB_MODE) {
 						
 						GOval explosion = new GOval(ballX + BALL_RADIUS - ANNIHILATION_RADIUS,
 								ballY + BALL_RADIUS - ANNIHILATION_RADIUS,
-								ANNIHILATION_RADIUS, ANNIHILATION_RADIUS);
+								ANNIHILATION_RADIUS*2, ANNIHILATION_RADIUS*2);
 						explosion.setFilled(false);
-						add(explosion);
 						
 						for(int k = 0; k < NBRICK_ROWS; k++) {
 							for(int l = 0; l < NBRICKS_PER_ROW; l++) {
@@ -764,6 +771,7 @@ public class advancedBreakout extends GraphicsProgram {
 										|| collider3 == explosion
 										|| collider4 == explosion) {
 									
+									bricks[k][l].setFilled(false);
 									remove(bricks[k][l]);
 									
 								}
@@ -779,14 +787,6 @@ public class advancedBreakout extends GraphicsProgram {
 						
 						BOMB_MODE = true;
 						
-					}
-					
-					bricks[i][j].setFilled(false);
-					remove(bricks[i][j]);
-					
-					// If its super shot direction do not changes
-					if(SUPER_SHOT && addedBall == false) { 
-						continue;
 					}
 					
 					// If ball is touching block from left half
