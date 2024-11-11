@@ -747,6 +747,7 @@ public class advancedBreakout extends GraphicsProgram {
 						
 						GOval explosion = new GOval(ballX + BALL_RADIUS, ballY + BALL_RADIUS, ANNIHILATION_RADIUS, ANNIHILATION_RADIUS);
 						explosion.setFilled(false);
+						add(explosion);
 						
 						for(int k = 0; k < NBRICK_ROWS; k++) {
 							for(int l = 0; l < NBRICKS_PER_ROW; l++) {
