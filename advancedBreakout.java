@@ -194,7 +194,6 @@ public class advancedBreakout extends GraphicsProgram {
 				laser = shootLaser(bricks, paddle.getX() + PADDLE_WIDTH/2, paddle);
 				
 			}
-			
 			MOUSE_IS_DOWN = false;
 			
 			// Removes laser over time
@@ -211,6 +210,8 @@ public class advancedBreakout extends GraphicsProgram {
 					lineEndX--;
 					laserDelay = 6;
 					
+				} else {
+					laser = null;
 				}
 				
 			}
