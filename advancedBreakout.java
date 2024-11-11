@@ -639,16 +639,44 @@ public class advancedBreakout extends GraphicsProgram {
 		if(ball.getX() >= WIDTH - BALL_RADIUS*2 - 8) {
 			// I added absolute values, because, otherwise, ball gets stuck on paddle going back and forth
 			ballMovementDirections[0] = -Math.abs(ballMovementDirections[0]);
+			
+			// If ball is in bomb mode it pops blocks in radius
+			if(BOMB_MODE) {
+				
+				if(addedBall == false) {
+					bombModeExplosion(bricks, ball);
+				}
+				
+			}
+			
 		}
 		
 		// When ball hits left wall
 		if(ball.getX() <= 8) {
 			ballMovementDirections[0] = Math.abs(ballMovementDirections[0]);
+			
+			// If ball is in bomb mode it pops blocks in radius
+			if(BOMB_MODE) {
+				
+				if(addedBall == false) {
+					bombModeExplosion(bricks, ball);
+				}
+				
+			}
 		}
 		
 		// When ball hits top wall
 		if(ball.getY() <= 8) {
 			ballMovementDirections[1] = Math.abs(ballMovementDirections[1]);
+			
+			// If ball is in bomb mode it pops blocks in radius
+			if(BOMB_MODE) {
+				
+				if(addedBall == false) {
+					bombModeExplosion(bricks, ball);
+				}
+				
+			}
 		}
 		
 		// When ball hits paddle
