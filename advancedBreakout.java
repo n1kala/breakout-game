@@ -113,7 +113,7 @@ public class advancedBreakout extends GraphicsProgram {
 	 *  On mouse click, player can shoot laser from the middle of the paddle, which pops every block in its radius
 	 *  except black one. Laser shot will reset if player manages to touch both walls with paddle while ball is in air.
 	 *  Popping up black block will add 3 additional balls into the game and player will have 3 more lives,
-	 *  but main ball still is main ball and only that one will spawn from middle after falling out.
+	 *  but main ball is still main ball and only that one will spawn from middle after falling out.
 	 *  Also popping white block will change parameters of popping, it will activate bomb mode. 
 	 *  In bomb mode ball will pop every block in ANNIHILATION_RADIUS range after each collision.
 	 *  Only main ball goes into bomb mode.
