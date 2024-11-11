@@ -504,7 +504,7 @@ public class advancedBreakout extends GraphicsProgram {
 		GLabel reminderSuperShot = new GLabel("Remember, after every 10 blocks popped you will get super shot!", WIDTH/2 - 180, HEIGHT/2 - 140);
 		reminderSuperShot.setColor(Color.MAGENTA);
 		
-		GLabel reminderLaser = new GLabel("Use paddle's builtin laser with mouseclick. You get 1 free shot each level.", WIDTH/2 - 184, HEIGHT/2 - 120);
+		GLabel reminderLaser = new GLabel("Use paddle's builtin laser with mouseclick. You get 1 free shot each level.", WIDTH/2 - 190, HEIGHT/2 - 120);
 		reminderLaser.setColor(Color.MAGENTA);
 		
 		GLabel reminderLaser1 = new GLabel("Laser resets by touching both walls with paddle until ball comes back.", WIDTH/2 - 180, HEIGHT/2 - 100);
