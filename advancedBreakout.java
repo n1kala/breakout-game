@@ -210,7 +210,7 @@ public class advancedBreakout extends GraphicsProgram {
 					lineEndX--;
 					laserDelay = 6;
 					
-				} else {
+				} else if(lineStartX >= lineEndX) {
 					laser = null;
 					
 					lineStartX = 0;
