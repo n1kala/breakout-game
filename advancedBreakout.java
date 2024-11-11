@@ -73,7 +73,7 @@ public class advancedBreakout extends GraphicsProgram {
 	private static final double LASER_WIDTH = 8;
 	
 /** Radius of popping in bomb mode (after popping white block bomb mode activates */
-	private static final double ANNIHILATION_RADIUS = 50;
+	private static final double ANNIHILATION_RADIUS = 99;
 	
 ///////////////////// changeable global variables ////////////////////// 
 	
@@ -745,8 +745,10 @@ public class advancedBreakout extends GraphicsProgram {
 					
 					if(BOMB_MODE) {
 						
-						GOval explosion = new GOval(ballX + BALL_RADIUS, ballY + BALL_RADIUS, ANNIHILATION_RADIUS, ANNIHILATION_RADIUS);
-						explosion.setFilled(true);
+						GOval explosion = new GOval(ballX + BALL_RADIUS - ANNIHILATION_RADIUS,
+								ballY + BALL_RADIUS - ANNIHILATION_RADIUS,
+								ANNIHILATION_RADIUS, ANNIHILATION_RADIUS);
+						explosion.setFilled(false);
 						add(explosion);
 						
 						for(int k = 0; k < NBRICK_ROWS; k++) {
