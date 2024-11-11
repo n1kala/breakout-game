@@ -367,8 +367,12 @@ public class advancedBreakout extends GraphicsProgram {
 	
 	private GLine [] shootLaser(GRect [][] bricks, double x, GOval paddle) {
 		
+		// To check if block or white is black I use these
 		GRect temp = new GRect(0,0,0,0);
 		temp.setFillColor(Color.BLACK);
+		
+		GRect temp1 = new GRect(0,0,0,0);
+		temp1.setFillColor(Color.WHITE);
 		
 		// Removing every block other than black one in laser's range
 		for(int i = 0; i < NBRICK_ROWS; i++) {
@@ -376,7 +380,8 @@ public class advancedBreakout extends GraphicsProgram {
 				
 				if(bricks[i][j].getX() <= x + LASER_WIDTH 
 						&& bricks[i][j].getX() + BRICK_WIDTH >= x - LASER_WIDTH 
-						&& bricks[i][j].getFillColor() != temp.getFillColor()) {
+						&& bricks[i][j].getFillColor() != temp.getFillColor()
+						&& bricks[i][j].getFillColor() != temp1.getFillColor()) {
 					
 					bricks[i][j].setFilled(false);
 					
