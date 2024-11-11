@@ -95,6 +95,15 @@ public class advancedBreakout extends GraphicsProgram {
 	private boolean MOUSE_IS_DOWN = false;
 	private boolean LASER_IS_AVALIABLE = true;
 	
+	/*	Program has oval shaped paddle, which makes player able to have more control over the direction of ball.
+	 *	After popping at least 10 blocks, next shot will be super shot, which pierces through everything.
+	 *  On mouse click, player can shoot laser from the middle of the paddle, which pops every block in its radius
+	 *  except black one. Laser shot will reset if player manages to touch both walls with paddle until ball is in air.
+	 *  Popping up black block will add 3 additional balls into the game and player will have 3 more lives,
+	 *  but main ball still is main ball and only that one will spawn from middle after falling out.
+	 *  Also popping white block will change parameters of popping. 
+	 *  After popping white block ball will pop every block in ANNIHILATION_RADIUS range after each collision.
+	*/
 	public void run() {
 		/* For some reason setSize does not set size same as passed values so I needed to add 18 and 72 */
 		setSize(WIDTH + 18, HEIGHT + 72);
