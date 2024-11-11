@@ -746,7 +746,7 @@ public class advancedBreakout extends GraphicsProgram {
 					if(BOMB_MODE) {
 						
 						GOval explosion = new GOval(ballX + BALL_RADIUS, ballY + BALL_RADIUS, ANNIHILATION_RADIUS, ANNIHILATION_RADIUS);
-						explosion.setFilled(false);
+						explosion.setFilled(true);
 						add(explosion);
 						
 						for(int k = 0; k < NBRICK_ROWS; k++) {
@@ -769,7 +769,7 @@ public class advancedBreakout extends GraphicsProgram {
 							}
 						}
 						
-						remove(explosion);
+						//remove(explosion);
 					}
 					
 					// If its white block bomb mode activates
