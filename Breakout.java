@@ -226,9 +226,11 @@ public class Breakout extends GraphicsProgram {
 		if(ball.getY() <= 5) {
 			ballMovementDirections[1] = Math.abs(ballMovementDirections[1]);
 		}
-
+		
 		// When ball hits paddle
-		if(getElementAt(ball.getX(), ball.getY()) == paddle) {
+		if(ball.getX() + BALL_RADIUS*2 >= paddle.getX() 
+				&& ball.getX() <= paddle.getX() + PADDLE_WIDTH 
+				&& ball.getY() >= paddle.getY() - BALL_RADIUS*2) {
 			
 			ballMovementDirections[1] = -Math.abs(ballMovementDirections[1]);
 			
