@@ -523,6 +523,7 @@ public class advancedBreakout extends GraphicsProgram {
 				
 				if(j + i*NBRICKS_PER_ROW == bombModeBlock) {
 					bricks[i][j].setFillColor(Color.white);
+					bricks[i][j].setColor(Color.BLACK);
 				}
 				
 				add(bricks[i][j]);
