@@ -760,34 +760,10 @@ public class advancedBreakout extends GraphicsProgram {
 					// If ball is in bomb mode it pops blocks in radius
 					if(BOMB_MODE) {
 						
-						GOval explosion = new GOval(ballX + BALL_RADIUS - ANNIHILATION_RADIUS,
-								ballY + BALL_RADIUS - ANNIHILATION_RADIUS,
-								ANNIHILATION_RADIUS*2, ANNIHILATION_RADIUS*2);
-						explosion.setFilled(false);
-						add(explosion);
-						
-						for(int k = 0; k < NBRICK_ROWS; k++) {
-							for(int l = 0; l < NBRICKS_PER_ROW; l++) {
-								
-								GObject collider1 = getElementAt(bricks[k][l].getX(), bricks[k][l].getY());
-								GObject collider2 = getElementAt(bricks[k][l].getX() + BRICK_WIDTH, bricks[k][l].getY());
-								GObject collider3 = getElementAt(bricks[k][l].getX(), bricks[k][l].getY() + BRICK_HEIGHT);
-								GObject collider4 = getElementAt(bricks[k][l].getX() + BRICK_WIDTH, bricks[k][l].getY() + BRICK_HEIGHT);
-								
-								if(collider1 == explosion 
-										|| collider2 == explosion
-										|| collider3 == explosion
-										|| collider4 == explosion) {
-									
-									bricks[k][l].setFilled(false);
-									remove(bricks[k][l]);
-									
-								}
-								
-							}
+						if(addedBall == false) {
+							bombModeExplosion(bricks, ball);
 						}
 						
-						remove(explosion);
 					}
 					
 					// If ball is touching block from left half
@@ -896,6 +872,40 @@ public class advancedBreakout extends GraphicsProgram {
 		*/
 		
 		return ballMovementDirections;
+	}
+	
+	private void bombModeExplosion(GRect [][] bricks, GOval ball) {
+		if(BOMB_MODE) {
+			
+			GOval explosion = new GOval(ball.getX() + BALL_RADIUS - ANNIHILATION_RADIUS,
+					ball.getY() + BALL_RADIUS - ANNIHILATION_RADIUS,
+					ANNIHILATION_RADIUS*2, ANNIHILATION_RADIUS*2);
+			explosion.setFilled(false);
+			add(explosion);
+			
+			for(int k = 0; k < NBRICK_ROWS; k++) {
+				for(int l = 0; l < NBRICKS_PER_ROW; l++) {
+					
+					GObject collider1 = getElementAt(bricks[k][l].getX(), bricks[k][l].getY());
+					GObject collider2 = getElementAt(bricks[k][l].getX() + BRICK_WIDTH, bricks[k][l].getY());
+					GObject collider3 = getElementAt(bricks[k][l].getX(), bricks[k][l].getY() + BRICK_HEIGHT);
+					GObject collider4 = getElementAt(bricks[k][l].getX() + BRICK_WIDTH, bricks[k][l].getY() + BRICK_HEIGHT);
+					
+					if(collider1 == explosion 
+							|| collider2 == explosion
+							|| collider3 == explosion
+							|| collider4 == explosion) {
+						
+						bricks[k][l].setFilled(false);
+						remove(bricks[k][l]);
+						
+					}
+					
+				}
+			}
+			
+			remove(explosion);
+		}
 	}
 	
 	// Makes sound when ball hits something
