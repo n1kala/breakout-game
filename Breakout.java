@@ -64,7 +64,9 @@ public class Breakout extends GraphicsProgram {
 	private static final int SLEEP_TIME = 7;
 	
 ///// Changeable variable /////
-	private GRect paddle;
+	
+	// I needed to initialize this object globally, because mouseMoved can not have access on this otherwise
+	private GRect paddle; 
 	
 /** Runs the Breakout program. */
 	public void run() {
