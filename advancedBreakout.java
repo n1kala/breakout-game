@@ -75,6 +75,8 @@ public class advancedBreakout extends GraphicsProgram {
 /** Radius of popping in bomb mode (after popping white block bomb mode activates */
 	private static final double ANNIHILATION_RADIUS = 19;
 	
+/** Paddle's moving speed */
+	private static final double PADDLE_SPEED = 3;
 ///////////////////// changeable global variables ////////////////////// 
 	
 /** Mouses X coordinate to make paddle follow */
@@ -100,8 +102,13 @@ public class advancedBreakout extends GraphicsProgram {
 	
 /** This variable tells when bomb mode should activate */
 	private boolean BOMB_MODE = false;
+
+/** These variables tell when laser shot should get reset */
+	private boolean TOUCHED_LEFT_WALL = false;
+	private boolean TOUCHED_RIGHT_WALL = false;
 	
 	/*	Program has oval shaped paddle, which makes player able to have more control over the direction of ball.
+	 * 	Also paddle do not instantly appears at mouse, it has PADDLE_SPEED speed.
 	 *	After popping at least 10 blocks, next shot will be super shot, which pierces through every block.
 	 *  On mouse click, player can shoot laser from the middle of the paddle, which pops every block in its radius
 	 *  except black one. Laser shot will reset if player manages to touch both walls with paddle while ball is in air.
@@ -248,8 +255,16 @@ public class advancedBreakout extends GraphicsProgram {
 			if((paddle.getX() + PADDLE_WIDTH < WIDTH && paddleMovementDirection == 1) 
 					|| (paddle.getX() > 0 && paddleMovementDirection == -1)) {
 				
-				paddle.setLocation(paddle.getX() + paddleMovementDirection*3, paddle.getY());
+				paddle.setLocation(paddle.getX() + paddleMovementDirection*PADDLE_SPEED, paddle.getY());
 				
+			} else if(paddle.getX() + PADDLE_WIDTH >= WIDTH) {
+				TOUCHED_RIGHT_WALL = true;
+			} else if(paddle.getX() <= 0) {
+				TOUCHED_LEFT_WALL = true;
+			}
+			
+			if(TOUCHED_RIGHT_WALL && TOUCHED_LEFT_WALL) {
+				LASER_IS_AVALIABLE = true;
 			}
 			
 			// Makes program slow to make it playable. Speed increases on each level.
@@ -684,7 +699,8 @@ public class advancedBreakout extends GraphicsProgram {
 				&& ball.getX() <= paddle.getX() + PADDLE_WIDTH 
 				&& ball.getY() >= paddle.getY() - BALL_RADIUS*2) {
 			
-			
+			TOUCHED_LEFT_WALL = false;
+			TOUCHED_RIGHT_WALL = false;
 			
 			double place = ball.getX() + BALL_RADIUS - paddle.getX(); // place on paddle where ball did hit
 			
