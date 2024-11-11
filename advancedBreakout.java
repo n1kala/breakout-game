@@ -920,11 +920,16 @@ public class advancedBreakout extends GraphicsProgram {
 					GObject collider2 = getElementAt(bricks[k][l].getX() + BRICK_WIDTH, bricks[k][l].getY());
 					GObject collider3 = getElementAt(bricks[k][l].getX(), bricks[k][l].getY() + BRICK_HEIGHT);
 					GObject collider4 = getElementAt(bricks[k][l].getX() + BRICK_WIDTH, bricks[k][l].getY() + BRICK_HEIGHT);
+					GObject collider5 = getElementAt(bricks[k][l].getX() + BRICK_WIDTH/2, bricks[k][l].getY());
+					GObject collider6 = getElementAt(bricks[k][l].getX() + BRICK_WIDTH/2, bricks[k][l].getY() + BRICK_HEIGHT);
+					
 					
 					if(collider1 == explosion 
 							|| collider2 == explosion
 							|| collider3 == explosion
-							|| collider4 == explosion) {
+							|| collider4 == explosion
+							|| collider5 == explosion
+							|| collider6 == explosion) {
 						
 						if(bricks[k][l].getFillColor() == Color.BLACK) {
 							continue;
@@ -938,7 +943,7 @@ public class advancedBreakout extends GraphicsProgram {
 				}
 			}
 			
-			//remove(explosion);
+			remove(explosion);
 		}
 	}
 	
