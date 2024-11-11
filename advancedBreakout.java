@@ -206,6 +206,10 @@ public class advancedBreakout extends GraphicsProgram {
 				
 			}
 			
+			if(BOMB_MODE) {
+				ball.setFillColor(Color.RED);
+			}
+			
 			// Adds additional 3 balls after black brick is broken
 			if(ADD_BALLS) {
 				
@@ -739,10 +743,6 @@ public class advancedBreakout extends GraphicsProgram {
 					
 					
 					if(BOMB_MODE) {
-						
-						if(addedBall == false) {
-							ball.setFillColor(Color.RED);
-						}
 						
 						GOval explosion = new GOval(ballX + BALL_RADIUS, ballY + BALL_RADIUS, ANNIHILATION_RADIUS, ANNIHILATION_RADIUS);
 						for(int k = 0; k < NBRICK_ROWS; k++) {
