@@ -265,6 +265,8 @@ public class advancedBreakout extends GraphicsProgram {
 			
 			if(TOUCHED_RIGHT_WALL && TOUCHED_LEFT_WALL) {
 				LASER_IS_AVALIABLE = true;
+				TOUCHED_LEFT_WALL = false;
+				TOUCHED_RIGHT_WALL = false;
 			}
 			
 			// Makes program slow to make it playable. Speed increases on each level.
