@@ -72,6 +72,9 @@ public class advancedBreakout extends GraphicsProgram {
 /** Laser's width */
 	private static final double LASER_WIDTH = 8;
 	
+/** Radius of popping in bomb mode (after popping white block bomb mode activates */
+	private static final double ANNIHILATION_RADIUS = 5;
+	
 ///////////////////// changeable global variables ////////////////////// 
 	
 /** Mouses X coordinate to make paddle follow */
@@ -96,13 +99,13 @@ public class advancedBreakout extends GraphicsProgram {
 	private boolean LASER_IS_AVALIABLE = true;
 	
 	/*	Program has oval shaped paddle, which makes player able to have more control over the direction of ball.
-	 *	After popping at least 10 blocks, next shot will be super shot, which pierces through everything.
+	 *	After popping at least 10 blocks, next shot will be super shot, which pierces through every block.
 	 *  On mouse click, player can shoot laser from the middle of the paddle, which pops every block in its radius
-	 *  except black one. Laser shot will reset if player manages to touch both walls with paddle until ball is in air.
+	 *  except black one. Laser shot will reset if player manages to touch both walls with paddle while ball is in air.
 	 *  Popping up black block will add 3 additional balls into the game and player will have 3 more lives,
 	 *  but main ball still is main ball and only that one will spawn from middle after falling out.
-	 *  Also popping white block will change parameters of popping. 
-	 *  After popping white block ball will pop every block in ANNIHILATION_RADIUS range after each collision.
+	 *  Also popping white block will change parameters of popping, it will activate bomb mode. 
+	 *  In bomb mode ball will pop every block in ANNIHILATION_RADIUS range after each collision.
 	*/
 	public void run() {
 		/* For some reason setSize does not set size same as passed values so I needed to add 18 and 72 */
@@ -604,7 +607,9 @@ public class advancedBreakout extends GraphicsProgram {
 	// Function changes ball's directions according to where did it hit
 	private double [] directionChanges(double [] ballMovementDirections, GOval paddle, GOval ball, GRect [][] bricks, GLine [] marks, boolean addedBall) {
 		
-		double temp0 = ballMovementDirections[0], temp1 = ballMovementDirections[1];
+		// These parameters are used to make sound on collision, but it lags on my pc so I dont use it.
+		
+		// double temp0 = ballMovementDirections[0], temp1 = ballMovementDirections[1];
 		
 		// When ball hits right wall
 		if(ball.getX() >= WIDTH - BALL_RADIUS*2 - 8) {
@@ -819,10 +824,12 @@ public class advancedBreakout extends GraphicsProgram {
 			ballMovementDirections[1] = 0;
 		}
 	
-		// This should adds sound on bounce, but it lags on my computer for some reason
-		if(temp0 != ballMovementDirections[0] || temp1 != ballMovementDirections[1]) {
-			//makeSound();
-		}
+		// This should adds sound on bounce, but it lags on my computer and I do not use it
+		/*
+			if(temp0 != ballMovementDirections[0] || temp1 != ballMovementDirections[1]) {
+				makeSound();
+			}
+		*/
 		
 		return ballMovementDirections;
 	}
