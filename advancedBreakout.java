@@ -493,6 +493,9 @@ public class advancedBreakout extends GraphicsProgram {
 		int ballAdderBlock = NBRICK_ROWS*NBRICKS_PER_ROW-1;
 		ballAdderBlock *= Math.random();
 		
+		int bombModeBlock = NBRICK_ROWS*NBRICKS_PER_ROW-1;
+		bombModeBlock *= Math.random();
+		
 		// Colors for each row of bricks
 		float [][] colors = {
 				{0.0f,0.99f,0.99f},
@@ -516,6 +519,10 @@ public class advancedBreakout extends GraphicsProgram {
 				
 				if(j + i*NBRICKS_PER_ROW != ballAdderBlock) {
 					bricks[i][j].setColor(Color.getHSBColor(colors[row][0], colors[row][1], colors[row][2]));
+				}
+				
+				if(j + i*NBRICKS_PER_ROW == bombModeBlock) {
+					bricks[i][j].setFillColor(Color.white);
 				}
 				
 				add(bricks[i][j]);
