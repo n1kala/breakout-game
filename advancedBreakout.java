@@ -768,6 +768,8 @@ public class advancedBreakout extends GraphicsProgram {
 								
 							}
 						}
+						
+						remove(explosion);
 					}
 					
 					// If its white block bomb mode activates
