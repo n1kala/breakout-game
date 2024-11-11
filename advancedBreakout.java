@@ -73,7 +73,7 @@ public class advancedBreakout extends GraphicsProgram {
 	private static final double LASER_WIDTH = 8;
 	
 /** Radius of popping in bomb mode (after popping white block bomb mode activates */
-	private static final double ANNIHILATION_RADIUS = 19;
+	private static final double ANNIHILATION_RADIUS = 10;
 	
 /** Paddle's moving speed */
 	private static final double PADDLE_SPEED = 3;
