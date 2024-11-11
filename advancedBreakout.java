@@ -190,10 +190,12 @@ public class advancedBreakout extends GraphicsProgram {
 			if(MOUSE_IS_DOWN && LASER_IS_AVALIABLE) {				
 				
 				LASER_IS_AVALIABLE = false;
-				
+
 				laser = shootLaser(bricks, paddle.getX() + PADDLE_WIDTH/2, paddle);
 				
 			}
+			
+			MOUSE_IS_DOWN = false;
 			
 			// Removes laser over time
 			if(laser != null) {
