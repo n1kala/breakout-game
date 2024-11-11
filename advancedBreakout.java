@@ -938,7 +938,7 @@ public class advancedBreakout extends GraphicsProgram {
 				}
 			}
 			
-			remove(explosion);
+			//remove(explosion);
 		}
 	}
 	
