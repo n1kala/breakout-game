@@ -744,6 +744,13 @@ public class advancedBreakout extends GraphicsProgram {
 					
 					bricks[i][j].setFilled(false);
 					remove(bricks[i][j]);
+				
+					// If its white block bomb mode activates
+					if(bricks[i][j].getFillColor() == Color.WHITE) {
+						
+						BOMB_MODE = true;
+						
+					}
 					
 					// If its super shot direction do not changes
 					if(SUPER_SHOT && addedBall == false) { 
@@ -780,13 +787,6 @@ public class advancedBreakout extends GraphicsProgram {
 						}
 						
 						//remove(explosion);
-					}
-					
-					// If its white block bomb mode activates
-					if(bricks[i][j].getFillColor() == Color.WHITE) {
-						
-						BOMB_MODE = true;
-						
 					}
 					
 					// If ball is touching block from left half
