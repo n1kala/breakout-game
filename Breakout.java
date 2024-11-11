@@ -190,6 +190,7 @@ public class Breakout extends GraphicsProgram {
 			life = looseBall(ball, ballMovementDirections, life);
 			
 			if(life == 0) {
+				removeAll();
 				break;
 			}
 			
@@ -376,7 +377,7 @@ public class Breakout extends GraphicsProgram {
 	// Function checks if player did not manage save the ball and in that case resets locations of paddle and ball
 	private int looseBall(GOval ball, double [] ballMovementDirections, int life) {
 		
-		if(ball.getY() > paddle.getY()) {
+		if(ball.getY() + BALL_RADIUS*2 >= HEIGHT) {
 			
 			ball.setLocation(WIDTH/2 - BALL_RADIUS, HEIGHT/2);
 			
