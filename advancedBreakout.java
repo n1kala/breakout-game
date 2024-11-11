@@ -206,6 +206,7 @@ public class advancedBreakout extends GraphicsProgram {
 				
 			}
 			
+			// Changing color in bomb mode
 			if(BOMB_MODE) {
 				ball.setFillColor(Color.RED);
 			}
@@ -745,6 +746,8 @@ public class advancedBreakout extends GraphicsProgram {
 					if(BOMB_MODE) {
 						
 						GOval explosion = new GOval(ballX + BALL_RADIUS, ballY + BALL_RADIUS, ANNIHILATION_RADIUS, ANNIHILATION_RADIUS);
+						explosion.setFilled(false);
+						
 						for(int k = 0; k < NBRICK_ROWS; k++) {
 							for(int l = 0; l < NBRICKS_PER_ROW; l++) {
 								
