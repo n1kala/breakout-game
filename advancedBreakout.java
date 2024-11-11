@@ -498,14 +498,20 @@ public class advancedBreakout extends GraphicsProgram {
 		GLabel level = new GLabel("LEVEL----> " + LEVEL, WIDTH/2 - 30, HEIGHT/2 - 45);
 		level.setColor(Color.BLUE);
 		
-		GLabel text = new GLabel("Lets see how far will you get. My personal best is level 4. Good luck!", WIDTH/2 - 180, HEIGHT/2 - 120);
+		GLabel text = new GLabel("Lets see how far will you get. My personal best is level 4. Good luck!", WIDTH/2 - 180, HEIGHT/2 - 140);
 		text.setColor(Color.BLACK);
 		
-		GLabel reminderSuperShot = new GLabel("Remember, after every 10 blocks popped you will get super shot!", WIDTH/2 - 180, HEIGHT/2 - 100);
+		GLabel reminderSuperShot = new GLabel("Remember, after every 10 blocks popped you will get super shot!", WIDTH/2 - 180, HEIGHT/2 - 120);
 		reminderSuperShot.setColor(Color.MAGENTA);
 		
-		GLabel reminderLaser = new GLabel("Use paddle's builtin laser with mouseclick. You get 1 shot each level.", WIDTH/2 - 180, HEIGHT/2 - 80);
+		GLabel reminderLaser = new GLabel("Use paddle's builtin laser with mouseclick. You get 1 shot each level.", WIDTH/2 - 180, HEIGHT/2 - 100);
 		reminderLaser.setColor(Color.MAGENTA);
+		
+		GLabel reminderLaser1 = new GLabel("Laser resets by touching both walls with paddle until ball comes back.", WIDTH/2 - 180, HEIGHT/2 - 80);
+		reminderLaser1.setColor(Color.MAGENTA);
+		
+		GLabel reminderBombMode = new GLabel("Popping white block will get you in bomb mode.", WIDTH/2 - 140, HEIGHT/2 - 80);
+		reminderBombMode.setColor(Color.MAGENTA);
 		
 		GLabel reminderBallAdder = new GLabel("Also popping black block will spawn 3 additional balls.", WIDTH/2 - 160, HEIGHT/2 - 60);
 		reminderBallAdder.setColor(Color.MAGENTA);
@@ -514,6 +520,8 @@ public class advancedBreakout extends GraphicsProgram {
 			add(text);
 			add(reminderSuperShot);
 			add(reminderLaser);
+			add(reminderLaser1);
+			add(reminderBombMode);
 			add(reminderBallAdder);
 		}
 		
