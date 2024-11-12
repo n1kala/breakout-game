@@ -155,7 +155,6 @@ public class advancedBreakout extends GraphicsProgram {
 		
 		// Bomb Mode animations
 		GOval bombModeAnim = null;
-		GLine bombModeAnimLines [] = null;
 		
 		// Ball leaves marks while super shot is active
 		GLine marks [] = new GLine[MARKS_COUNT];
@@ -288,19 +287,11 @@ public class advancedBreakout extends GraphicsProgram {
 					bombModeAnim.setColor(Color.RED);
 					add(bombModeAnim);
 					
-					bombModeAnimLines = new GLine[]{
-							new GLine(ball.getX(), BALL_RADIUS/2 + ball.getY(),
-									ball.getX(), ball.getY() + BALL_RADIUS/2 - ANNIHILATION_RADIUS)
-					};
-					bombModeAnimLines[0].setColor(Color.orange);
-					
 				} else {
+					
 					bombModeAnim.setLocation(ball.getX() + BALL_RADIUS - ANNIHILATION_RADIUS,
 							ball.getY() + BALL_RADIUS - ANNIHILATION_RADIUS);
 					
-					bombModeAnimLines[0].setStartPoint(ball.getX(), BALL_RADIUS/2 + ball.getY());
-					bombModeAnimLines[0].setEndPoint(ball.getX() + BALL_RADIUS/2 - ANNIHILATION_RADIUS, ball.getY());
-					add(bombModeAnimLines[0]);
 				}
 			}
 			
