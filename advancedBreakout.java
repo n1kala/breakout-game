@@ -153,6 +153,10 @@ public class advancedBreakout extends GraphicsProgram {
 		GOval ball2 = null;
 		GOval ball3 = null;
 		
+		// Bomb Mode animations
+		GOval bombModeAnim = null;
+		GLine bombModeAnimLines [] = null;
+		
 		// Ball leaves marks while super shot is active
 		GLine marks [] = new GLine[MARKS_COUNT];
 		
@@ -273,6 +277,26 @@ public class advancedBreakout extends GraphicsProgram {
 				LASER_IS_AVALIABLE = true;
 				TOUCHED_LEFT_WALL = false;
 				TOUCHED_RIGHT_WALL = false;
+			}
+			
+			if(BOMB_MODE) {
+				if(bombModeAnim == null) {
+					
+					bombModeAnim = new GOval(ball.getX() + BALL_RADIUS - ANNIHILATION_RADIUS,
+							ball.getY() + BALL_RADIUS - ANNIHILATION_RADIUS, 
+							ANNIHILATION_RADIUS, ANNIHILATION_RADIUS);
+					bombModeAnim.setColor(Color.RED);
+					add(bombModeAnim);
+					
+					bombModeAnimLines = new GLine[]{
+							new GLine(ball.getX(), BALL_RADIUS/2 + ball.getY(),
+									ball.getX(), ball.getY() + BALL_RADIUS/2 - ANNIHILATION_RADIUS)
+					};
+					bombModeAnimLines[0].setColor(Color.orange);
+				} else {
+					bombModeAnim.move(ballMovementDirections[0], ballMovementDirections[1]);
+					bombModeAnimLines[0].move(ballMovementDirections[0], ballMovementDirections[1]);
+				}
 			}
 			
 			// Makes program slow to make it playable. Speed increases on each level.
