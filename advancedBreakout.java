@@ -293,9 +293,19 @@ public class advancedBreakout extends GraphicsProgram {
 									ball.getX(), ball.getY() + BALL_RADIUS/2 - ANNIHILATION_RADIUS)
 					};
 					bombModeAnimLines[0].setColor(Color.orange);
+					
 				} else {
-					bombModeAnim.move(ballMovementDirections[0], ballMovementDirections[1]);
-					bombModeAnimLines[0].move(ballMovementDirections[0], ballMovementDirections[1]);
+					bombModeAnim.setLocation(ball.getX() + BALL_RADIUS - ANNIHILATION_RADIUS,
+							ball.getY() + BALL_RADIUS - ANNIHILATION_RADIUS);
+					for(int i = 0; i < bombModeAnimLines.length; i++) {
+						remove(bombModeAnimLines[i]);
+					}
+					bombModeAnimLines = new GLine[]{
+							new GLine(ball.getX(), BALL_RADIUS/2 + ball.getY(),
+									ball.getX(), ball.getY() + BALL_RADIUS/2 - ANNIHILATION_RADIUS)
+					};
+					bombModeAnimLines[0].setColor(Color.orange);
+					add(bombModeAnimLines[0]);
 				}
 			}
 			
