@@ -61,7 +61,7 @@ public class Breakout extends GraphicsProgram {
 	private static final int NTURNS = 3;
 
 /** Sleep time of thread, decrease this to make program faster */
-	private static final int SLEEP_TIME = 2;
+	private static final int SLEEP_TIME = 3;
 	
 ///// Changeable variable /////
 	
