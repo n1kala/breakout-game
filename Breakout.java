@@ -199,7 +199,6 @@ public class Breakout extends GraphicsProgram {
 				removeAll();
 				GLabel loseEmote = new GLabel("You lose.", WIDTH/2 - 20, HEIGHT/2 - 20);
 				loseEmote.setColor(Color.RED);
-				setFont(loseEmote.getFont() + 100);
 				add(loseEmote);
 				break;
 			}
