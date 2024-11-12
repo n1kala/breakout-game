@@ -302,7 +302,7 @@ public class advancedBreakout extends GraphicsProgram {
 					}
 					bombModeAnimLines = new GLine[]{
 							new GLine(ball.getX(), BALL_RADIUS/2 + ball.getY(),
-									ball.getX(), ball.getY() + BALL_RADIUS/2 - ANNIHILATION_RADIUS)
+									ball.getX() + BALL_RADIUS/2 - ANNIHILATION_RADIUS, ball.getY())
 					};
 					bombModeAnimLines[0].setColor(Color.orange);
 					add(bombModeAnimLines[0]);
