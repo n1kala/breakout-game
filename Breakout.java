@@ -185,6 +185,7 @@ public class Breakout extends GraphicsProgram {
 			
 			// If there is no bricks left
 			if(ballMovementDirections[1] == 0) {
+				removeAll();
 				break;
 			}
 			
