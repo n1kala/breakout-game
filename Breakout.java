@@ -186,6 +186,9 @@ public class Breakout extends GraphicsProgram {
 			// If there is no bricks left
 			if(ballMovementDirections[1] == 0) {
 				removeAll();
+				GLabel victoryEmote = new GLabel("You won!", WIDTH/2 - 20, HEIGHT/2 - 20);
+				victoryEmote.setColor(Color.GREEN);
+				add(victoryEmote);
 				break;
 			}
 			
@@ -194,6 +197,9 @@ public class Breakout extends GraphicsProgram {
 			
 			if(life == 0) {
 				removeAll();
+				GLabel loseEmote = new GLabel("You lose.", WIDTH/2 - 20, HEIGHT/2 - 20);
+				loseEmote.setColor(Color.GREEN);
+				add(loseEmote);
 				break;
 			}
 			
