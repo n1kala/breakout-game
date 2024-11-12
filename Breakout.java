@@ -198,7 +198,7 @@ public class Breakout extends GraphicsProgram {
 			if(life == 0) {
 				removeAll();
 				GLabel loseEmote = new GLabel("You lose.", WIDTH/2 - 20, HEIGHT/2 - 20);
-				loseEmote.setColor(Color.GREEN);
+				loseEmote.setColor(Color.RED);
 				add(loseEmote);
 				break;
 			}
