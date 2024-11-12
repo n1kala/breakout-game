@@ -284,7 +284,7 @@ public class advancedBreakout extends GraphicsProgram {
 					
 					bombModeAnim = new GOval(ball.getX() + BALL_RADIUS - ANNIHILATION_RADIUS,
 							ball.getY() + BALL_RADIUS - ANNIHILATION_RADIUS, 
-							ANNIHILATION_RADIUS, ANNIHILATION_RADIUS);
+							ANNIHILATION_RADIUS*2, ANNIHILATION_RADIUS*2);
 					bombModeAnim.setColor(Color.RED);
 					add(bombModeAnim);
 					
