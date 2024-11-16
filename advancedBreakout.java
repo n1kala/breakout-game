@@ -324,6 +324,8 @@ public class advancedBreakout extends GraphicsProgram {
 				
 				BOMB_MODE = false;
 				
+				SUPER_SHOT = false;
+				
 				lineStartX = 0;
 				lineEndX = (int)LASER_WIDTH*2 - 1;
 				
