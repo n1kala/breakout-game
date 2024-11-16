@@ -520,7 +520,7 @@ public class advancedBreakout extends GraphicsProgram {
 		GLabel level = new GLabel("LEVEL----> " + LEVEL, WIDTH/2 - 30, HEIGHT/2 - 45);
 		level.setColor(Color.BLUE);
 		
-		GLabel text = new GLabel("Lets see how far will you get. My personal best is level 4. Good luck!", WIDTH/2 - 185, HEIGHT/2 - 160);
+		GLabel text = new GLabel("Lets see how far will you get. My personal best is level 5. Good luck!", WIDTH/2 - 185, HEIGHT/2 - 160);
 		text.setColor(Color.BLACK);
 		
 		GLabel reminderSuperShot = new GLabel("Remember, after every 10 blocks popped you will get super shot!", WIDTH/2 - 180, HEIGHT/2 - 140);
