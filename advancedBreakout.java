@@ -947,11 +947,11 @@ public class advancedBreakout extends GraphicsProgram {
 		}
 	
 		// This should adds sound on bounce, but it lags on my computer and I do not use it
-		/*
+		
 			if(temp0 != ballMovementDirections[0] || temp1 != ballMovementDirections[1]) {
 				makeSound();
 			}
-		*/
+		
 		
 		return ballMovementDirections;
 	}
