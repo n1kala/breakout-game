@@ -686,7 +686,7 @@ public class advancedBreakout extends GraphicsProgram {
 		
 		// These parameters are used to make sound on collision, but it lags on my pc so I dont use it.
 		
-		// double temp0 = ballMovementDirections[0], temp1 = ballMovementDirections[1];
+		 double temp0 = ballMovementDirections[0], temp1 = ballMovementDirections[1];
 		
 		// When ball hits right wall
 		if(ball.getX() >= WIDTH - BALL_RADIUS*2 - 8) {
@@ -947,9 +947,6 @@ public class advancedBreakout extends GraphicsProgram {
 		}
 	
 		// This should adds sound on bounce, but it lags on my computer and I do not use it
-		double temp0 = ballMovementDirections[0];
-		double temp1 = ballMovementDirections[1];
-		
 			if(temp0 != ballMovementDirections[0] || temp1 != ballMovementDirections[1]) {
 				makeSound();
 			}
