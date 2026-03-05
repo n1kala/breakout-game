@@ -5,46 +5,82 @@ A Java implementation of the Breakout game using the ACM Graphics Library.
 ## Requirements
 
 - **Java 8 or later** installed on your system
-- Command Prompt (Windows) or Terminal (Mac/Linux)
+- Command Prompt/Terminal (Windows/Mac/Linux)
 
-## How to Compile and Run
+## Quick Start
 
-### Option 1: Using the Batch Script (Windows Only)
-```bash
-double-click run.bat
-```
+### Windows Users
+Simply **double-click `run.bat`** - it will compile and run the game automatically!
 
-### Option 2: Manual Compilation (All Platforms)
+### Mac/Linux Users or Manual Setup
 
-1. **Open Command Prompt/Terminal** and navigate to this folder:
+1. Open Terminal and navigate to this folder:
    ```bash
    cd <path-to-Assignment3-folder>
    ```
 
-2. **Compile the code:**
-   ```bash
-   javac -cp .;acm.jar -source 8 -target 8 advancedBreakout.java
-   ```
+2. Compile the code:
+   - **Windows (Command Prompt):**
+     ```bash
+     javac -cp .;acm.jar -source 8 -target 8 advancedBreakout.java
+     ```
+   - **Mac/Linux:**
+     ```bash
+     javac -cp .:acm.jar -source 8 -target 8 advancedBreakout.java
+     ```
 
-3. **Run the game:**
-   ```bash
-   java -cp .;acm.jar advancedBreakout
-   ```
+3. Run the game:
+   - **Windows:**
+     ```bash
+     java -cp .;acm.jar advancedBreakout
+     ```
+   - **Mac/Linux:**
+     ```bash
+     java -cp .:acm.jar advancedBreakout
+     ```
+
+## How to Play
+
+- **Move Paddle**: Use your mouse to move the paddle left and right
+- **Start Game**: Click to launch the ball
+- **Objective**: Break all the bricks without letting the ball fall below the paddle
+- **Lives**: You have 3 attempts to beat the game
 
 ## Troubleshooting
 
-- **"Could not find or load main class"**: Make sure you're in the correct directory and the classpath includes `acm.jar`
-- **"acm.jar is not recognized"**: You're using PowerShell. Use Command Prompt instead, or replace `;` with `:` on Mac/Linux
-- **Unsupported Class Version Error**: Use `-source 8 -target 8` flags when compiling (see instructions above)
+| Error | Solution |
+|-------|----------|
+| **"Could not find or load main class advancedBreakout"** | Make sure you're in the correct directory where `acm.jar` and `advancedBreakout.java` are located |
+| **"acm.jar is not recognized"** | If using PowerShell instead of Command Prompt, replace `;` with `:` in the classpath |
+| **"Unsupported Class Version Error"** | Make sure you have Java 8 or later installed. Check with: `java -version` |
+| **Game doesn't start** | Ensure `acm.jar` is in the same directory as the compiled `.class` files |
 
 ## Files
 
 - `advancedBreakout.java` - Main game code
-- `Breakout.java` - Supporting code
-- `acm.jar` - ACM Graphics Library (required)
+- `acm.jar` - ACM Graphics Library (required for running)
 - `bounce.au` - Sound file
-- `run.bat` - Automated compilation and run script (Windows)
+- `run.bat` - Quick launch script for Windows
+- `compile_and_run.bat` - Alternative batch script
+
+## Installing Java 8+
+
+**Windows:**
+- Download from: https://www.oracle.com/java/technologies/downloads/
+- Select Java SE 8 or later
+- Run the installer and follow the prompts
+- Verify by opening Command Prompt and typing: `java -version`
+
+**Mac:**
+- Use Homebrew: `brew install openjdk@8`
+- Or download from Oracle's website
+
+**Linux:**
+- Ubuntu/Debian: `sudo apt-get install openjdk-8-jdk`
+- Fedora: `sudo dnf install java-1.8.0-openjdk`
 
 ## Notes
 
-Make sure to keep `acm.jar` in the same directory as the source files for compilation and execution to work properly.
+- Keep `acm.jar` in the same directory as `advancedBreakout.java`
+- The game requires a graphical display
+- Compatible with Windows, Mac, and Linux

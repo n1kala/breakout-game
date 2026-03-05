@@ -7,5 +7,10 @@
 .settings/
 .DS_Store
 
-# Windows batch file (optional - remove if you want to share it)
-# run.bat
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Output directories
+out/
+bin/
