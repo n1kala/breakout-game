@@ -10,7 +10,6 @@
 import acm.graphics.*;
 import acm.program.*;
 import acm.util.*;
-import sun.java2d.loops.DrawPolygons;
 
 import java.applet.*;
 import java.awt.*;
@@ -118,6 +117,11 @@ public class advancedBreakout extends GraphicsProgram {
 	 *  In bomb mode ball will pop every block in ANNIHILATION_RADIUS range after each collision.
 	 *  Only main ball goes into bomb mode.
 	*/
+	
+	public static void main(String[] args) {
+		new advancedBreakout().start();
+	}
+	
 	public void run() {
 		/* For some reason setSize does not set size same as passed values so I needed to add 18 and 72 */
 		setSize(WIDTH + 18, HEIGHT + 72);
